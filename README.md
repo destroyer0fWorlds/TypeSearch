@@ -1,5 +1,5 @@
 # TypeSearch
----
+
 ### tl;dr
 A strongly typed but serializable search mechanism written in .Net Standard. Create a query, send it to an API, get the results, have a beer.
 
