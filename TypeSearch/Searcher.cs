@@ -38,8 +38,6 @@ namespace TypeSearch
         {
             // Sanitize the input
             if (searchDefinition == null) { searchDefinition = new SearchDefinition<T>(); }
-            //int page = searchDefinition.Page.GetValueOrDefault(-1);
-            //int recordsPerPage = searchDefinition.RecordsPerPage.GetValueOrDefault(-1);
             var page = searchDefinition.Page;
             var recordsPerPage = searchDefinition.RecordsPerPage;
 
@@ -72,17 +70,6 @@ namespace TypeSearch
                 {
                     _dataSet = _dataSet.OrderBy(sortPredicate);
                 }
-
-                //// Page
-                //if (page < 0 || recordsPerPage < 0)
-                //{
-                //    page = 0;
-                //    recordsPerPage = 0;
-                //}
-                //else
-                //{
-                //    _dataSet = this.Page(page, recordsPerPage);
-                //}
 
                 //Page
                 if (page.HasValue && recordsPerPage.HasValue)
@@ -122,19 +109,29 @@ namespace TypeSearch
                     conditions.Add(logicOperator);
                 }
 
-                if (whereCriterion.SingleCriterion != null)
+                var conditionCount = new[] {
+                    whereCriterion.HasNestedCriteria,
+                    whereCriterion.HasRangeCriterion,
+                    whereCriterion.HasSingleCriterion
+                }.Count(i => i);
+                if (conditionCount > 1)
+                {
+                    throw new NotSupportedException("Too many conditions supplied. Specify a single criterion per condition (single, range, or nested).");
+                }
+
+                if (whereCriterion.HasSingleCriterion)
                 {
                     // Single
                     var singleCriterion = this.ParseSingleCriterion(whereCriterion.SingleCriterion);
                     conditions.Add($"({singleCriterion})");
                 }
-                else if (whereCriterion.RangeCriterion != null)
+                else if (whereCriterion.HasRangeCriterion)
                 {
                     // Range
                     var rangeCriterion = this.ParseRangeCriterion(whereCriterion.RangeCriterion);
                     conditions.Add($"({rangeCriterion})");
                 }
-                else if (whereCriterion.CriteriaCollection != null && whereCriterion.CriteriaCollection.Criteria != null)
+                else if (whereCriterion.HasNestedCriteria)
                 {
                     // Sub criteria
                     var subCriteria = this.CreateWherePredicate(whereCriterion.CriteriaCollection.Criteria);
@@ -310,10 +307,6 @@ namespace TypeSearch
         /// <returns></returns>
         private IQueryable<T> Page(int pageNumber, int recordsPerPage)
         {
-            //// Validate the input
-            //if (pageNumber < 0) { return _dataSet; }
-            //if (recordsPerPage < 0) { return _dataSet; }
-
             // Skip
             int skip = pageNumber * recordsPerPage;
             _dataSet = _dataSet.Skip(skip);

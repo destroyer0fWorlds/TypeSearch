@@ -16,15 +16,21 @@ namespace TypeSearch.Criteria
 		/// </summary>
 		public SingleCriterion<T> SingleCriterion { get; set; }
 
+        internal bool HasSingleCriterion => this.SingleCriterion != null;
+
         /// <summary>
         /// Range criterion
         /// </summary>
         public RangeCriterion RangeCriterion { get; set; }
 
+        internal bool HasRangeCriterion => this.RangeCriterion != null;
+
         /// <summary>
         /// Nested criteria
         /// </summary>
         public WhereCriteria<T> CriteriaCollection { get; set; }
+
+        internal bool HasNestedCriteria => this.CriteriaCollection != null && this.CriteriaCollection.Criteria != null;
 
         /// <summary>
         /// Condition by which multiple clauses should be evaluated
