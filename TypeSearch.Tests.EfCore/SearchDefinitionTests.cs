@@ -261,8 +261,8 @@ namespace TypeSearch.Tests.EfCore
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
-                Assert.Equal(0, searchResults.Page);
-                Assert.Equal(0, searchResults.RecordsPerPage);
+                Assert.Null(searchResults.Page);
+                Assert.Equal(1, searchResults.RecordsPerPage);
                 Assert.Equal(context.TestEntities.Count(), searchResults.ResultSet.Count);
                 Assert.Equal(context.TestEntities.Count(), searchResults.FilteredRecordCount);
             }
@@ -313,8 +313,8 @@ namespace TypeSearch.Tests.EfCore
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
-                Assert.Equal(0, searchResults.Page);
-                Assert.Equal(0, searchResults.RecordsPerPage);
+                Assert.Equal(1, searchResults.Page);
+                Assert.Null(searchResults.RecordsPerPage);
                 Assert.Equal(context.TestEntities.Count(), searchResults.ResultSet.Count);
                 Assert.Equal(context.TestEntities.Count(), searchResults.FilteredRecordCount);
             }
@@ -415,11 +415,16 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>() { Page = -7, RecordsPerPage = -49 };
                 var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
+                var expectedResults = context.TestEntities
+                    .Skip(-7)
+                    .Take(-49)
+                    .ToList();
+
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
-                Assert.Equal(0, searchResults.Page);
-                Assert.Equal(0, searchResults.RecordsPerPage);
-                Assert.Equal(context.TestEntities.Count(), searchResults.ResultSet.Count);
+                Assert.Equal(-7, searchResults.Page);
+                Assert.Equal(-49, searchResults.RecordsPerPage);
+                Assert.Equal(expectedResults.Count, searchResults.ResultSet.Count);
                 Assert.Equal(context.TestEntities.Count(), searchResults.FilteredRecordCount);
             }
         }

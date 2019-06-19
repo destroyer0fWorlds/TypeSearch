@@ -38,8 +38,10 @@ namespace TypeSearch
         {
             // Sanitize the input
             if (searchDefinition == null) { searchDefinition = new SearchDefinition<T>(); }
-            int page = searchDefinition.Page.GetValueOrDefault(-1);
-            int recordsPerPage = searchDefinition.RecordsPerPage.GetValueOrDefault(-1);
+            //int page = searchDefinition.Page.GetValueOrDefault(-1);
+            //int recordsPerPage = searchDefinition.RecordsPerPage.GetValueOrDefault(-1);
+            var page = searchDefinition.Page;
+            var recordsPerPage = searchDefinition.RecordsPerPage;
 
             // Pre-filter
             var prePredicate = this.CreateWherePredicate(searchDefinition.PreFilter?.Criteria);
@@ -71,15 +73,21 @@ namespace TypeSearch
                     _dataSet = _dataSet.OrderBy(sortPredicate);
                 }
 
-                // Page
-                if (page < 0 || recordsPerPage < 0)
+                //// Page
+                //if (page < 0 || recordsPerPage < 0)
+                //{
+                //    page = 0;
+                //    recordsPerPage = 0;
+                //}
+                //else
+                //{
+                //    _dataSet = this.Page(page, recordsPerPage);
+                //}
+
+                //Page
+                if (page.HasValue && recordsPerPage.HasValue)
                 {
-                    page = 0;
-                    recordsPerPage = 0;
-                }
-                else
-                {
-                    _dataSet = this.Page(page, recordsPerPage);
+                    _dataSet = this.Page(page.Value, recordsPerPage.Value);
                 }
             }
             
@@ -302,9 +310,9 @@ namespace TypeSearch
         /// <returns></returns>
         private IQueryable<T> Page(int pageNumber, int recordsPerPage)
         {
-            // Validate the input
-            if (pageNumber < 0) { return _dataSet; }
-            if (recordsPerPage < 0) { return _dataSet; }
+            //// Validate the input
+            //if (pageNumber < 0) { return _dataSet; }
+            //if (recordsPerPage < 0) { return _dataSet; }
 
             // Skip
             int skip = pageNumber * recordsPerPage;

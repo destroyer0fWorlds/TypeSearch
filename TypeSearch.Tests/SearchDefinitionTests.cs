@@ -221,8 +221,8 @@ namespace TypeSearch.Tests
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
-            Assert.Equal(0, searchResults.Page);
-            Assert.Equal(0, searchResults.RecordsPerPage);
+            Assert.Null(searchResults.Page);
+            Assert.Equal(1, searchResults.RecordsPerPage);
             Assert.Equal(testCollection.Count, searchResults.ResultSet.Count);
             Assert.Equal(testCollection.Count, searchResults.FilteredRecordCount);
         }
@@ -265,8 +265,8 @@ namespace TypeSearch.Tests
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
-            Assert.Equal(0, searchResults.Page);
-            Assert.Equal(0, searchResults.RecordsPerPage);
+            Assert.Equal(1, searchResults.Page);
+            Assert.Null(searchResults.RecordsPerPage);
             Assert.Equal(testCollection.Count, searchResults.ResultSet.Count);
             Assert.Equal(testCollection.Count, searchResults.FilteredRecordCount);
         }
@@ -351,11 +351,16 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>() { Page = -7, RecordsPerPage = -49 };
             var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
+            var expectedResults = testCollection
+                .Skip(-7)
+                .Take(-49)
+                .ToList();
+
             // Assert
             Assert.NotNull(searchResults.ResultSet);
-            Assert.Equal(0, searchResults.Page);
-            Assert.Equal(0, searchResults.RecordsPerPage);
-            Assert.Equal(testCollection.Count, searchResults.ResultSet.Count);
+            Assert.Equal(-7, searchResults.Page);
+            Assert.Equal(-49, searchResults.RecordsPerPage);
+            Assert.Equal(expectedResults.Count, searchResults.ResultSet.Count);
             Assert.Equal(testCollection.Count, searchResults.FilteredRecordCount);
         }
 
