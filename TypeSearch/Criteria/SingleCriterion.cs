@@ -20,5 +20,10 @@ namespace TypeSearch.Criteria
         /// Operator
         /// </summary>
         public SingleOperator Operator { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.Name} {this.Operator} {this.Value}";
+        }
     }
 }

@@ -29,5 +29,10 @@ namespace TypeSearch.Criteria
         public BaseCriterion(string name) {
             this.Name = name;
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

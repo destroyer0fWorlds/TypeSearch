@@ -13,5 +13,10 @@ namespace TypeSearch.Criteria
         /// Sort direction
         /// </summary>
         public SortDirection SortDirection { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.Name} {this.SortDirection}";
+        }
     }
 }
