@@ -291,7 +291,7 @@ namespace TypeSearch
                 var direction = sortCriterion.SortDirection == SortDirection.Ascending ? "ASC" : "DESC";
                 conditions.Add($"{name} {direction}");
             }
-            return string.Join(" ", conditions);
+            return string.Join(", ", conditions);
         }
 
         /// <summary>
