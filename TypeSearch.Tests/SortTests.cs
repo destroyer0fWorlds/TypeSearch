@@ -1098,5 +1098,71 @@ namespace TypeSearch.Tests
             Assert.Equal(expectedResults[2].NullableIntProperty, searchResults.ResultSet[2].NullableIntProperty);
             Assert.Equal(expectedResults[3].NullableIntProperty, searchResults.ResultSet[3].NullableIntProperty);
         }
+
+        [Fact]
+        public void Sort_Multiple_Fields_In_Multiple_Directions()
+        {
+            // Arrange
+            var testCollection = new List<TestEntity>()
+            {
+                new TestEntity() {
+                    NullableBoolProperty = null,
+                    NullableByteProperty = null,
+                    NullableDateTimeProperty = null,
+                    NullableGuidProperty = null,
+                    NullableIntProperty = null,
+                    StringProperty = null
+                },
+                new TestEntity() {
+                    NullableBoolProperty = true,
+                    NullableByteProperty = 221,
+                    NullableDateTimeProperty = new DateTime(2008, 8, 18),
+                    NullableGuidProperty = Guid.NewGuid(),
+                    NullableIntProperty = 6485,
+                    StringProperty = "Bond. James Bond."
+                },
+                new TestEntity() {
+                    NullableBoolProperty = false,
+                    NullableByteProperty = 56,
+                    NullableDateTimeProperty = new DateTime(2000, 4, 12),
+                    NullableGuidProperty = Guid.NewGuid(),
+                    NullableIntProperty = 159753,
+                    StringProperty = "Onomatopoeia"
+                },
+                new TestEntity() {
+                    NullableBoolProperty = true,
+                    NullableByteProperty = 56,
+                    NullableDateTimeProperty = new DateTime(2004, 6, 15),
+                    NullableGuidProperty = Guid.NewGuid(),
+                    NullableIntProperty = 890,
+                    StringProperty = "Keep it simple, stupid."
+                }
+            };
+
+            // Act
+            var searchDefinition = new SearchDefinition<TestEntity>();
+            searchDefinition.Sort
+                .AscendingBy(i => i.NullableByteProperty)
+                .DescendingBy(i => i.NullableIntProperty);
+            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+
+            var expectedResults = testCollection
+                .OrderBy(i => i.NullableByteProperty)
+                .ThenByDescending(i => i.NullableIntProperty)
+                .ToList();
+
+            // Assert
+            Assert.NotNull(searchResults.ResultSet);
+            Assert.Equal(testCollection.Count, searchResults.ResultSet.Count);
+            Assert.Equal(testCollection.Count, searchResults.FilteredRecordCount);
+            Assert.Equal(expectedResults[0].NullableByteProperty, searchResults.ResultSet[0].NullableByteProperty);
+            Assert.Equal(expectedResults[1].NullableByteProperty, searchResults.ResultSet[1].NullableByteProperty);
+            Assert.Equal(expectedResults[2].NullableByteProperty, searchResults.ResultSet[2].NullableByteProperty);
+            Assert.Equal(expectedResults[3].NullableByteProperty, searchResults.ResultSet[3].NullableByteProperty);
+            Assert.Equal(expectedResults[0].NullableIntProperty, searchResults.ResultSet[0].NullableIntProperty);
+            Assert.Equal(expectedResults[1].NullableIntProperty, searchResults.ResultSet[1].NullableIntProperty);
+            Assert.Equal(expectedResults[2].NullableIntProperty, searchResults.ResultSet[2].NullableIntProperty);
+            Assert.Equal(expectedResults[3].NullableIntProperty, searchResults.ResultSet[3].NullableIntProperty);
+        }
     }
 }
