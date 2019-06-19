@@ -9,7 +9,7 @@ A strongly typed but serializable search mechanism written in .Net Standard. Cre
 ### Nuget
 Browse: [https://www.nuget.org/packages/TypeSearch/](https://www.nuget.org/packages/TypeSearch/)
 or
-Download: ``` PM> Install-Package TypeSearch -Version 1.0.1 ```
+Download: ``` PM> Install-Package TypeSearch -Version 1.0.2 ```
 
 ### License
 [MIT](https://opensource.org/licenses/MIT) - happy coding!
