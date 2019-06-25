@@ -11,6 +11,9 @@ namespace TypeSearch
     /// Searcher
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    /// <remarks>
+    /// For reference: https://github.com/StefH/System.Linq.Dynamic.Core/wiki/Dynamic-Expressions
+    /// </remarks>
     public class Searcher<T> 
         where T : class
     {
@@ -149,98 +152,18 @@ namespace TypeSearch
         /// <returns></returns>
         private string ParseSingleCriterion(SingleCriterion<T> singleCriterion)
         {
-            // For reference:
-            // https://github.com/StefH/System.Linq.Dynamic.Core/wiki/Dynamic-Expressions
-
             // Parameterize the values in the form @0, @1, @2, etc.
             var name = singleCriterion.Name;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException(nameof(SingleCriterion<T>.Name), "Property or column name cannot be null or empty.");
+            }
             var value = singleCriterion.Value;
-            var paramName = $"@{_whereParams.Count}";
-            _whereParams.Add(paramName, value);
+            var valueParam = $"@{_whereParams.Count}";
+            _whereParams.Add(valueParam, value);
 
-            var type = typeof(T);
-            var propertyInfo = type.GetProperty(name);
-            if (propertyInfo == null) { throw new ArgumentException($"Invalid name '{name}'. No property or column exists with the given name.", nameof(SingleCriterion<T>.Name)); }
-            var propertyType = propertyInfo.PropertyType;
-            if (propertyType == typeof(string))
-            {
-                // String type
-                switch (singleCriterion.Operator)
-                {
-                    case SingleOperator.StartsWith:
-                        return $"({name} ?? string.Empty).StartsWith({paramName})";
-                    case SingleOperator.EndsWith:
-                        return $"({name} ?? string.Empty).EndsWith({paramName})";
-                    case SingleOperator.Like:
-                        return $"({name} ?? string.Empty).Contains({paramName})";
-                    case SingleOperator.DoesNotStartWith:
-                        return $"!({name} ?? string.Empty).StartsWith({paramName})";
-                    case SingleOperator.DoesNotEndWith:
-                        return $"!({name} ?? string.Empty).EndsWith({paramName})";
-                    case SingleOperator.NotLike:
-                        return $"!({name} ?? string.Empty).Contains({paramName})";
-                }
-            }
-            else if (Nullable.GetUnderlyingType(propertyType) != null)
-            {
-                // Nullable type
-                switch (singleCriterion.Operator)
-                {
-                    case SingleOperator.StartsWith:
-                        return $"({name} == null ? string.Empty : {name}.ToString()).StartsWith({paramName})";
-                    case SingleOperator.EndsWith:
-                        return $"({name} == null ? string.Empty : {name}.ToString()).EndsWith({paramName})";
-                    case SingleOperator.Like:
-                        return $"({name} == null ? string.Empty : {name}.ToString()).Contains({paramName})";
-                    case SingleOperator.DoesNotStartWith:
-                        return $"!({name} == null ? string.Empty : {name}.ToString()).StartsWith({paramName})";
-                    case SingleOperator.DoesNotEndWith:
-                        return $"!({name} == null ? string.Empty : {name}.ToString()).EndsWith({paramName})";
-                    case SingleOperator.NotLike:
-                        return $"!({name} == null ? string.Empty : {name}.ToString()).Contains({paramName})";
-                }
-            }
-            else
-            {
-                // Real type
-                switch (singleCriterion.Operator)
-                {
-                    case SingleOperator.StartsWith:
-                        return $"{name}.ToString().StartsWith({paramName})";
-                    case SingleOperator.EndsWith:
-                        return $"{name}.ToString().EndsWith({paramName})";
-                    case SingleOperator.Like:
-                        return $"{name}.ToString().Contains({paramName})";
-                    case SingleOperator.DoesNotStartWith:
-                        return $"!{name}.ToString().StartsWith({paramName})";
-                    case SingleOperator.DoesNotEndWith:
-                        return $"!{name}.ToString().EndsWith({paramName})";
-                    case SingleOperator.NotLike:
-                        return $"!{name}.ToString().Contains({paramName})";
-                }
-            }
-
-            switch (singleCriterion.Operator)
-            {
-                case SingleOperator.Equals:
-                    return $"{name} == {paramName}";
-                case SingleOperator.NotEquals:
-                    return $"{name} != {paramName}";
-                case SingleOperator.GreaterThan:
-                    return $"{name} > {paramName}";
-                case SingleOperator.GreaterThanOrEqualTo:
-                    return $"{name} >= {paramName}";
-                case SingleOperator.LessThan:
-                    return $"{name} < {paramName}";
-                case SingleOperator.LessThanOrEqualTo:
-                    return $"{name} <= {paramName}";
-                case SingleOperator.IsNull:
-                    return $"{name} == {paramName}";
-                case SingleOperator.IsNotNull:
-                    return $"{name} != {paramName}";
-                default:
-                    return string.Empty;
-            }
+            var predicate = PredicateFactory.Create<T>(name, valueParam, singleCriterion.Operator);
+            return predicate.Create();
         }
 
         /// <summary>
@@ -250,11 +173,12 @@ namespace TypeSearch
         /// <returns></returns>
         private string ParseRangeCriterion(RangeCriterion rangeCriterion)
         {
-            // For reference:
-            // https://github.com/StefH/System.Linq.Dynamic.Core/wiki/Dynamic-Expressions
-
             // Parameterize the values in the form @0, @1, @2, etc.
             var name = rangeCriterion.Name;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException(nameof(RangeCriterion.Name), "Property or column name cannot be null or empty.");
+            }
 
             var startValue = rangeCriterion.StartValue;
             var startParamName = $"@{_whereParams.Count}";
@@ -282,9 +206,6 @@ namespace TypeSearch
         /// <returns></returns>
         private string CreateSortPredicate(HashSet<SortCriterion> sortCriteria)
         {
-            // For reference:
-            // https://github.com/StefH/System.Linq.Dynamic.Core/wiki/Dynamic-Expressions
-
             // Validate the input
             if (sortCriteria == null || !sortCriteria.Any()) { return null; }
 
@@ -293,6 +214,10 @@ namespace TypeSearch
             foreach (var sortCriterion in sortCriteria)
             {
                 var name = sortCriterion.Name;
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    throw new ArgumentNullException(nameof(SortCriterion.Name), "Property or column name cannot be null or empty.");
+                }
                 var direction = sortCriterion.SortDirection == SortDirection.Ascending ? "ASC" : "DESC";
                 conditions.Add($"{name} {direction}");
             }

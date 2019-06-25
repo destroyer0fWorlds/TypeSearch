@@ -10,7 +10,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Joel</Authors>
     <Company>Excelsior Industries</Company>
     <Description>Strongly typed serializable search for LINQ to Objects and LINQ to SQL</Description>
