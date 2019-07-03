@@ -13,3 +13,6 @@ Download: ``` PM> Install-Package TypeSearch -Version 1.0.3 ```
 
 ### License
 [MIT](https://opensource.org/licenses/MIT) - happy coding!
+
+### Acknowledgements
+This library uses [System.Linq.Dynamic.Core](https://github.com/StefH/System.Linq.Dynamic.Core) for translating queries to LINQ.
