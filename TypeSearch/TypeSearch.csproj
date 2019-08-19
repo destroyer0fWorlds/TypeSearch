@@ -9,8 +9,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <Version>1.0.3</Version>
+    <AssemblyVersion>1.1.3.0</AssemblyVersion>
+    <Version>1.1.3</Version>
     <Authors>Joel</Authors>
     <Company>Excelsior Industries</Company>
     <Description>Strongly typed serializable search for LINQ to Objects and LINQ to SQL</Description>
@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\Joel\Source\Workspaces\TypeSearch\TypeSearch\TypeSearch\TypeSearch.xml</DocumentationFile>
+    <DocumentationFile>C:\VS Projects\Personal\Project Detective\TypeSearch\TypeSearch\TypeSearch.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

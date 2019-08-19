@@ -92,6 +92,37 @@ namespace TypeSearch
         }
 
         /// <summary>
+        /// Executes the filter as defined by the supplied definition
+        /// </summary>
+        /// <param name="searchDefinition">Search definition</param>
+        /// <returns></returns>
+        public IEnumerable<T> Filter(SearchDefinition<T> searchDefinition)
+        {
+            // Sanitize the input
+            if (searchDefinition == null) { searchDefinition = new SearchDefinition<T>(); }
+
+            // Pre-filter
+            var prePredicate = this.CreateWherePredicate(searchDefinition.PreFilter?.Criteria);
+            if (prePredicate != null)
+            {
+                _preParams = new Dictionary<string, object>(_whereParams);
+                _whereParams = new Dictionary<string, object>();
+                object[] parameters = _preParams.Values.ToArray();
+                _dataSet = _dataSet.Where(prePredicate, parameters);
+            }
+
+            // Filter
+            var wherePredicate = this.CreateWherePredicate(searchDefinition.Filter?.Criteria);
+            if (wherePredicate != null)
+            {
+                object[] parameters = _whereParams.Values.ToArray();
+                _dataSet = _dataSet.Where(wherePredicate, parameters);
+            }
+
+            return _dataSet.AsEnumerable<T>();
+        }
+
+        /// <summary>
         /// Create filter criteria predicate
         /// </summary>
         /// <param name="whereCriteria">Where criteria</param>

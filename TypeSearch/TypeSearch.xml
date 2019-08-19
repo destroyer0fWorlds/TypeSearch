@@ -987,6 +987,9 @@
             Searcher
             </summary>
             <typeparam name="T"></typeparam>
+            <remarks>
+            For reference: https://github.com/StefH/System.Linq.Dynamic.Core/wiki/Dynamic-Expressions
+            </remarks>
         </member>
         <member name="M:TypeSearch.Searcher`1.#ctor(System.Linq.IQueryable{`0})">
             <summary>
@@ -997,6 +1000,13 @@
         <member name="M:TypeSearch.Searcher`1.Search(TypeSearch.SearchDefinition{`0})">
             <summary>
             Execute the search as defined by the supplied definition
+            </summary>
+            <param name="searchDefinition">Search definition</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Searcher`1.Filter(TypeSearch.SearchDefinition{`0})">
+            <summary>
+            Executes the filter as defined by the supplied definition
             </summary>
             <param name="searchDefinition">Search definition</param>
             <returns></returns>
