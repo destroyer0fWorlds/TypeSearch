@@ -7,7 +7,7 @@ namespace TypeSearch.Criteria
 {
     static class PredicateFactory
     {
-        public static IPredicate Create<T>(string propertyName, string value, SingleOperator @operator)
+        public static IPredicate Create<T>(string propertyName, string parameterizedName, string parameterizedValue, SingleOperator @operator)
             where T : class
         {
             // Perform the least expensive check first
@@ -21,7 +21,7 @@ namespace TypeSearch.Criteria
                 case SingleOperator.LessThanOrEqualTo:
                 case SingleOperator.IsNull:
                 case SingleOperator.IsNotNull:
-                    return new CommonPredicate(propertyName, value, @operator);
+                    return new CommonPredicate(parameterizedName, parameterizedValue, @operator);
             }
 
             // Perform type check
@@ -31,18 +31,19 @@ namespace TypeSearch.Criteria
             {
                 throw new ArgumentException($"Invalid name '{propertyName}'. No property or column exists with the given name.", nameof(SingleCriterion<T>.Name));
             }
+
             var propertyType = propertyInfo.PropertyType;
             if (propertyType == typeof(string))
             {
-                return new StringPredicate(propertyName, value, @operator);
+                return new StringPredicate(parameterizedName, parameterizedValue, @operator);
             }
             else if (Nullable.GetUnderlyingType(propertyType) != null)
             {
-                return new NullablePredicate(propertyName, value, @operator);
+                return new NullablePredicate(parameterizedName, parameterizedValue, @operator);
             }
             else
             {
-                return new RealPredicate(propertyName, value, @operator);
+                return new RealPredicate(parameterizedName, parameterizedValue, @operator);
             }
         }
     }

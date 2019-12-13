@@ -13,5 +13,7 @@ namespace TypeSearch.Tests.EfCore
         }
 
         public DbSet<TestEntity> TestEntities { get; set; }
+
+        public DbSet<ReservedKeywordsTestEntity> ReservedKeywordsTestEntities { get; set; }
     }
 }

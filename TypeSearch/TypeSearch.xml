@@ -1047,6 +1047,20 @@
             <param name="recordsPerPage">Number of records to return per page</param>
             <returns></returns>
         </member>
+        <member name="M:TypeSearch.Searcher`1.ParameterizeValue(System.Object)">
+            <summary>
+            Parameterize the predicate value
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Searcher`1.EscapePropertyName(System.String)">
+            <summary>
+            Escape property names to avoid conflicts
+            </summary>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
         <member name="T:TypeSearch.SearchResult`1">
             <summary>
             Search result

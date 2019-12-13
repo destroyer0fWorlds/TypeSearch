@@ -183,17 +183,17 @@ namespace TypeSearch
         /// <returns></returns>
         private string ParseSingleCriterion(SingleCriterion<T> singleCriterion)
         {
-            // Parameterize the values in the form @0, @1, @2, etc.
             var name = singleCriterion.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException(nameof(SingleCriterion<T>.Name), "Property or column name cannot be null or empty.");
             }
-            var value = singleCriterion.Value;
-            var valueParam = $"@{_whereParams.Count}";
-            _whereParams.Add(valueParam, value);
 
-            var predicate = PredicateFactory.Create<T>(name, valueParam, singleCriterion.Operator);
+            // Parameterize the values in the form @0, @1, @2, etc.
+            var valueParam = this.ParameterizeValue(singleCriterion.Value);
+            var propertyNameParam = this.EscapePropertyName(name);
+
+            var predicate = PredicateFactory.Create<T>(name, propertyNameParam, valueParam, singleCriterion.Operator);
             return predicate.Create();
         }
 
@@ -204,27 +204,23 @@ namespace TypeSearch
         /// <returns></returns>
         private string ParseRangeCriterion(RangeCriterion rangeCriterion)
         {
-            // Parameterize the values in the form @0, @1, @2, etc.
             var name = rangeCriterion.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException(nameof(RangeCriterion.Name), "Property or column name cannot be null or empty.");
             }
 
-            var startValue = rangeCriterion.StartValue;
-            var startParamName = $"@{_whereParams.Count}";
-            _whereParams.Add(startParamName, startValue);
-
-            var endValue = rangeCriterion.EndValue;
-            var endParamName = $"@{_whereParams.Count}";
-            _whereParams.Add(endParamName, endValue);
+            // Parameterize the values in the form @0, @1, @2, etc.
+            var startValueParam = this.ParameterizeValue(rangeCriterion.StartValue);
+            var endValueParam = this.ParameterizeValue(rangeCriterion.EndValue);
+            var propertyNameParam = this.EscapePropertyName(name);
 
             switch (rangeCriterion.Operator)
             {
                 case RangeOperator.Between:
-                    return $"{name} >= {startParamName} And {name} <= {endParamName}";
+                    return $"{propertyNameParam} >= {startValueParam} And {propertyNameParam} <= {endValueParam}";
                 case RangeOperator.NotBetween:
-                    return $"{name} < {startParamName} Or {name} > {endParamName}";
+                    return $"{propertyNameParam} < {startValueParam} Or {propertyNameParam} > {endValueParam}";
                 default:
                     return string.Empty;
             }
@@ -239,7 +235,7 @@ namespace TypeSearch
         {
             // Validate the input
             if (sortCriteria == null || !sortCriteria.Any()) { return null; }
-
+            
             // Build the sort
             var conditions = new List<string>();
             foreach (var sortCriterion in sortCriteria)
@@ -249,9 +245,12 @@ namespace TypeSearch
                 {
                     throw new ArgumentNullException(nameof(SortCriterion.Name), "Property or column name cannot be null or empty.");
                 }
+
+                var propertyNameParam = this.EscapePropertyName(name);
                 var direction = sortCriterion.SortDirection == SortDirection.Ascending ? "ASC" : "DESC";
-                conditions.Add($"{name} {direction}");
+                conditions.Add($"{propertyNameParam} {direction}");
             }
+
             return string.Join(", ", conditions);
         }
 
@@ -271,6 +270,28 @@ namespace TypeSearch
             _dataSet = _dataSet.Take(recordsPerPage);
 
             return _dataSet;
+        }
+
+        /// <summary>
+        /// Parameterize the predicate value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private string ParameterizeValue(object value)
+        {
+            var valueParam = $"@{_whereParams.Count}";
+            _whereParams.Add(valueParam, value);
+            return valueParam;
+        }
+
+        /// <summary>
+        /// Escape property names to avoid conflicts
+        /// </summary>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        private string EscapePropertyName(string propertyName)
+        {
+            return $"@{propertyName}";
         }
     }
 }
