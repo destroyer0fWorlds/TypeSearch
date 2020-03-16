@@ -924,6 +924,13 @@
             <param name="exp">Property expression</param>
             <returns>Field name</returns>
         </member>
+        <member name="M:TypeSearch.ExpressionHelper.GetNameRecursively(System.Linq.Expressions.Expression,System.Collections.Generic.List{System.String})">
+            <summary>
+            Get the member name(s) by recursively traversing the expression tree
+            </summary>
+            <param name="exp"></param>
+            <param name="memberNames"></param>
+        </member>
         <member name="T:TypeSearch.LogicalOperator">
             <summary>
             And/Or conditional logic
@@ -1123,6 +1130,11 @@
             <typeparam name="TResult"></typeparam>
             <param name="exp"></param>
             <returns></returns>
+        </member>
+        <member name="T:TypeSearch.UnsupportedExpressionTypeException">
+            <summary>
+            The exception that is thrown when an unsupported expression type is encountered
+            </summary>
         </member>
         <member name="T:TypeSearch.WhereCriteria`1">
             <summary>
