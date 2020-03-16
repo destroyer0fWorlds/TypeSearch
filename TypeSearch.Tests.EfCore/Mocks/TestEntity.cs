@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace TypeSearch.Tests.EfCore
+namespace TypeSearch.Tests.EfCore.Mocks
 {
     class TestEntity
     {

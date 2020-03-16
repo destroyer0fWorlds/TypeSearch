@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using System.Linq.Dynamic.Core.Exceptions;
+using TypeSearch.Tests.EfCore.Mocks;
 
 namespace TypeSearch.Tests.EfCore
 {

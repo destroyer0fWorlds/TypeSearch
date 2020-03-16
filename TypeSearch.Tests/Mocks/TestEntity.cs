@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TypeSearch.Tests
+namespace TypeSearch.Tests.Mocks
 {
     class TestEntity
     {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
+using TypeSearch.Tests.EfCore.Mocks;
 
 namespace TypeSearch.Tests.EfCore
 {

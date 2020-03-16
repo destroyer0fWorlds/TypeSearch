@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using System.Linq.Dynamic.Core.Exceptions;
+using TypeSearch.Tests.Mocks;
 
 namespace TypeSearch.Tests
 {

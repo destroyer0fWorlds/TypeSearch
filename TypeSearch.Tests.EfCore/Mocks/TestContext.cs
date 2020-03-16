@@ -4,7 +4,7 @@ using System.Text;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace TypeSearch.Tests.EfCore
+namespace TypeSearch.Tests.EfCore.Mocks
 {
     class TestContext : DbContext
     {

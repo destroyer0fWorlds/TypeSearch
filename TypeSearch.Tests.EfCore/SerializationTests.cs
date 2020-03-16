@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Newtonsoft.Json;
+using TypeSearch.Tests.EfCore.Mocks;
 
 namespace TypeSearch.Tests.EfCore
 {

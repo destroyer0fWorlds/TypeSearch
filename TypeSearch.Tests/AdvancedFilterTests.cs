@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Xunit;
+using TypeSearch.Tests.Mocks;
 
 namespace TypeSearch.Tests
 {
