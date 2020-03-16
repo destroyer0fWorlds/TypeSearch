@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TypeSearch.Criteria;
 
-namespace TypeSearch.Criteria.Types
+namespace TypeSearch.Predicates
 {
-    class RealPredicate : IPredicate
+    class StringPredicate : IPredicate
     {
         private readonly string _propertyName;
         private readonly string _value;
         private readonly SingleOperator _operator;
 
-        public RealPredicate(string propertyName, string value, SingleOperator @operator)
+        public StringPredicate(string propertyName, string value, SingleOperator @operator)
         {
             _propertyName = propertyName;
             _value = value;
@@ -23,22 +21,22 @@ namespace TypeSearch.Criteria.Types
             switch (_operator)
             {
                 case SingleOperator.StartsWith:
-                    predicate = $"{_propertyName}.ToString().StartsWith({_value})";
+                    predicate = $"({_propertyName} ?? string.Empty).StartsWith({_value})";
                     break;
                 case SingleOperator.EndsWith:
-                    predicate = $"{_propertyName}.ToString().EndsWith({_value})";
+                    predicate = $"({_propertyName} ?? string.Empty).EndsWith({_value})";
                     break;
                 case SingleOperator.Like:
-                    predicate = $"{_propertyName}.ToString().Contains({_value})";
+                    predicate = $"({_propertyName} ?? string.Empty).Contains({_value})";
                     break;
                 case SingleOperator.DoesNotStartWith:
-                    predicate = $"!{_propertyName}.ToString().StartsWith({_value})";
+                    predicate = $"!({_propertyName} ?? string.Empty).StartsWith({_value})";
                     break;
                 case SingleOperator.DoesNotEndWith:
-                    predicate = $"!{_propertyName}.ToString().EndsWith({_value})";
+                    predicate = $"!({_propertyName} ?? string.Empty).EndsWith({_value})";
                     break;
                 case SingleOperator.NotLike:
-                    predicate = $"!{_propertyName}.ToString().Contains({_value})";
+                    predicate = $"!({_propertyName} ?? string.Empty).Contains({_value})";
                     break;
             }
             return predicate;

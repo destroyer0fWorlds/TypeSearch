@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TypeSearch.Criteria.Types;
+using TypeSearch.Criteria;
 
-namespace TypeSearch.Criteria
+namespace TypeSearch.Predicates
 {
     static class PredicateFactory
     {

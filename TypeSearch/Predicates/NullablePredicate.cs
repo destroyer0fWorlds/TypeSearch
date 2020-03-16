@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TypeSearch.Criteria;
 
-namespace TypeSearch.Criteria.Types
+namespace TypeSearch.Predicates
 {
     class NullablePredicate : IPredicate
     {
