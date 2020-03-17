@@ -25,6 +25,18 @@ namespace TypeSearch.Criteria.Types
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="BoolCriterion{T}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="name">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="where">Parent filter criteria</param>
+        public BoolCriterion(string collectionName, string name, LogicalOperator @operator, WhereCriteria<T> where) : base(collectionName, name, @operator, where)
+        {
+            _stringCriterion = new StringCriterion<T>(name, @operator, where);
+        }
+
+        /// <summary>
         /// The property's value must be true
         /// </summary>
         /// <returns></returns>

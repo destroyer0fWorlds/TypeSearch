@@ -26,11 +26,11 @@ namespace TypeSearch.Criteria
         internal bool HasRangeCriterion => this.RangeCriterion != null;
 
         /// <summary>
-        /// Nested criteria
+        /// Nested filter
         /// </summary>
-        public WhereCriteria<T> CriteriaCollection { get; set; }
+        public WhereCriteria<T> NestedFilter { get; set; }
 
-        internal bool HasNestedCriteria => this.CriteriaCollection != null && this.CriteriaCollection.Criteria != null;
+        internal bool HasNestedCriteria => this.NestedFilter != null && this.NestedFilter.Criteria != null;
 
         /// <summary>
         /// Condition by which multiple clauses should be evaluated

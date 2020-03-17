@@ -25,6 +25,18 @@ namespace TypeSearch.Criteria.Types
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="StringCriterion{T}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="name">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="where">Parent filter criteria</param>
+        public StringCriterion(string collectionName, string name, LogicalOperator @operator, WhereCriteria<T> where) : base(collectionName, name, @operator, where)
+        {
+            _nullableCriterion = new NullableCriterion<T, string>(name, @operator, where);
+        }
+
+        /// <summary>
         /// The property's value must contain the given value
         /// </summary>
         /// <param name="value"></param>

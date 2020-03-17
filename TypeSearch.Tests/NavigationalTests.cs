@@ -192,78 +192,79 @@ namespace TypeSearch.Tests
             Assert.True(searchResults.ResultSet[0].Child.NChild.NChild.NChild.NChild.Id == 6);
         }
 
-        //[Fact]
-        //public void Search_Multi_Navigation_Property_One_Level_Deep_Should_Succeed()
-        //{
-        //    // Arrange
-        //    var testCollection = new List<TestParentEntity>()
-        //    {
-        //        new TestParentEntity()
-        //        {
-        //            Id = 1,
-        //            Title = "Parent 1",
-        //            Children = new List<TestChildEntity>() {
-        //                new TestChildEntity()
-        //                {
-        //                    Id = 4,
-        //                    Title = "Child 4"
-        //                }
-        //            }
-        //        },
-        //        new TestParentEntity()
-        //        {
-        //            Id = 2,
-        //            Title = "Parent 2",
-        //            Children = new List<TestChildEntity>() {
-        //                new TestChildEntity()
-        //                {
-        //                    Id = 5,
-        //                    Title = "Child 5"
-        //                },
-        //                new TestChildEntity()
-        //                {
-        //                    Id = 6,
-        //                    Title = "Child 6"
-        //                }
-        //            }
-        //        },
-        //        new TestParentEntity()
-        //        {
-        //            Id = 3,
-        //            Title = "Parent 3",
-        //            Children = new List<TestChildEntity>() {
-        //                new TestChildEntity()
-        //                {
-        //                    Id = 7,
-        //                    Title = "Child 7"
-        //                },
-        //                new TestChildEntity()
-        //                {
-        //                    Id = 8,
-        //                    Title = "Child 8"
-        //                },
-        //                new TestChildEntity()
-        //                {
-        //                    Id = 9,
-        //                    Title = "Child 9"
-        //                }
-        //            }
-        //        }
-        //    };
+        [Fact]
+        public void Search_Multi_Navigation_Property_One_Level_Deep_Should_Succeed()
+        {
+            // Arrange
+            var testCollection = new List<TestParentEntity>()
+            {
+                new TestParentEntity()
+                {
+                    Id = 1,
+                    Title = "Parent 1",
+                    Children = new List<TestChildEntity>() {
+                        new TestChildEntity()
+                        {
+                            Id = 4,
+                            Title = "Child 4"
+                        }
+                    }
+                },
+                new TestParentEntity()
+                {
+                    Id = 2,
+                    Title = "Parent 2",
+                    Children = new List<TestChildEntity>() {
+                        new TestChildEntity()
+                        {
+                            Id = 5,
+                            Title = "Child 5"
+                        },
+                        new TestChildEntity()
+                        {
+                            Id = 6,
+                            Title = "Child 6"
+                        }
+                    }
+                },
+                new TestParentEntity()
+                {
+                    Id = 3,
+                    Title = "Parent 3",
+                    Children = new List<TestChildEntity>() {
+                        new TestChildEntity()
+                        {
+                            Id = 7,
+                            Title = "Child 7"
+                        },
+                        new TestChildEntity()
+                        {
+                            Id = 8,
+                            Title = "Child 8"
+                        },
+                        new TestChildEntity()
+                        {
+                            Id = 9,
+                            Title = "Child 9"
+                        }
+                    }
+                }
+            };
 
-        //    // Act
-        //    var searchDefinition = new SearchDefinition<TestParentEntity>();
-        //    searchDefinition.Filter
-        //        .Where(i => i.Children.).IsEqualTo(5);
-        //    var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
-        //        .Search(searchDefinition);
+            // Act
+            var searchDefinition = new SearchDefinition<TestParentEntity>();
+            searchDefinition.Filter
+                // Children.Any(Id == 5);
+                .Where(i => i.Children).Property(i => i.Id).IsEqualTo(5);
+            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+                .Search(searchDefinition);
 
-        //    var expectedResults = testCollection.Where(i => i.Children.Any(x => x.Id == 5));
+            var expectedResults = testCollection.Where(i => i.Children.Any(x => x.Id == 5));
 
-        //    // Assert
-        //    Assert.NotNull(searchResults.ResultSet);
-        //    Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
-        //    Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
-        //}
+            // Assert
+            Assert.NotNull(searchResults.ResultSet);
+            Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
+            Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
+        }
     }
 }

@@ -35,19 +35,8 @@ namespace TypeSearch
         /// <returns></returns>
         public WhereCriteria<T> Where(WhereCriteria<T> criteriaCollection)
         {
-            this.Criteria.Add(new CriteriaContainer<T>() { CriteriaCollection = criteriaCollection, Operator = LogicalOperator.And });
+            this.Criteria.Add(new CriteriaContainer<T>() { NestedFilter = criteriaCollection, Operator = LogicalOperator.And });
             return this;
-        }
-
-        /// <summary>
-        /// Where statement. Multiple where statements result in multiple ANDs.
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="exp">Property name</param>
-        /// <returns></returns>
-        public NullableCriterion<T, TResult> Where<TResult>(Expression<Func<T, TResult>> exp)
-        {
-            return new NullableCriterion<T, TResult>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -340,6 +329,17 @@ namespace TypeSearch
             return new NullableNumberCriterion<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
+        /// <summary>
+        /// Where statement. Multiple where statements result in multiple ANDs
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="exp">Collection property name</param>
+        /// <returns></returns>
+        public EnumerableCriterion<T> Where<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        {
+            return new EnumerableCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+        }
+
         #endregion
 
         #region And
@@ -351,19 +351,8 @@ namespace TypeSearch
         /// <returns></returns>
         public WhereCriteria<T> And(WhereCriteria<T> criteriaCollection)
         {
-            this.Criteria.Add(new CriteriaContainer<T>() { CriteriaCollection = criteriaCollection, Operator = LogicalOperator.And });
+            this.Criteria.Add(new CriteriaContainer<T>() { NestedFilter = criteriaCollection, Operator = LogicalOperator.And });
             return this;
-        }
-
-        /// <summary>
-        /// And statement
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="exp">Property name</param>
-        /// <returns></returns>
-        public NullableCriterion<T, TResult> And<TResult>(Expression<Func<T, TResult>> exp)
-        {
-            return new NullableCriterion<T, TResult>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -656,6 +645,17 @@ namespace TypeSearch
             return new NullableNumberCriterion<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
+        /// <summary>
+        /// And statement
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="exp">Collection property name</param>
+        /// <returns></returns>
+        public EnumerableCriterion<T> And<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        {
+            return new EnumerableCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+        }
+
         #endregion
 
         #region Or
@@ -667,19 +667,8 @@ namespace TypeSearch
         /// <returns></returns>
         public WhereCriteria<T> Or(WhereCriteria<T> criteriaCollection)
         {
-            this.Criteria.Add(new CriteriaContainer<T>() { CriteriaCollection = criteriaCollection, Operator = LogicalOperator.Or });
+            this.Criteria.Add(new CriteriaContainer<T>() { NestedFilter = criteriaCollection, Operator = LogicalOperator.Or });
             return this;
-        }
-
-        /// <summary>
-        /// Or statement
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="exp">Property name</param>
-        /// <returns></returns>
-        public NullableCriterion<T, TResult> Or<TResult>(Expression<Func<T, TResult>> exp)
-        {
-            return new NullableCriterion<T, TResult>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -970,6 +959,17 @@ namespace TypeSearch
         public NullableNumberCriterion<T, double?> Or(Expression<Func<T, double?>> exp)
         {
             return new NullableNumberCriterion<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+        }
+
+        /// <summary>
+        /// Or statement
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="exp">Collection property name</param>
+        /// <returns></returns>
+        public EnumerableCriterion<T> Or<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        {
+            return new EnumerableCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         #endregion

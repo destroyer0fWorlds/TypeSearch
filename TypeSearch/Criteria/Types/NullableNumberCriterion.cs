@@ -30,6 +30,20 @@ namespace TypeSearch.Criteria.Types
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="NullableNumberCriterion{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="name">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="where">Parent filter criteria</param>
+        public NullableNumberCriterion(string collectionName, string name, LogicalOperator @operator, WhereCriteria<T> where) : base(collectionName, name, @operator, where)
+        {
+            _nullableCriterion = new NullableCriterion<T, TResult>(name, @operator, where);
+            _numberCriterion = new NumberCriterion<T, TResult>(name, @operator, where);
+            _stringCriterion = new StringCriterion<T>(name, @operator, where);
+        }
+
+        /// <summary>
         /// The property's value must be between the given values (inclusive)
         /// </summary>
         /// <param name="valueStart"></param>

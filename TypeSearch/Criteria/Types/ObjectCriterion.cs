@@ -35,6 +35,19 @@ namespace TypeSearch.Criteria.Types
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectCriterion{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="name">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="where">Parent filter criteria</param>
+        public ObjectCriterion(string collectionName, string name, LogicalOperator @operator, WhereCriteria<T> where) : base(collectionName, name)
+        {
+            _operator = @operator;
+            _where = where;
+        }
+
+        /// <summary>
         /// The property's value must be equal to the given value (value not reference equality)
         /// </summary>
         /// <param name="value"></param>
@@ -108,7 +121,7 @@ namespace TypeSearch.Criteria.Types
             _where.Criteria.Add(new CriteriaContainer<T>()
             {
                 Operator = _operator,
-                CriteriaCollection = inList
+                NestedFilter = inList
             });
 
             return _where;
@@ -156,7 +169,7 @@ namespace TypeSearch.Criteria.Types
             _where.Criteria.Add(new CriteriaContainer<T>()
             {
                 Operator = _operator,
-                CriteriaCollection = inList
+                NestedFilter = inList
             });
 
             return _where;

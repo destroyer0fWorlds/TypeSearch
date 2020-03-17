@@ -24,6 +24,18 @@ namespace TypeSearch.Criteria.Types
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="NullableCriterion{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="name">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="where">Parent filter criteria</param>
+        public NullableCriterion(string collectionName, string name, LogicalOperator @operator, WhereCriteria<T> where) : base(collectionName, name, @operator, where)
+        {
+
+        }
+
+        /// <summary>
         /// The property's value must be null
         /// </summary>
         /// <returns></returns>

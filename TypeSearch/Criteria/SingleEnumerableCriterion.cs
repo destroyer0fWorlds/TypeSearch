@@ -5,22 +5,17 @@ namespace TypeSearch.Criteria
     /// Criterion which describes how a field should be filtered
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SingleCriterion<T> : BaseCriterion
+    public class SingleEnumerableCriterion<T> : SingleCriterion<T>
         where T : class
     {
         /// <summary>
-        /// Value
+        /// Collection property name
         /// </summary>
-        public object Value { get; set; }
-
-        /// <summary>
-        /// Operator
-        /// </summary>
-        public SingleOperator Operator { get; set; }
-
+        public string CollectionName { get; set; }
+        
         public override string ToString()
         {
-            return $"{this.Name} {this.Operator} {this.Value}";
+            return $"{this.CollectionName}.{this.Name} {this.Operator} {this.Value}";
         }
     }
 }

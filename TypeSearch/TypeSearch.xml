@@ -14,6 +14,11 @@
             Property name
             </summary>
         </member>
+        <member name="P:TypeSearch.Criteria.BaseCriterion.CollectionName">
+            <summary>
+            Collection property name
+            </summary>
+        </member>
         <member name="M:TypeSearch.Criteria.BaseCriterion.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:TypeSearch.Criteria.BaseCriterion"/> class
@@ -21,8 +26,15 @@
         </member>
         <member name="M:TypeSearch.Criteria.BaseCriterion.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.BaseCriterion"/> class with the given name
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.BaseCriterion"/> class with the given property name
             </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:TypeSearch.Criteria.BaseCriterion.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.BaseCriterion"/> class with the given collection and property name
+            </summary>
+            <param name="collectionName"></param>
             <param name="name"></param>
         </member>
         <member name="T:TypeSearch.Criteria.CriteriaContainer`1">
@@ -41,9 +53,9 @@
             Range criterion
             </summary>
         </member>
-        <member name="P:TypeSearch.Criteria.CriteriaContainer`1.CriteriaCollection">
+        <member name="P:TypeSearch.Criteria.CriteriaContainer`1.NestedFilter">
             <summary>
-            Nested criteria
+            Nested filter
             </summary>
         </member>
         <member name="P:TypeSearch.Criteria.CriteriaContainer`1.Operator">
@@ -69,6 +81,16 @@
         <member name="P:TypeSearch.Criteria.RangeCriterion.Operator">
             <summary>
             Operator
+            </summary>
+        </member>
+        <member name="T:TypeSearch.Criteria.RangeEnumerableCriterion">
+            <summary>
+            Criterion which describes how a field should be filtered
+            </summary>
+        </member>
+        <member name="P:TypeSearch.Criteria.RangeEnumerableCriterion.CollectionName">
+            <summary>
+            Collection property name
             </summary>
         </member>
         <member name="T:TypeSearch.Criteria.RangeOperator">
@@ -100,6 +122,17 @@
         <member name="P:TypeSearch.Criteria.SingleCriterion`1.Operator">
             <summary>
             Operator
+            </summary>
+        </member>
+        <member name="T:TypeSearch.Criteria.SingleEnumerableCriterion`1">
+            <summary>
+            Criterion which describes how a field should be filtered
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:TypeSearch.Criteria.SingleEnumerableCriterion`1.CollectionName">
+            <summary>
+            Collection property name
             </summary>
         </member>
         <member name="T:TypeSearch.Criteria.SingleOperator">
@@ -216,6 +249,15 @@
             <param name="operator">Operator</param>
             <param name="where">Parent filter criteria</param>
         </member>
+        <member name="M:TypeSearch.Criteria.Types.BoolCriterion`1.#ctor(System.String,System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.BoolCriterion`1"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
+            <param name="name">Property name</param>
+            <param name="operator">Operator</param>
+            <param name="where">Parent filter criteria</param>
+        </member>
         <member name="M:TypeSearch.Criteria.Types.BoolCriterion`1.IsTrue">
             <summary>
             The property's value must be true
@@ -268,6 +310,231 @@
             The property's value must start with the given value
             </summary>
             <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TypeSearch.Criteria.Types.EnumerableCriterion`1">
+            <summary>
+            Exposes collection specific operations
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.#ctor(System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.EnumerableCriterion`1"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
+            <param name="operator">Operator</param>
+            <param name="whereCriteria">Parent filter criteria</param>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
+            <summary>
+            Collection property
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Boolean}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.String}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Guid}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Guid}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.DateTime}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.DateTime}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.SByte}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.SByte}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Byte}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Byte}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Int16}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int16}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.UInt16}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.UInt16}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Int32}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int32}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.UInt32}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.UInt32}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Int64}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Int64}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.UInt64}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.UInt64}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Single}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Single}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Decimal}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Decimal}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Double}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.EnumerableCriterion`1.Property(System.Linq.Expressions.Expression{System.Func{`0,System.Nullable{System.Double}}})">
+            <summary>
+            Collection property
+            </summary>
+            <param name="exp">Property name</param>
             <returns></returns>
         </member>
         <member name="T:TypeSearch.Criteria.Types.IBoolCriterion`1">
@@ -468,6 +735,15 @@
             <param name="operator">Operator</param>
             <param name="where">Parent filter criteria</param>
         </member>
+        <member name="M:TypeSearch.Criteria.Types.NullableBoolCriterion`1.#ctor(System.String,System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.NullableBoolCriterion`1"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
+            <param name="name">Property name</param>
+            <param name="operator">Operator</param>
+            <param name="where">Parent filter criteria</param>
+        </member>
         <member name="M:TypeSearch.Criteria.Types.NullableBoolCriterion`1.IsFalse">
             <summary>
             The property's value must be false
@@ -549,6 +825,15 @@
             <param name="operator">Operator</param>
             <param name="where">Parent filter criteria</param>
         </member>
+        <member name="M:TypeSearch.Criteria.Types.NullableCriterion`2.#ctor(System.String,System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.NullableCriterion`2"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
+            <param name="name">Property name</param>
+            <param name="operator">Operator</param>
+            <param name="where">Parent filter criteria</param>
+        </member>
         <member name="M:TypeSearch.Criteria.Types.NullableCriterion`2.IsNull">
             <summary>
             The property's value must be null
@@ -572,6 +857,15 @@
             <summary>
             Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.NullableNumberCriterion`2"/> class
             </summary>
+            <param name="name">Property name</param>
+            <param name="operator">Operator</param>
+            <param name="where">Parent filter criteria</param>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.NullableNumberCriterion`2.#ctor(System.String,System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.NullableNumberCriterion`2"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
             <param name="name">Property name</param>
             <param name="operator">Operator</param>
             <param name="where">Parent filter criteria</param>
@@ -689,6 +983,15 @@
             <param name="operator">Operator</param>
             <param name="where">Parent filter criteria</param>
         </member>
+        <member name="M:TypeSearch.Criteria.Types.NumberCriterion`2.#ctor(System.String,System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.NumberCriterion`2"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
+            <param name="name">Property name</param>
+            <param name="operator">Operator</param>
+            <param name="where">Parent filter criteria</param>
+        </member>
         <member name="M:TypeSearch.Criteria.Types.NumberCriterion`2.Between(`1,`1)">
             <summary>
             The property's value must be between the given values (inclusive)
@@ -800,6 +1103,15 @@
             <param name="operator">Operator</param>
             <param name="where">Parent filter criteria</param>
         </member>
+        <member name="M:TypeSearch.Criteria.Types.ObjectCriterion`2.#ctor(System.String,System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.ObjectCriterion`2"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
+            <param name="name">Property name</param>
+            <param name="operator">Operator</param>
+            <param name="where">Parent filter criteria</param>
+        </member>
         <member name="M:TypeSearch.Criteria.Types.ObjectCriterion`2.IsEqualTo(`1)">
             <summary>
             The property's value must be equal to the given value (value not reference equality)
@@ -852,6 +1164,15 @@
             <summary>
             Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.StringCriterion`1"/> class
             </summary>
+            <param name="name">Property name</param>
+            <param name="operator">Operator</param>
+            <param name="where">Parent filter criteria</param>
+        </member>
+        <member name="M:TypeSearch.Criteria.Types.StringCriterion`1.#ctor(System.String,System.String,TypeSearch.LogicalOperator,TypeSearch.WhereCriteria{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Criteria.Types.StringCriterion`1"/> class
+            </summary>
+            <param name="collectionName">Collection property name</param>
             <param name="name">Property name</param>
             <param name="operator">Operator</param>
             <param name="where">Parent filter criteria</param>
@@ -1159,14 +1480,6 @@
             <param name="criteriaCollection">Sub-criteria</param>
             <returns></returns>
         </member>
-        <member name="M:TypeSearch.WhereCriteria`1.Where``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
-            <summary>
-            Where statement. Multiple where statements result in multiple ANDs.
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="exp">Property name</param>
-            <returns></returns>
-        </member>
         <member name="M:TypeSearch.WhereCriteria`1.Where(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
             <summary>
             Where statement. Multiple where statements result in multiple ANDs
@@ -1370,19 +1683,19 @@
             <param name="exp">Property name</param>
             <returns></returns>
         </member>
+        <member name="M:TypeSearch.WhereCriteria`1.Where``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>
+            Where statement. Multiple where statements result in multiple ANDs
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="exp">Collection property name</param>
+            <returns></returns>
+        </member>
         <member name="M:TypeSearch.WhereCriteria`1.And(TypeSearch.WhereCriteria{`0})">
             <summary>
             Create a sub-query in the form "... AND (sub-query)"
             </summary>
             <param name="criteriaCollection">Sub-criteria</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.WhereCriteria`1.And``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
-            <summary>
-            And statement
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="exp">Property name</param>
             <returns></returns>
         </member>
         <member name="M:TypeSearch.WhereCriteria`1.And(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
@@ -1588,19 +1901,19 @@
             <param name="exp">Property name</param>
             <returns></returns>
         </member>
+        <member name="M:TypeSearch.WhereCriteria`1.And``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>
+            And statement
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="exp">Collection property name</param>
+            <returns></returns>
+        </member>
         <member name="M:TypeSearch.WhereCriteria`1.Or(TypeSearch.WhereCriteria{`0})">
             <summary>
             Create a sub-query in the form "... OR (sub-query)"
             </summary>
             <param name="criteriaCollection">Sub-criteria</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.WhereCriteria`1.Or``1(System.Linq.Expressions.Expression{System.Func{`0,``0}})">
-            <summary>
-            Or statement
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="exp">Property name</param>
             <returns></returns>
         </member>
         <member name="M:TypeSearch.WhereCriteria`1.Or(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
@@ -1804,6 +2117,14 @@
             Or statement
             </summary>
             <param name="exp">Property name</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.WhereCriteria`1.Or``1(System.Linq.Expressions.Expression{System.Func{`0,System.Collections.Generic.IEnumerable{``0}}})">
+            <summary>
+            Or statement
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="exp">Collection property name</param>
             <returns></returns>
         </member>
     </members>

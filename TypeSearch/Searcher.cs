@@ -138,19 +138,17 @@ namespace TypeSearch
             var conditions = new List<string>();
             foreach (var whereCriterion in whereCriteria)
             {
-                if (iteration++ > 0)
+                if (iteration > 0)
                 {
+                    // Apply logical separator i.e. [x] AND [y]
                     var logicOperator = whereCriterion.Operator.ToString();
                     conditions.Add(logicOperator);
                 }
 
-                var conditionCount = new[] {
-                    whereCriterion.HasNestedCriteria,
-                    whereCriterion.HasRangeCriterion,
-                    whereCriterion.HasSingleCriterion
-                }.Count(i => i);
+                var conditionCount = new[] { whereCriterion.HasNestedCriteria, whereCriterion.HasRangeCriterion, whereCriterion.HasSingleCriterion }.Count(i => i == true);
                 if (conditionCount > 1)
                 {
+                    // This is not possible using the .Where(), .And(), and .Or() methods. It is only possible by manipulating the objects directly.
                     throw new NotSupportedException("Too many conditions supplied. Specify a single criterion per condition (single, range, or nested).");
                 }
 
@@ -169,9 +167,11 @@ namespace TypeSearch
                 else if (whereCriterion.HasNestedCriteria)
                 {
                     // Sub criteria
-                    var subCriteria = this.CreateWherePredicate(whereCriterion.CriteriaCollection.Criteria);
+                    var subCriteria = this.CreateWherePredicate(whereCriterion.NestedFilter.Criteria);
                     conditions.Add($"({subCriteria})");
                 }
+
+                iteration++;
             }
 
             return string.Join(" ", conditions);
