@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace TypeSearch.Criteria.Types
+namespace TypeSearch.Operations
 {
     /// <summary>
-    /// Interface which describes the behavior of the most basic level of operations available for any type of criterion
+    /// Interface which describes the most basic level of operations available to any type
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    public interface IObjectCriterion<T, TResult>
+    public interface IObjectOperation<T, TResult>
         where T : class
     {
         /// <summary>

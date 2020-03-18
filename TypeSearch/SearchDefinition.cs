@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using TypeSearch.Criteria;
-using TypeSearch.Criteria.Types;
-
+﻿
 namespace TypeSearch
 {
     /// <summary>

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TypeSearch.Criteria.Types
+﻿
+namespace TypeSearch.Operations
 {
     /// <summary>
-    /// Interface which describes the behavior of bool specific operations
+    /// Interface which describes the behavior of bool operations
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IBoolCriterion<T>
+    public interface IBooleanOperation<T>
         where T : class
     {
         /// <summary>

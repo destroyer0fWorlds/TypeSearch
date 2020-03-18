@@ -18,6 +18,7 @@ namespace TypeSearch.Criteria
         /// </summary>
         public SingleOperator Operator { get; set; }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return $"{this.Name} {this.Operator} {this.Value}";

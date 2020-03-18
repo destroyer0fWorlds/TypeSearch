@@ -43,6 +43,7 @@ namespace TypeSearch.Criteria
             this.Name = name;
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             if (!string.IsNullOrWhiteSpace(this.CollectionName))

@@ -21,6 +21,7 @@ namespace TypeSearch.Criteria
         /// </summary>
         public RangeOperator Operator { get; set; }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return $"{this.Name} {this.Operator} {this.StartValue} AND {this.EndValue}";

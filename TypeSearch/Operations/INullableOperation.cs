@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TypeSearch.Criteria.Types
+﻿
+namespace TypeSearch.Operations
 {
     /// <summary>
-    /// Interface which describes the behavior of the most basic level of operations available for any type of nullable criterion
+    /// Interface which describes the behavior nullable operations
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface INullableCriterion<T>
+    public interface INullableOperation<T>
         where T : class
     {
         /// <summary>

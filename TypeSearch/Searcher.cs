@@ -149,7 +149,7 @@ namespace TypeSearch
                 if (conditionCount > 1)
                 {
                     // This is not possible using the .Where(), .And(), and .Or() methods. It is only possible by manipulating the objects directly.
-                    throw new NotSupportedException("Too many conditions supplied. Specify a single criterion per condition (single, range, or nested).");
+                    throw new NotSupportedException("Too many conditions supplied. Specify a single type per condition (single, range, or nested).");
                 }
 
                 if (whereCriterion.HasSingleCriterion)

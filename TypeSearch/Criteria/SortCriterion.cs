@@ -14,6 +14,7 @@ namespace TypeSearch.Criteria
         /// </summary>
         public SortDirection SortDirection { get; set; }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return $"{this.Name} {this.SortDirection}";

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using TypeSearch.Criteria;
-using TypeSearch.Criteria.Types;
+using TypeSearch.Operations;
+using collections = TypeSearch.Operations.Enumerable;
 
 namespace TypeSearch
 {
@@ -44,9 +45,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public BoolCriterion<T> Where(Expression<Func<T, bool>> exp)
+        public BooleanOperation<T, bool> Where(Expression<Func<T, bool>> exp)
         {
-            return new BoolCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new BooleanOperation<T, bool>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -54,9 +55,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableBoolCriterion<T> Where(Expression<Func<T, bool?>> exp)
+        public NullableBooleanOperation<T> Where(Expression<Func<T, bool?>> exp)
         {
-            return new NullableBoolCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableBooleanOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -64,9 +65,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public StringCriterion<T> Where(Expression<Func<T, string>> exp)
+        public NullableStringOperation<T, string> Where(Expression<Func<T, string>> exp)
         {
-            return new StringCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableStringOperation<T, string>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -74,9 +75,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public ObjectCriterion<T, Guid> Where(Expression<Func<T, Guid>> exp)
+        public ObjectOperation<T, Guid> Where(Expression<Func<T, Guid>> exp)
         {
-            return new ObjectCriterion<T, Guid>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new ObjectOperation<T, Guid>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -84,9 +85,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableCriterion<T, Guid?> Where(Expression<Func<T, Guid?>> exp)
+        public NullableOperation<T, Guid?> Where(Expression<Func<T, Guid?>> exp)
         {
-            return new NullableCriterion<T, Guid?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableOperation<T, Guid?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -94,9 +95,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, DateTime> Where(Expression<Func<T, DateTime>> exp)
+        public NumberOperation<T, DateTime> Where(Expression<Func<T, DateTime>> exp)
         {
-            return new NumberCriterion<T, DateTime>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, DateTime>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -104,9 +105,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, DateTime?> Where(Expression<Func<T, DateTime?>> exp)
+        public NullableNumberOperation<T, DateTime?> Where(Expression<Func<T, DateTime?>> exp)
         {
-            return new NullableNumberCriterion<T, DateTime?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, DateTime?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -114,9 +115,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, sbyte> Where(Expression<Func<T, sbyte>> exp)
+        public NumberOperation<T, sbyte> Where(Expression<Func<T, sbyte>> exp)
         {
-            return new NumberCriterion<T, sbyte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, sbyte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -124,9 +125,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, sbyte?> Where(Expression<Func<T, sbyte?>> exp)
+        public NullableNumberOperation<T, sbyte?> Where(Expression<Func<T, sbyte?>> exp)
         {
-            return new NullableNumberCriterion<T, sbyte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, sbyte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -134,9 +135,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, byte> Where(Expression<Func<T, byte>> exp)
+        public NumberOperation<T, byte> Where(Expression<Func<T, byte>> exp)
         {
-            return new NumberCriterion<T, byte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, byte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -144,9 +145,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, byte?> Where(Expression<Func<T, byte?>> exp)
+        public NullableNumberOperation<T, byte?> Where(Expression<Func<T, byte?>> exp)
         {
-            return new NullableNumberCriterion<T, byte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, byte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -154,9 +155,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, short> Where(Expression<Func<T, short>> exp)
+        public NumberOperation<T, short> Where(Expression<Func<T, short>> exp)
         {
-            return new NumberCriterion<T, short>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, short>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -164,9 +165,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, short?> Where(Expression<Func<T, short?>> exp)
+        public NullableNumberOperation<T, short?> Where(Expression<Func<T, short?>> exp)
         {
-            return new NullableNumberCriterion<T, short?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, short?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -174,9 +175,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, ushort> Where(Expression<Func<T, ushort>> exp)
+        public NumberOperation<T, ushort> Where(Expression<Func<T, ushort>> exp)
         {
-            return new NumberCriterion<T, ushort>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, ushort>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -184,9 +185,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, ushort?> Where(Expression<Func<T, ushort?>> exp)
+        public NullableNumberOperation<T, ushort?> Where(Expression<Func<T, ushort?>> exp)
         {
-            return new NullableNumberCriterion<T, ushort?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, ushort?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -194,9 +195,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, int> Where(Expression<Func<T, int>> exp)
+        public NumberOperation<T, int> Where(Expression<Func<T, int>> exp)
         {
-            return new NumberCriterion<T, int>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, int>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -204,9 +205,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, int?> Where(Expression<Func<T, int?>> exp)
+        public NullableNumberOperation<T, int?> Where(Expression<Func<T, int?>> exp)
         {
-            return new NullableNumberCriterion<T, int?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, int?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -214,9 +215,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, uint> Where(Expression<Func<T, uint>> exp)
+        public NumberOperation<T, uint> Where(Expression<Func<T, uint>> exp)
         {
-            return new NumberCriterion<T, uint>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, uint>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -224,9 +225,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, uint?> Where(Expression<Func<T, uint?>> exp)
+        public NullableNumberOperation<T, uint?> Where(Expression<Func<T, uint?>> exp)
         {
-            return new NullableNumberCriterion<T, uint?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, uint?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -234,9 +235,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, long> Where(Expression<Func<T, long>> exp)
+        public NumberOperation<T, long> Where(Expression<Func<T, long>> exp)
         {
-            return new NumberCriterion<T, long>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, long>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -244,9 +245,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, long?> Where(Expression<Func<T, long?>> exp)
+        public NullableNumberOperation<T, long?> Where(Expression<Func<T, long?>> exp)
         {
-            return new NullableNumberCriterion<T, long?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, long?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -254,9 +255,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, ulong> Where(Expression<Func<T, ulong>> exp)
+        public NumberOperation<T, ulong> Where(Expression<Func<T, ulong>> exp)
         {
-            return new NumberCriterion<T, ulong>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, ulong>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -264,9 +265,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, ulong?> Where(Expression<Func<T, ulong?>> exp)
+        public NullableNumberOperation<T, ulong?> Where(Expression<Func<T, ulong?>> exp)
         {
-            return new NullableNumberCriterion<T, ulong?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, ulong?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -274,9 +275,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, float> Where(Expression<Func<T, float>> exp)
+        public NumberOperation<T, float> Where(Expression<Func<T, float>> exp)
         {
-            return new NumberCriterion<T, float>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, float>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -284,9 +285,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, float?> Where(Expression<Func<T, float?>> exp)
+        public NullableNumberOperation<T, float?> Where(Expression<Func<T, float?>> exp)
         {
-            return new NullableNumberCriterion<T, float?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, float?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -294,9 +295,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, decimal> Where(Expression<Func<T, decimal>> exp)
+        public NumberOperation<T, decimal> Where(Expression<Func<T, decimal>> exp)
         {
-            return new NumberCriterion<T, decimal>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, decimal>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -304,9 +305,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, decimal?> Where(Expression<Func<T, decimal?>> exp)
+        public NullableNumberOperation<T, decimal?> Where(Expression<Func<T, decimal?>> exp)
         {
-            return new NullableNumberCriterion<T, decimal?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, decimal?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -314,9 +315,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, double> Where(Expression<Func<T, double>> exp)
+        public NumberOperation<T, double> Where(Expression<Func<T, double>> exp)
         {
-            return new NumberCriterion<T, double>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, double>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -324,9 +325,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, double?> Where(Expression<Func<T, double?>> exp)
+        public NullableNumberOperation<T, double?> Where(Expression<Func<T, double?>> exp)
         {
-            return new NullableNumberCriterion<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -335,9 +336,9 @@ namespace TypeSearch
         /// <typeparam name="TResult"></typeparam>
         /// <param name="exp">Collection property name</param>
         /// <returns></returns>
-        public EnumerableCriterion<T> Where<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        public collections.EnumerableOperation<T> Where<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
         {
-            return new EnumerableCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new collections.EnumerableOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         #endregion
@@ -360,9 +361,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public BoolCriterion<T> And(Expression<Func<T, bool>> exp)
+        public BooleanOperation<T, bool> And(Expression<Func<T, bool>> exp)
         {
-            return new BoolCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new BooleanOperation<T, bool>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -370,9 +371,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableBoolCriterion<T> And(Expression<Func<T, bool?>> exp)
+        public NullableBooleanOperation<T> And(Expression<Func<T, bool?>> exp)
         {
-            return new NullableBoolCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableBooleanOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -380,9 +381,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public StringCriterion<T> And(Expression<Func<T, string>> exp)
+        public StringOperation<T, string> And(Expression<Func<T, string>> exp)
         {
-            return new StringCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new StringOperation<T, string>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -390,9 +391,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public ObjectCriterion<T, Guid> And(Expression<Func<T, Guid>> exp)
+        public ObjectOperation<T, Guid> And(Expression<Func<T, Guid>> exp)
         {
-            return new ObjectCriterion<T, Guid>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new ObjectOperation<T, Guid>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -400,9 +401,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableCriterion<T, Guid?> And(Expression<Func<T, Guid?>> exp)
+        public NullableOperation<T, Guid?> And(Expression<Func<T, Guid?>> exp)
         {
-            return new NullableCriterion<T, Guid?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableOperation<T, Guid?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -410,9 +411,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, DateTime> And(Expression<Func<T, DateTime>> exp)
+        public NumberOperation<T, DateTime> And(Expression<Func<T, DateTime>> exp)
         {
-            return new NumberCriterion<T, DateTime>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, DateTime>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -420,9 +421,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, DateTime?> And(Expression<Func<T, DateTime?>> exp)
+        public NullableNumberOperation<T, DateTime?> And(Expression<Func<T, DateTime?>> exp)
         {
-            return new NullableNumberCriterion<T, DateTime?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, DateTime?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -430,9 +431,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, sbyte> And(Expression<Func<T, sbyte>> exp)
+        public NumberOperation<T, sbyte> And(Expression<Func<T, sbyte>> exp)
         {
-            return new NumberCriterion<T, sbyte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, sbyte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -440,9 +441,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, sbyte?> And(Expression<Func<T, sbyte?>> exp)
+        public NullableNumberOperation<T, sbyte?> And(Expression<Func<T, sbyte?>> exp)
         {
-            return new NullableNumberCriterion<T, sbyte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, sbyte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -450,9 +451,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, byte> And(Expression<Func<T, byte>> exp)
+        public NumberOperation<T, byte> And(Expression<Func<T, byte>> exp)
         {
-            return new NumberCriterion<T, byte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, byte>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -460,9 +461,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, byte?> And(Expression<Func<T, byte?>> exp)
+        public NullableNumberOperation<T, byte?> And(Expression<Func<T, byte?>> exp)
         {
-            return new NullableNumberCriterion<T, byte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, byte?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -470,9 +471,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, short> And(Expression<Func<T, short>> exp)
+        public NumberOperation<T, short> And(Expression<Func<T, short>> exp)
         {
-            return new NumberCriterion<T, short>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, short>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -480,9 +481,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, short?> And(Expression<Func<T, short?>> exp)
+        public NullableNumberOperation<T, short?> And(Expression<Func<T, short?>> exp)
         {
-            return new NullableNumberCriterion<T, short?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, short?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -490,9 +491,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, ushort> And(Expression<Func<T, ushort>> exp)
+        public NumberOperation<T, ushort> And(Expression<Func<T, ushort>> exp)
         {
-            return new NumberCriterion<T, ushort>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, ushort>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -500,9 +501,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, ushort?> And(Expression<Func<T, ushort?>> exp)
+        public NullableNumberOperation<T, ushort?> And(Expression<Func<T, ushort?>> exp)
         {
-            return new NullableNumberCriterion<T, ushort?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, ushort?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -510,9 +511,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, int> And(Expression<Func<T, int>> exp)
+        public NumberOperation<T, int> And(Expression<Func<T, int>> exp)
         {
-            return new NumberCriterion<T, int>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, int>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -520,9 +521,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, int?> And(Expression<Func<T, int?>> exp)
+        public NullableNumberOperation<T, int?> And(Expression<Func<T, int?>> exp)
         {
-            return new NullableNumberCriterion<T, int?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, int?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -530,9 +531,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, uint> And(Expression<Func<T, uint>> exp)
+        public NumberOperation<T, uint> And(Expression<Func<T, uint>> exp)
         {
-            return new NumberCriterion<T, uint>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, uint>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -540,9 +541,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, uint?> And(Expression<Func<T, uint?>> exp)
+        public NullableNumberOperation<T, uint?> And(Expression<Func<T, uint?>> exp)
         {
-            return new NullableNumberCriterion<T, uint?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, uint?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -550,9 +551,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, long> And(Expression<Func<T, long>> exp)
+        public NumberOperation<T, long> And(Expression<Func<T, long>> exp)
         {
-            return new NumberCriterion<T, long>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, long>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -560,9 +561,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, long?> And(Expression<Func<T, long?>> exp)
+        public NullableNumberOperation<T, long?> And(Expression<Func<T, long?>> exp)
         {
-            return new NullableNumberCriterion<T, long?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, long?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -570,9 +571,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, ulong> And(Expression<Func<T, ulong>> exp)
+        public NumberOperation<T, ulong> And(Expression<Func<T, ulong>> exp)
         {
-            return new NumberCriterion<T, ulong>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, ulong>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -580,9 +581,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, ulong?> And(Expression<Func<T, ulong?>> exp)
+        public NullableNumberOperation<T, ulong?> And(Expression<Func<T, ulong?>> exp)
         {
-            return new NullableNumberCriterion<T, ulong?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, ulong?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -590,9 +591,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, float> And(Expression<Func<T, float>> exp)
+        public NumberOperation<T, float> And(Expression<Func<T, float>> exp)
         {
-            return new NumberCriterion<T, float>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, float>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -600,9 +601,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, float?> And(Expression<Func<T, float?>> exp)
+        public NullableNumberOperation<T, float?> And(Expression<Func<T, float?>> exp)
         {
-            return new NullableNumberCriterion<T, float?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, float?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -610,9 +611,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, decimal> And(Expression<Func<T, decimal>> exp)
+        public NumberOperation<T, decimal> And(Expression<Func<T, decimal>> exp)
         {
-            return new NumberCriterion<T, decimal>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, decimal>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -620,9 +621,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, decimal?> And(Expression<Func<T, decimal?>> exp)
+        public NullableNumberOperation<T, decimal?> And(Expression<Func<T, decimal?>> exp)
         {
-            return new NullableNumberCriterion<T, decimal?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, decimal?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -630,9 +631,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, double> And(Expression<Func<T, double>> exp)
+        public NumberOperation<T, double> And(Expression<Func<T, double>> exp)
         {
-            return new NumberCriterion<T, double>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NumberOperation<T, double>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -640,9 +641,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, double?> And(Expression<Func<T, double?>> exp)
+        public NullableNumberOperation<T, double?> And(Expression<Func<T, double?>> exp)
         {
-            return new NullableNumberCriterion<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new NullableNumberOperation<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         /// <summary>
@@ -651,9 +652,9 @@ namespace TypeSearch
         /// <typeparam name="TResult"></typeparam>
         /// <param name="exp">Collection property name</param>
         /// <returns></returns>
-        public EnumerableCriterion<T> And<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        public collections.EnumerableOperation<T> And<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
         {
-            return new EnumerableCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new collections.EnumerableOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         #endregion
@@ -676,9 +677,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public BoolCriterion<T> Or(Expression<Func<T, bool>> exp)
+        public BooleanOperation<T, bool> Or(Expression<Func<T, bool>> exp)
         {
-            return new BoolCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new BooleanOperation<T, bool>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -686,9 +687,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableBoolCriterion<T> Or(Expression<Func<T, bool?>> exp)
+        public NullableBooleanOperation<T> Or(Expression<Func<T, bool?>> exp)
         {
-            return new NullableBoolCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableBooleanOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -696,9 +697,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public StringCriterion<T> Or(Expression<Func<T, string>> exp)
+        public StringOperation<T, string> Or(Expression<Func<T, string>> exp)
         {
-            return new StringCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new StringOperation<T, string>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -706,9 +707,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public ObjectCriterion<T, Guid> Or(Expression<Func<T, Guid>> exp)
+        public ObjectOperation<T, Guid> Or(Expression<Func<T, Guid>> exp)
         {
-            return new ObjectCriterion<T, Guid>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new ObjectOperation<T, Guid>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -716,9 +717,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableCriterion<T, Guid?> Or(Expression<Func<T, Guid?>> exp)
+        public NullableOperation<T, Guid?> Or(Expression<Func<T, Guid?>> exp)
         {
-            return new NullableCriterion<T, Guid?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableOperation<T, Guid?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -726,9 +727,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, DateTime> Or(Expression<Func<T, DateTime>> exp)
+        public NumberOperation<T, DateTime> Or(Expression<Func<T, DateTime>> exp)
         {
-            return new NumberCriterion<T, DateTime>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, DateTime>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -736,9 +737,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, DateTime?> Or(Expression<Func<T, DateTime?>> exp)
+        public NullableNumberOperation<T, DateTime?> Or(Expression<Func<T, DateTime?>> exp)
         {
-            return new NullableNumberCriterion<T, DateTime?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, DateTime?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -746,9 +747,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, sbyte> Or(Expression<Func<T, sbyte>> exp)
+        public NumberOperation<T, sbyte> Or(Expression<Func<T, sbyte>> exp)
         {
-            return new NumberCriterion<T, sbyte>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, sbyte>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -756,9 +757,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, sbyte?> Or(Expression<Func<T, sbyte?>> exp)
+        public NullableNumberOperation<T, sbyte?> Or(Expression<Func<T, sbyte?>> exp)
         {
-            return new NullableNumberCriterion<T, sbyte?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, sbyte?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -766,9 +767,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, byte> Or(Expression<Func<T, byte>> exp)
+        public NumberOperation<T, byte> Or(Expression<Func<T, byte>> exp)
         {
-            return new NumberCriterion<T, byte>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, byte>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -776,9 +777,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, byte?> Or(Expression<Func<T, byte?>> exp)
+        public NullableNumberOperation<T, byte?> Or(Expression<Func<T, byte?>> exp)
         {
-            return new NullableNumberCriterion<T, byte?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, byte?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -786,9 +787,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, short> Or(Expression<Func<T, short>> exp)
+        public NumberOperation<T, short> Or(Expression<Func<T, short>> exp)
         {
-            return new NumberCriterion<T, short>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, short>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -796,9 +797,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, short?> Or(Expression<Func<T, short?>> exp)
+        public NullableNumberOperation<T, short?> Or(Expression<Func<T, short?>> exp)
         {
-            return new NullableNumberCriterion<T, short?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, short?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -806,9 +807,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, ushort> Or(Expression<Func<T, ushort>> exp)
+        public NumberOperation<T, ushort> Or(Expression<Func<T, ushort>> exp)
         {
-            return new NumberCriterion<T, ushort>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, ushort>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -816,9 +817,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, ushort?> Or(Expression<Func<T, ushort?>> exp)
+        public NullableNumberOperation<T, ushort?> Or(Expression<Func<T, ushort?>> exp)
         {
-            return new NullableNumberCriterion<T, ushort?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, ushort?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -826,9 +827,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, int> Or(Expression<Func<T, int>> exp)
+        public NumberOperation<T, int> Or(Expression<Func<T, int>> exp)
         {
-            return new NumberCriterion<T, int>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, int>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -836,9 +837,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, int?> Or(Expression<Func<T, int?>> exp)
+        public NullableNumberOperation<T, int?> Or(Expression<Func<T, int?>> exp)
         {
-            return new NullableNumberCriterion<T, int?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, int?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -846,9 +847,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, uint> Or(Expression<Func<T, uint>> exp)
+        public NumberOperation<T, uint> Or(Expression<Func<T, uint>> exp)
         {
-            return new NumberCriterion<T, uint>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, uint>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -856,9 +857,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, uint?> Or(Expression<Func<T, uint?>> exp)
+        public NullableNumberOperation<T, uint?> Or(Expression<Func<T, uint?>> exp)
         {
-            return new NullableNumberCriterion<T, uint?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, uint?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -866,9 +867,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, long> Or(Expression<Func<T, long>> exp)
+        public NumberOperation<T, long> Or(Expression<Func<T, long>> exp)
         {
-            return new NumberCriterion<T, long>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, long>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -876,9 +877,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, long?> Or(Expression<Func<T, long?>> exp)
+        public NullableNumberOperation<T, long?> Or(Expression<Func<T, long?>> exp)
         {
-            return new NullableNumberCriterion<T, long?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, long?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -886,9 +887,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, ulong> Or(Expression<Func<T, ulong>> exp)
+        public NumberOperation<T, ulong> Or(Expression<Func<T, ulong>> exp)
         {
-            return new NumberCriterion<T, ulong>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, ulong>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -896,9 +897,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, ulong?> Or(Expression<Func<T, ulong?>> exp)
+        public NullableNumberOperation<T, ulong?> Or(Expression<Func<T, ulong?>> exp)
         {
-            return new NullableNumberCriterion<T, ulong?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, ulong?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -906,9 +907,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, float> Or(Expression<Func<T, float>> exp)
+        public NumberOperation<T, float> Or(Expression<Func<T, float>> exp)
         {
-            return new NumberCriterion<T, float>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, float>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -916,9 +917,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, float?> Or(Expression<Func<T, float?>> exp)
+        public NullableNumberOperation<T, float?> Or(Expression<Func<T, float?>> exp)
         {
-            return new NullableNumberCriterion<T, float?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, float?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -926,9 +927,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, decimal> Or(Expression<Func<T, decimal>> exp)
+        public NumberOperation<T, decimal> Or(Expression<Func<T, decimal>> exp)
         {
-            return new NumberCriterion<T, decimal>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, decimal>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -936,9 +937,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, decimal?> Or(Expression<Func<T, decimal?>> exp)
+        public NullableNumberOperation<T, decimal?> Or(Expression<Func<T, decimal?>> exp)
         {
-            return new NullableNumberCriterion<T, decimal?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, decimal?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -946,9 +947,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NumberCriterion<T, double> Or(Expression<Func<T, double>> exp)
+        public NumberOperation<T, double> Or(Expression<Func<T, double>> exp)
         {
-            return new NumberCriterion<T, double>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NumberOperation<T, double>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -956,9 +957,9 @@ namespace TypeSearch
         /// </summary>
         /// <param name="exp">Property name</param>
         /// <returns></returns>
-        public NullableNumberCriterion<T, double?> Or(Expression<Func<T, double?>> exp)
+        public NullableNumberOperation<T, double?> Or(Expression<Func<T, double?>> exp)
         {
-            return new NullableNumberCriterion<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new NullableNumberOperation<T, double?>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         /// <summary>
@@ -967,9 +968,9 @@ namespace TypeSearch
         /// <typeparam name="TResult"></typeparam>
         /// <param name="exp">Collection property name</param>
         /// <returns></returns>
-        public EnumerableCriterion<T> Or<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        public collections.EnumerableOperation<T> Or<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
         {
-            return new EnumerableCriterion<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new collections.EnumerableOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         #endregion

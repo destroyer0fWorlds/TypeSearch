@@ -254,12 +254,18 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
+                
                 // Children.Any(Id == 5);
-                .Where(i => i.Children).Property(i => i.Id).IsEqualTo(5);
+                //.Where(i => i.Children).Property(i => i.Id).IsEqualTo(5);
+
+                //Children.Any(new int[] { 4, 6, 8 }.Contains(Id)))
+                .Where(i => i.Children).Property(i => i.Id).In(4, 6, 8);
+
             var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
-            var expectedResults = testCollection.Where(i => i.Children.Any(x => x.Id == 5));
+            //var expectedResults = testCollection.Where(i => i.Children.Any(x => x.Id == 5));
+            var expectedResults = testCollection.Where(i => i.Children.Any(x => new int[] { 4, 6, 8 }.Contains(x.Id)));
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);

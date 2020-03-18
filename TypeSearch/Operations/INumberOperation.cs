@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TypeSearch.Criteria.Types
+﻿
+namespace TypeSearch.Operations
 {
     /// <summary>
-    /// Interface which describes the behavior of number specific operations
+    /// Interface which describes the behavior of numeric operations
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    public interface INumberCriterion<T, TResult>
+    public interface INumberOperation<T, TResult>
         where T : class
     {
         /// <summary>

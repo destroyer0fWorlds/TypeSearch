@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TypeSearch.Criteria.Types
+﻿
+namespace TypeSearch.Operations
 {
     /// <summary>
-    /// Interface which describes the behavior of string specific operations
+    /// Interface which describes the behavior of string operations
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IStringCriterion<T>
+    public interface IStringOperation<T>
         where T : class
     {
         /// <summary>
