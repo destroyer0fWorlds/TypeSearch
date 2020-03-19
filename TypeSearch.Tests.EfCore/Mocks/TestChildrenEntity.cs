@@ -8,7 +8,7 @@ namespace TypeSearch.Tests.EfCore.Mocks
     class TestChildrenEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int ChildrenId { get; set; }
 
         public int ParentId { get; set; }
 

@@ -6,7 +6,7 @@ namespace TypeSearch.Tests.Mocks
 {
     class TestChildEntity
     {
-        public int Id { get; set; }
+        public int ChildId { get; set; }
 
         public string Title { get; set; }
 

@@ -15,8 +15,20 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
-        /// <param name="where">Parent filter criteria</param>
-        public BooleanOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
+        /// <param name="filter">Parent filter criteria</param>
+        public BooleanOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(propertyName, @operator, filter)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BooleanOperation{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="filter">Parent filter criteria</param>
+        public BooleanOperation(string collectionName, string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(collectionName, propertyName, @operator, filter)
         {
 
         }
@@ -27,26 +39,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> IsFalse()
         {
-            this.Where.Criteria.Add(this.CreateFalseCriteria());
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property == false
-        /// </summary>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateFalseCriteria()
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.Equals,
-                    Value = false
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateFalseCriteria());
+            return this.Filter;
         }
 
         /// <summary>
@@ -55,26 +49,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> IsTrue()
         {
-            this.Where.Criteria.Add(this.CreateTrueCriteria());
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property == true
-        /// </summary>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateTrueCriteria()
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.Equals,
-                    Value = true
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateTrueCriteria());
+            return this.Filter;
         }
     }
 }

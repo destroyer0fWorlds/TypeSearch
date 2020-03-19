@@ -190,9 +190,19 @@ namespace TypeSearch
                 throw new ArgumentNullException(nameof(SingleCriterion<T>.Name), "Property or column name cannot be null or empty.");
             }
 
+            string propertyNameParam;
+            if (string.IsNullOrWhiteSpace(singleCriterion.CollectionName))
+            {
+                propertyNameParam = this.EscapePropertyName(name);
+            }
+            else
+            {
+                propertyNameParam = this.EscapePropertyName($"{singleCriterion.CollectionName}.{name}");
+            }
+
             // Parameterize the values in the form @0, @1, @2, etc.
             var valueParam = this.ParameterizeValue(singleCriterion.Value);
-            var propertyNameParam = this.EscapePropertyName(name);
+            //var propertyNameParam = this.EscapePropertyName(name);
 
             var predicate = PredicateFactory.Create<T>(name, propertyNameParam, valueParam, singleCriterion.Operator);
             return predicate.Create();

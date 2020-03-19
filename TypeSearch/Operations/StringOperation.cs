@@ -1,5 +1,4 @@
-﻿using TypeSearch.Criteria;
-
+﻿
 namespace TypeSearch.Operations
 {
     /// <summary>
@@ -15,10 +14,22 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
-        /// <param name="where">Parent filter criteria</param>
-        public StringOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
+        /// <param name="filter">Parent filter criteria</param>
+        public StringOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(propertyName, @operator, filter)
         {
             
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringOperation{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="filter">Parent filter criteria</param>
+        public StringOperation(string collectionName, string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(collectionName, propertyName, @operator, filter)
+        {
+
         }
 
         /// <summary>
@@ -28,27 +39,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> Contains(string value)
         {
-            this.Where.Criteria.Add(this.CreateContainsCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property contains value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateContainsCriteria(string value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.Like,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateContainsCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -58,27 +50,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> DoesNotContain(string value)
         {
-            this.Where.Criteria.Add(this.CreateNotContainsCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property not contains value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateNotContainsCriteria(string value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.NotLike,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotContainsCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -88,27 +61,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> EndsWith(string value)
         {
-            this.Where.Criteria.Add(this.CreateEndsWithCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property ends with value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateEndsWithCriteria(string value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.EndsWith,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateEndsWithCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -118,27 +72,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> DoesNotEndWith(string value)
         {
-            this.Where.Criteria.Add(this.CreateNotEndsWithCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property not ends with value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateNotEndsWithCriteria(string value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.DoesNotEndWith,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotEndsWithCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -148,27 +83,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> StartsWith(string value)
         {
-            this.Where.Criteria.Add(this.CreateStartsWithCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property starts with value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateStartsWithCriteria(string value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.StartsWith,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateStartsWithCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -178,27 +94,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> DoesNotStartWith(string value)
         {
-            this.Where.Criteria.Add(this.CreateNotStartsWithCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property not starts with value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateNotStartsWithCriteria(string value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.DoesNotStartWith,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotStartsWithCriteria(value));
+            return this.Filter;
         }
     }
 }

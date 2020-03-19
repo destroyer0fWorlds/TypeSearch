@@ -15,31 +15,31 @@ namespace TypeSearch.Tests
             {
                 new TestParentEntity()
                 {
-                    Id = 1,
+                    ParentId = 1,
                     Title = "Parent 1",
                     Child = new TestChildEntity()
                     {
-                        Id = 4,
+                        ChildId = 4,
                         Title = "Child 4"
                     }
                 },
                 new TestParentEntity()
                 {
-                    Id = 2,
+                    ParentId = 2,
                     Title = "Parent 2",
                     Child = new TestChildEntity()
                     {
-                        Id = 5,
+                        ChildId = 5,
                         Title = "Child 5"
                     }
                 },
                 new TestParentEntity()
                 {
-                    Id = 3,
+                    ParentId = 3,
                     Title = "Parent 3",
                     Child = new TestChildEntity()
                     {
-                        Id = 6,
+                        ChildId = 6,
                         Title = "Child 6"
                     }
                 }
@@ -48,18 +48,18 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
-                .Where(i => i.Child.Id).IsEqualTo(5);
+                .Where(i => i.Child.ChildId).IsEqualTo(5);
             var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
-            var expectedResults = testCollection.Where(i => i.Child.Id == 5);
+            var expectedResults = testCollection.Where(i => i.Child.ChildId == 5);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
             Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
             Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
-            Assert.True(searchResults.ResultSet[0].Id == 2);
-            Assert.True(searchResults.ResultSet[0].Child.Id == 5);
+            Assert.True(searchResults.ResultSet[0].ParentId == 2);
+            Assert.True(searchResults.ResultSet[0].Child.ChildId == 5);
         }
 
         [Fact]
@@ -70,45 +70,45 @@ namespace TypeSearch.Tests
             {
                 new TestParentEntity()
                 {
-                    Id = 1,
+                    ParentId = 1,
                     Title = "Parent 1",
                     Child = new TestChildEntity()
                     {
-                        Id = 4,
+                        ChildId = 4,
                         Title = "Child 4",
                         NChild = new TestChildEntity()
                         {
-                            Id = 7,
+                            ChildId = 7,
                             Title = "Child 7"
                         }
                     }
                 },
                 new TestParentEntity()
                 {
-                    Id = 2,
+                    ParentId = 2,
                     Title = "Parent 2",
                     Child = new TestChildEntity()
                     {
-                        Id = 5,
+                        ChildId = 5,
                         Title = "Child 5",
                         NChild = new TestChildEntity()
                         {
-                            Id = 8,
+                            ChildId = 8,
                             Title = "Child 8"
                         }
                     }
                 },
                 new TestParentEntity()
                 {
-                    Id = 3,
+                    ParentId = 3,
                     Title = "Parent 3",
                     Child = new TestChildEntity()
                     {
-                        Id = 6,
+                        ChildId = 6,
                         Title = "Child 6",
                         NChild = new TestChildEntity()
                         {
-                            Id = 9,
+                            ChildId = 9,
                             Title = "Child 9"
                         }
                     }
@@ -118,19 +118,19 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
-                .Where(i => i.Child.NChild.Id).IsEqualTo(8);
+                .Where(i => i.Child.NChild.ChildId).IsEqualTo(8);
             var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
-            var expectedResults = testCollection.Where(i => i.Child.NChild.Id == 8);
+            var expectedResults = testCollection.Where(i => i.Child.NChild.ChildId == 8);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
             Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
             Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
-            Assert.True(searchResults.ResultSet[0].Id == 2);
-            Assert.True(searchResults.ResultSet[0].Child.Id == 5);
-            Assert.True(searchResults.ResultSet[0].Child.NChild.Id == 8);
+            Assert.True(searchResults.ResultSet[0].ParentId == 2);
+            Assert.True(searchResults.ResultSet[0].Child.ChildId == 5);
+            Assert.True(searchResults.ResultSet[0].Child.NChild.ChildId == 8);
         }
 
         [Fact]
@@ -141,27 +141,27 @@ namespace TypeSearch.Tests
             {
                 new TestParentEntity()
                 {
-                    Id = 1,
+                    ParentId = 1,
                     Title = "Parent 1",
                     Child = new TestChildEntity()
                     {
-                        Id = 2,
+                        ChildId = 2,
                         Title = "Child 2",
                         NChild = new TestChildEntity()
                         {
-                            Id = 3,
+                            ChildId = 3,
                             Title = "Child 3",
                             NChild = new TestChildEntity()
                             {
-                                Id = 4,
+                                ChildId = 4,
                                 Title = "Child 4",
                                 NChild = new TestChildEntity()
                                 {
-                                    Id = 5,
+                                    ChildId = 5,
                                     Title = "Child 5",
                                     NChild = new TestChildEntity()
                                     {
-                                        Id = 6,
+                                        ChildId = 6,
                                         Title = "Child 6"
                                     }
                                 }
@@ -174,22 +174,22 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
-                .Where(i => i.Child.NChild.NChild.NChild.NChild.Id).IsEqualTo(6);
+                .Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId).IsEqualTo(6);
             var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
-            var expectedResults = testCollection.Where(i => i.Child.NChild.NChild.NChild.NChild.Id == 6);
+            var expectedResults = testCollection.Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId == 6);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
             Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
             Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
-            Assert.True(searchResults.ResultSet[0].Id == 1);
-            Assert.True(searchResults.ResultSet[0].Child.Id == 2);
-            Assert.True(searchResults.ResultSet[0].Child.NChild.Id == 3);
-            Assert.True(searchResults.ResultSet[0].Child.NChild.NChild.Id == 4);
-            Assert.True(searchResults.ResultSet[0].Child.NChild.NChild.NChild.Id == 5);
-            Assert.True(searchResults.ResultSet[0].Child.NChild.NChild.NChild.NChild.Id == 6);
+            Assert.True(searchResults.ResultSet[0].ParentId == 1);
+            Assert.True(searchResults.ResultSet[0].Child.ChildId == 2);
+            Assert.True(searchResults.ResultSet[0].Child.NChild.ChildId == 3);
+            Assert.True(searchResults.ResultSet[0].Child.NChild.NChild.ChildId == 4);
+            Assert.True(searchResults.ResultSet[0].Child.NChild.NChild.NChild.ChildId == 5);
+            Assert.True(searchResults.ResultSet[0].Child.NChild.NChild.NChild.NChild.ChildId == 6);
         }
 
         [Fact]
@@ -200,51 +200,51 @@ namespace TypeSearch.Tests
             {
                 new TestParentEntity()
                 {
-                    Id = 1,
+                    ParentId = 1,
                     Title = "Parent 1",
                     Children = new List<TestChildEntity>() {
                         new TestChildEntity()
                         {
-                            Id = 4,
+                            ChildId = 4,
                             Title = "Child 4"
                         }
                     }
                 },
                 new TestParentEntity()
                 {
-                    Id = 2,
+                    ParentId = 2,
                     Title = "Parent 2",
                     Children = new List<TestChildEntity>() {
                         new TestChildEntity()
                         {
-                            Id = 5,
+                            ChildId = 5,
                             Title = "Child 5"
                         },
                         new TestChildEntity()
                         {
-                            Id = 6,
+                            ChildId = 6,
                             Title = "Child 6"
                         }
                     }
                 },
                 new TestParentEntity()
                 {
-                    Id = 3,
+                    ParentId = 3,
                     Title = "Parent 3",
                     Children = new List<TestChildEntity>() {
                         new TestChildEntity()
                         {
-                            Id = 7,
+                            ChildId = 7,
                             Title = "Child 7"
                         },
                         new TestChildEntity()
                         {
-                            Id = 8,
+                            ChildId = 8,
                             Title = "Child 8"
                         },
                         new TestChildEntity()
                         {
-                            Id = 9,
+                            ChildId = 9,
                             Title = "Child 9"
                         }
                     }
@@ -256,16 +256,16 @@ namespace TypeSearch.Tests
             searchDefinition.Filter
                 
                 // Children.Any(Id == 5);
-                //.Where(i => i.Children).Property(i => i.Id).IsEqualTo(5);
+                .Where(i => i.Children).Property(i => i.ChildId).IsEqualTo(5);
 
-                //Children.Any(new int[] { 4, 6, 8 }.Contains(Id)))
-                .Where(i => i.Children).Property(i => i.Id).In(4, 6, 8);
+                // Children.Any(new int[] { 4, 6, 8 }.Contains(Id)))
+                //.Where(i => i.Children).Property(i => i.ParentId).In(4, 6, 8);
 
             var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
-            //var expectedResults = testCollection.Where(i => i.Children.Any(x => x.Id == 5));
-            var expectedResults = testCollection.Where(i => i.Children.Any(x => new int[] { 4, 6, 8 }.Contains(x.Id)));
+            var expectedResults = testCollection.Where(i => i.Children.Any(x => x.ChildId == 5));
+            //var expectedResults = testCollection.Where(i => i.Children.Any(x => new int[] { 4, 6, 8 }.Contains(x.ChildId)));
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);

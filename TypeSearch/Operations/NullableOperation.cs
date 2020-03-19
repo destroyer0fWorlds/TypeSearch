@@ -1,5 +1,4 @@
-﻿using TypeSearch.Criteria;
-
+﻿
 namespace TypeSearch.Operations
 {
     /// <summary>
@@ -15,8 +14,20 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
-        /// <param name="where">Parent filter criteria</param>
-        public NullableOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
+        /// <param name="filter">Parent filter criteria</param>
+        public NullableOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(propertyName, @operator, filter)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NullableOperation{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="filter">Parent filter criteria</param>
+        public NullableOperation(string collectionName, string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(collectionName, propertyName, @operator, filter)
         {
 
         }
@@ -27,25 +38,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> IsNull()
         {
-            this.Where.Criteria.Add(this.CreateNullCriteria());
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property is null
-        /// </summary>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateNullCriteria()
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.IsNull
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNullCriteria());
+            return this.Filter;
         }
 
         /// <summary>
@@ -54,25 +48,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> IsNotNull()
         {
-            this.Where.Criteria.Add(this.CreateNotNullCriteria());
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property is not null
-        /// </summary>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateNotNullCriteria()
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.IsNotNull
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotNullCriteria());
+            return this.Filter;
         }
     }
 }

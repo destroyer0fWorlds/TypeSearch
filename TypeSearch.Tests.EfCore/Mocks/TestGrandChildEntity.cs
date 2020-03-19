@@ -8,7 +8,7 @@ namespace TypeSearch.Tests.EfCore.Mocks
     class TestGrandChildEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int GrandChildId { get; set; }
 
         public int ParentId { get; set; }
 

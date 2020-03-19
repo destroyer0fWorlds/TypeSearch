@@ -1,5 +1,4 @@
-﻿using TypeSearch.Criteria;
-
+﻿
 namespace TypeSearch.Operations
 {
     /// <summary>
@@ -15,8 +14,20 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
-        /// <param name="where">Parent filter criteria</param>
-        public NumberOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
+        /// <param name="filter">Parent filter criteria</param>
+        public NumberOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(propertyName, @operator, filter)
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NumberOperation{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="filter">Parent filter criteria</param>
+        public NumberOperation(string collectionName, string propertyName, LogicalOperator @operator, FilterCriteria<T> filter) : base(collectionName, propertyName, @operator, filter)
         {
 
         }
@@ -29,29 +40,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> Between(TResult startValue, TResult endValue)
         {
-            this.Where.Criteria.Add(this.CreateBetweenCriteria(startValue, endValue));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property between start and end
-        /// </summary>
-        /// <param name="startValue"></param>
-        /// <param name="endValue"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateBetweenCriteria(TResult startValue, TResult endValue)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                RangeCriterion = new RangeCriterion()
-                {
-                    Name = this.PropertyName,
-                    Operator = RangeOperator.Between,
-                    StartValue = startValue,
-                    EndValue = endValue
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateBetweenCriteria(startValue, endValue));
+            return this.Filter;
         }
 
         /// <summary>
@@ -61,27 +51,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> GreaterThan(TResult value)
         {
-            this.Where.Criteria.Add(this.CreateGreaterThanCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property > value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateGreaterThanCriteria(TResult value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.GreaterThan,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateGreaterThanCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -91,27 +62,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> GreaterThanOrEqualTo(TResult value)
         {
-            this.Where.Criteria.Add(this.CreateGreaterThanOrEqualToCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property >= value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateGreaterThanOrEqualToCriteria(TResult value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.GreaterThanOrEqualTo,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateGreaterThanOrEqualToCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -121,27 +73,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> LessThan(TResult value)
         {
-            this.Where.Criteria.Add(this.CreateLessThanCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property &lt; value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateLessThanCriteria(TResult value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.LessThan,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateLessThanCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -151,27 +84,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> LessThanOrEqualTo(TResult value)
         {
-            this.Where.Criteria.Add(this.CreateLessThanOrEqualToCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property &lt;= value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateLessThanOrEqualToCriteria(TResult value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.LessThanOrEqualTo,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateLessThanOrEqualToCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -182,29 +96,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> NotBetween(TResult startValue, TResult endValue)
         {
-            this.Where.Criteria.Add(this.CreateNotBetweenCriteria(startValue, endValue));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property not between start and end
-        /// </summary>
-        /// <param name="startValue"></param>
-        /// <param name="endValue"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateNotBetweenCriteria(TResult startValue, TResult endValue)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                RangeCriterion = new RangeCriterion()
-                {
-                    Name = this.PropertyName,
-                    Operator = RangeOperator.NotBetween,
-                    StartValue = startValue,
-                    EndValue = endValue
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotBetweenCriteria(startValue, endValue));
+            return this.Filter;
         }
     }
 }

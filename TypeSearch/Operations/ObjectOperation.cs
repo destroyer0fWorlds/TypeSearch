@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TypeSearch.Criteria;
+using TypeSearch.Criteria.Factory;
 
 namespace TypeSearch.Operations
 {
@@ -21,7 +22,7 @@ namespace TypeSearch.Operations
         /// <summary>
         /// Where criteria
         /// </summary>
-        protected FilterCriteria<T> Where { get; private set; }
+        protected FilterCriteria<T> Filter { get; private set; }
 
         /// <summary>
         /// Property name
@@ -29,16 +30,37 @@ namespace TypeSearch.Operations
         protected string PropertyName { get; private set; }
 
         /// <summary>
+        /// Criteria factory
+        /// </summary>
+        protected ICriteriaFactory<T, TResult> CriteriaFactory { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ObjectOperation{T, TResult}"/> class
         /// </summary>
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
-        /// <param name="where">Parent filter criteria</param>
-        public ObjectOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where)
+        /// <param name="filter">Parent filter criteria</param>
+        public ObjectOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> filter)
         {
             this.PropertyName = propertyName;
             this.Operator = @operator;
-            this.Where = where;
+            this.Filter = filter;
+            this.CriteriaFactory = new CriteriaFactory<T, TResult>(propertyName, @operator);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectOperation{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="operator">Operator</param>
+        /// <param name="filter">Parent filter criteria</param>
+        public ObjectOperation(string collectionName, string propertyName, LogicalOperator @operator, FilterCriteria<T> filter)
+        {
+            this.PropertyName = propertyName;
+            this.Operator = @operator;
+            this.Filter = filter;
+            this.CriteriaFactory = new EnumerableCriteriaFactory<T, TResult>(collectionName, propertyName, @operator);
         }
 
         /// <summary>
@@ -54,13 +76,13 @@ namespace TypeSearch.Operations
             }
 
             // Add the IN criteria as a sub criteria to the main query
-            this.Where.Criteria.Add(new CriteriaContainer<T>()
+            this.Filter.Criteria.Add(new CriteriaContainer<T>()
             {
                 Operator = this.Operator,
-                NestedFilter = this.CreateInCriteria(values)
+                NestedFilter = this.CriteriaFactory.CreateInCriteria(values)
             });
 
-            return this.Where;
+            return this.Filter;
         }
 
         /// <summary>
@@ -74,57 +96,14 @@ namespace TypeSearch.Operations
         }
 
         /// <summary>
-        /// Create a criteria that evaluates to: property in (value1, value2, ...)
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        protected virtual FilterCriteria<T> CreateInCriteria(IEnumerable<TResult> values)
-        {
-            var inList = new FilterCriteria<T>();
-            foreach (var value in values)
-            {
-                inList.Criteria.Add(new CriteriaContainer<T>()
-                {
-                    Operator = LogicalOperator.Or,
-                    SingleCriterion = new SingleCriterion<T>()
-                    {
-                        Name = this.PropertyName,
-                        Operator = SingleOperator.Equals,
-                        Value = value
-                    }
-                });
-            }
-            return inList;
-        }
-
-        /// <summary>
         /// The property's value must be equal to the given value (value not reference equality)
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         public FilterCriteria<T> IsEqualTo(TResult value)
         {
-            this.Where.Criteria.Add(this.CreateEqualToCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property == value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateEqualToCriteria(TResult value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.Equals,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateEqualToCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -134,27 +113,8 @@ namespace TypeSearch.Operations
         /// <returns></returns>
         public FilterCriteria<T> IsNotEqualTo(TResult value)
         {
-            this.Where.Criteria.Add(this.CreateNotEqualToCriteria(value));
-            return this.Where;
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property != value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected virtual CriteriaContainer<T> CreateNotEqualToCriteria(TResult value)
-        {
-            return new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                SingleCriterion = new SingleCriterion<T>()
-                {
-                    Name = this.PropertyName,
-                    Operator = SingleOperator.NotEquals,
-                    Value = value
-                }
-            };
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotEqualToCriteria(value));
+            return this.Filter;
         }
 
         /// <summary>
@@ -170,13 +130,13 @@ namespace TypeSearch.Operations
             }
 
             // Add the NOT IN criteria as a sub criteria to the main query
-            this.Where.Criteria.Add(new CriteriaContainer<T>()
+            this.Filter.Criteria.Add(new CriteriaContainer<T>()
             {
                 Operator = this.Operator,
-                NestedFilter = this.CreateNotInCriteria(values)
+                NestedFilter = this.CriteriaFactory.CreateNotInCriteria(values)
             });
 
-            return this.Where;
+            return this.Filter;
         }
 
         /// <summary>
@@ -187,30 +147,6 @@ namespace TypeSearch.Operations
         public FilterCriteria<T> NotIn(params TResult[] inList)
         {
             return this.NotIn(values: inList);
-        }
-
-        /// <summary>
-        /// Create a criteria that evaluates to: property not in (value1, value2, ...)
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        protected virtual FilterCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values)
-        {
-            var inList = new FilterCriteria<T>();
-            foreach (var value in values)
-            {
-                inList.Criteria.Add(new CriteriaContainer<T>()
-                {
-                    Operator = LogicalOperator.And,
-                    SingleCriterion = new SingleCriterion<T>()
-                    {
-                        Name = this.PropertyName,
-                        Operator = SingleOperator.NotEquals,
-                        Value = value
-                    }
-                });
-            }
-            return inList;
         }
     }
 }

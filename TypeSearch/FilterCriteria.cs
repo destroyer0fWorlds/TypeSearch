@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using TypeSearch.Criteria;
 using TypeSearch.Operations;
-using collections = TypeSearch.Operations.Enumerable;
 
 namespace TypeSearch
 {
@@ -336,9 +335,9 @@ namespace TypeSearch
         /// <typeparam name="TResult"></typeparam>
         /// <param name="exp">Collection property name</param>
         /// <returns></returns>
-        public collections.EnumerableOperation<T> Where<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        public EnumerableOperation<T, TResult> Where<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp) where TResult : class
         {
-            return new collections.EnumerableOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new EnumerableOperation<T, TResult>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         #endregion
@@ -652,9 +651,9 @@ namespace TypeSearch
         /// <typeparam name="TResult"></typeparam>
         /// <param name="exp">Collection property name</param>
         /// <returns></returns>
-        public collections.EnumerableOperation<T> And<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        public EnumerableOperation<T, TResult> And<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp) where TResult : class
         {
-            return new collections.EnumerableOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
+            return new EnumerableOperation<T, TResult>(ExpressionHelper.GetName(exp), LogicalOperator.And, this);
         }
 
         #endregion
@@ -968,9 +967,9 @@ namespace TypeSearch
         /// <typeparam name="TResult"></typeparam>
         /// <param name="exp">Collection property name</param>
         /// <returns></returns>
-        public collections.EnumerableOperation<T> Or<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp)
+        public EnumerableOperation<T, TResult> Or<TResult>(Expression<Func<T, IEnumerable<TResult>>> exp) where TResult : class
         {
-            return new collections.EnumerableOperation<T>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
+            return new EnumerableOperation<T, TResult>(ExpressionHelper.GetName(exp), LogicalOperator.Or, this);
         }
 
         #endregion
