@@ -16,7 +16,7 @@ namespace TypeSearch.Operations
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public NumberOperation(string propertyName, LogicalOperator @operator, WhereCriteria<T> where) : base(propertyName, @operator, where)
+        public NumberOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
         {
 
         }
@@ -27,7 +27,7 @@ namespace TypeSearch.Operations
         /// <param name="startValue"></param>
         /// <param name="endValue"></param>
         /// <returns></returns>
-        public WhereCriteria<T> Between(TResult startValue, TResult endValue)
+        public FilterCriteria<T> Between(TResult startValue, TResult endValue)
         {
             this.Where.Criteria.Add(this.CreateBetweenCriteria(startValue, endValue));
             return this.Where;
@@ -59,7 +59,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> GreaterThan(TResult value)
+        public FilterCriteria<T> GreaterThan(TResult value)
         {
             this.Where.Criteria.Add(this.CreateGreaterThanCriteria(value));
             return this.Where;
@@ -89,7 +89,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> GreaterThanOrEqualTo(TResult value)
+        public FilterCriteria<T> GreaterThanOrEqualTo(TResult value)
         {
             this.Where.Criteria.Add(this.CreateGreaterThanOrEqualToCriteria(value));
             return this.Where;
@@ -119,7 +119,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> LessThan(TResult value)
+        public FilterCriteria<T> LessThan(TResult value)
         {
             this.Where.Criteria.Add(this.CreateLessThanCriteria(value));
             return this.Where;
@@ -149,7 +149,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> LessThanOrEqualTo(TResult value)
+        public FilterCriteria<T> LessThanOrEqualTo(TResult value)
         {
             this.Where.Criteria.Add(this.CreateLessThanOrEqualToCriteria(value));
             return this.Where;
@@ -180,7 +180,7 @@ namespace TypeSearch.Operations
         /// <param name="startValue"></param>
         /// <param name="endValue"></param>
         /// <returns></returns>
-        public WhereCriteria<T> NotBetween(TResult startValue, TResult endValue)
+        public FilterCriteria<T> NotBetween(TResult startValue, TResult endValue)
         {
             this.Where.Criteria.Add(this.CreateNotBetweenCriteria(startValue, endValue));
             return this.Where;

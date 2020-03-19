@@ -15,7 +15,7 @@ namespace TypeSearch.Operations.Enumerable
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public BooleanOperation(string collectionName, string propertyName, LogicalOperator @operator, WhereCriteria<T> where) : base(propertyName, @operator, where)
+        public BooleanOperation(string collectionName, string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
         {
             _collectionName = collectionName;
         }

@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace TypeSearch.Criteria
 {
     /// <summary>
     /// Criterion which describes how a field should be sorted
     /// </summary>
-    public class SortCriterion : BaseCriterion
+    public class SortCriterion
     {
+        /// <summary>
+        /// Property name
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// Sort direction
         /// </summary>

@@ -11,7 +11,7 @@ namespace TypeSearch
     /// Filter (where) criteria
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class WhereCriteria<T>
+    public class FilterCriteria<T>
         where T : class
     {
         /// <summary>
@@ -20,9 +20,9 @@ namespace TypeSearch
         public List<CriteriaContainer<T>> Criteria { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WhereCriteria{T}"/> class
+        /// Initializes a new instance of the <see cref="FilterCriteria{T}"/> class
         /// </summary>
-        public WhereCriteria()
+        public FilterCriteria()
         {
             this.Criteria = new List<CriteriaContainer<T>>();
         }
@@ -34,7 +34,7 @@ namespace TypeSearch
         /// </summary>
         /// <param name="criteriaCollection">Sub-criteria</param>
         /// <returns></returns>
-        public WhereCriteria<T> Where(WhereCriteria<T> criteriaCollection)
+        public FilterCriteria<T> Where(FilterCriteria<T> criteriaCollection)
         {
             this.Criteria.Add(new CriteriaContainer<T>() { NestedFilter = criteriaCollection, Operator = LogicalOperator.And });
             return this;
@@ -350,7 +350,7 @@ namespace TypeSearch
         /// </summary>
         /// <param name="criteriaCollection">Sub-criteria</param>
         /// <returns></returns>
-        public WhereCriteria<T> And(WhereCriteria<T> criteriaCollection)
+        public FilterCriteria<T> And(FilterCriteria<T> criteriaCollection)
         {
             this.Criteria.Add(new CriteriaContainer<T>() { NestedFilter = criteriaCollection, Operator = LogicalOperator.And });
             return this;
@@ -666,7 +666,7 @@ namespace TypeSearch
         /// </summary>
         /// <param name="criteriaCollection">Sub-criteria</param>
         /// <returns></returns>
-        public WhereCriteria<T> Or(WhereCriteria<T> criteriaCollection)
+        public FilterCriteria<T> Or(FilterCriteria<T> criteriaCollection)
         {
             this.Criteria.Add(new CriteriaContainer<T>() { NestedFilter = criteriaCollection, Operator = LogicalOperator.Or });
             return this;

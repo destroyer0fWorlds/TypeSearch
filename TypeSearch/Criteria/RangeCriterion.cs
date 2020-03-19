@@ -4,7 +4,7 @@ namespace TypeSearch.Criteria
     /// <summary>
     /// Criterion which describes how a field should be filtered
     /// </summary>
-    public class RangeCriterion : BaseCriterion
+    public class RangeCriterion : FilterCriterion
     {
         /// <summary>
         /// Start value
@@ -24,7 +24,9 @@ namespace TypeSearch.Criteria
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{this.Name} {this.Operator} {this.StartValue} AND {this.EndValue}";
+            var name = this.Name;
+            if (!string.IsNullOrWhiteSpace(this.CollectionName)) { name = $"{this.CollectionName}.{this.Name}"; }
+            return $"{name} {this.Operator} {this.StartValue} AND {this.EndValue}";
         }
     }
 }

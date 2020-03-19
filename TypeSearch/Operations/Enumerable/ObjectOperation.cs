@@ -18,7 +18,7 @@ namespace TypeSearch.Operations.Enumerable
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public ObjectOperation(string collectionName, string propertyName, LogicalOperator @operator, WhereCriteria<T> where) : base(propertyName, @operator, where)
+        public ObjectOperation(string collectionName, string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
         {
             _collectionName = collectionName;
         }
@@ -32,7 +32,7 @@ namespace TypeSearch.Operations.Enumerable
         }
 
         /// <inheritdoc />
-        protected override WhereCriteria<T> CreateInCriteria(IEnumerable<TResult> values)
+        protected override FilterCriteria<T> CreateInCriteria(IEnumerable<TResult> values)
         {
             var criteria = base.CreateInCriteria(values);
             foreach (var criterion in criteria.Criteria)
@@ -51,7 +51,7 @@ namespace TypeSearch.Operations.Enumerable
         }
 
         /// <inheritdoc />
-        protected override WhereCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values)
+        protected override FilterCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values)
         {
             var criteria = base.CreateNotInCriteria(values);
             foreach (var criterion in criteria.Criteria)

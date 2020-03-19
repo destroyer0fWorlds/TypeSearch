@@ -16,7 +16,7 @@ namespace TypeSearch.Operations
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public BooleanOperation(string propertyName, LogicalOperator @operator, WhereCriteria<T> where) : base(propertyName, @operator, where)
+        public BooleanOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
         {
 
         }
@@ -25,7 +25,7 @@ namespace TypeSearch.Operations
         /// The property's value must be false
         /// </summary>
         /// <returns></returns>
-        public WhereCriteria<T> IsFalse()
+        public FilterCriteria<T> IsFalse()
         {
             this.Where.Criteria.Add(this.CreateFalseCriteria());
             return this.Where;
@@ -53,7 +53,7 @@ namespace TypeSearch.Operations
         /// The property's value must be true
         /// </summary>
         /// <returns></returns>
-        public WhereCriteria<T> IsTrue()
+        public FilterCriteria<T> IsTrue()
         {
             this.Where.Criteria.Add(this.CreateTrueCriteria());
             return this.Where;

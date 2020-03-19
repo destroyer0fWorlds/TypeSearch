@@ -13,41 +13,41 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> Contains(string value);
+        FilterCriteria<T> Contains(string value);
 
         /// <summary>
         /// The property's value must not contain the given value
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> DoesNotContain(string value);
+        FilterCriteria<T> DoesNotContain(string value);
 
         /// <summary>
         /// The property's value must start with the given value
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> StartsWith(string value);
+        FilterCriteria<T> StartsWith(string value);
 
         /// <summary>
         /// The property's value must not start with the given value
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> DoesNotStartWith(string value);
+        FilterCriteria<T> DoesNotStartWith(string value);
 
         /// <summary>
         /// The property's value must end with the given value
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> EndsWith(string value);
+        FilterCriteria<T> EndsWith(string value);
 
         /// <summary>
         /// The property's value must not end with the given value
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> DoesNotEndWith(string value);
+        FilterCriteria<T> DoesNotEndWith(string value);
     }
 }

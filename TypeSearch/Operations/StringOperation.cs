@@ -16,7 +16,7 @@ namespace TypeSearch.Operations
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public StringOperation(string propertyName, LogicalOperator @operator, WhereCriteria<T> where) : base(propertyName, @operator, where)
+        public StringOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
         {
             
         }
@@ -26,7 +26,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> Contains(string value)
+        public FilterCriteria<T> Contains(string value)
         {
             this.Where.Criteria.Add(this.CreateContainsCriteria(value));
             return this.Where;
@@ -56,7 +56,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> DoesNotContain(string value)
+        public FilterCriteria<T> DoesNotContain(string value)
         {
             this.Where.Criteria.Add(this.CreateNotContainsCriteria(value));
             return this.Where;
@@ -86,7 +86,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> EndsWith(string value)
+        public FilterCriteria<T> EndsWith(string value)
         {
             this.Where.Criteria.Add(this.CreateEndsWithCriteria(value));
             return this.Where;
@@ -116,7 +116,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> DoesNotEndWith(string value)
+        public FilterCriteria<T> DoesNotEndWith(string value)
         {
             this.Where.Criteria.Add(this.CreateNotEndsWithCriteria(value));
             return this.Where;
@@ -146,7 +146,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> StartsWith(string value)
+        public FilterCriteria<T> StartsWith(string value)
         {
             this.Where.Criteria.Add(this.CreateStartsWithCriteria(value));
             return this.Where;
@@ -176,7 +176,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> DoesNotStartWith(string value)
+        public FilterCriteria<T> DoesNotStartWith(string value)
         {
             this.Where.Criteria.Add(this.CreateNotStartsWithCriteria(value));
             return this.Where;

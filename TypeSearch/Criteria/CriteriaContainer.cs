@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace TypeSearch.Criteria
 {
     /// <summary>
@@ -28,7 +25,7 @@ namespace TypeSearch.Criteria
         /// <summary>
         /// Nested filter
         /// </summary>
-        public WhereCriteria<T> NestedFilter { get; set; }
+        public FilterCriteria<T> NestedFilter { get; set; }
 
         internal bool HasNestedCriteria => this.NestedFilter != null && this.NestedFilter.Criteria != null;
 

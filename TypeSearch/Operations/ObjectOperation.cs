@@ -21,7 +21,7 @@ namespace TypeSearch.Operations
         /// <summary>
         /// Where criteria
         /// </summary>
-        protected WhereCriteria<T> Where { get; private set; }
+        protected FilterCriteria<T> Where { get; private set; }
 
         /// <summary>
         /// Property name
@@ -34,7 +34,7 @@ namespace TypeSearch.Operations
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public ObjectOperation(string propertyName, LogicalOperator @operator, WhereCriteria<T> where)
+        public ObjectOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where)
         {
             this.PropertyName = propertyName;
             this.Operator = @operator;
@@ -46,7 +46,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public WhereCriteria<T> In(IEnumerable<TResult> values)
+        public FilterCriteria<T> In(IEnumerable<TResult> values)
         {
             if (values == null || !values.Any())
             {
@@ -68,7 +68,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="inList"></param>
         /// <returns></returns>
-        public WhereCriteria<T> In(params TResult[] inList)
+        public FilterCriteria<T> In(params TResult[] inList)
         {
             return this.In(values: inList);
         }
@@ -78,9 +78,9 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        protected virtual WhereCriteria<T> CreateInCriteria(IEnumerable<TResult> values)
+        protected virtual FilterCriteria<T> CreateInCriteria(IEnumerable<TResult> values)
         {
-            var inList = new WhereCriteria<T>();
+            var inList = new FilterCriteria<T>();
             foreach (var value in values)
             {
                 inList.Criteria.Add(new CriteriaContainer<T>()
@@ -102,7 +102,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> IsEqualTo(TResult value)
+        public FilterCriteria<T> IsEqualTo(TResult value)
         {
             this.Where.Criteria.Add(this.CreateEqualToCriteria(value));
             return this.Where;
@@ -132,7 +132,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public WhereCriteria<T> IsNotEqualTo(TResult value)
+        public FilterCriteria<T> IsNotEqualTo(TResult value)
         {
             this.Where.Criteria.Add(this.CreateNotEqualToCriteria(value));
             return this.Where;
@@ -162,7 +162,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        public WhereCriteria<T> NotIn(IEnumerable<TResult> values)
+        public FilterCriteria<T> NotIn(IEnumerable<TResult> values)
         {
             if (values == null || !values.Any())
             {
@@ -184,7 +184,7 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="inList"></param>
         /// <returns></returns>
-        public WhereCriteria<T> NotIn(params TResult[] inList)
+        public FilterCriteria<T> NotIn(params TResult[] inList)
         {
             return this.NotIn(values: inList);
         }
@@ -194,9 +194,9 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        protected virtual WhereCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values)
+        protected virtual FilterCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values)
         {
-            var inList = new WhereCriteria<T>();
+            var inList = new FilterCriteria<T>();
             foreach (var value in values)
             {
                 inList.Criteria.Add(new CriteriaContainer<T>()

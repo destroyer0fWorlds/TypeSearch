@@ -15,41 +15,41 @@ namespace TypeSearch.Operations
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> IsEqualTo(TResult value);
+        FilterCriteria<T> IsEqualTo(TResult value);
 
         /// <summary>
         /// The property's value must not be equal to the given value (value not reference equality)
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        WhereCriteria<T> IsNotEqualTo(TResult value);
+        FilterCriteria<T> IsNotEqualTo(TResult value);
 
         /// <summary>
         /// The property's value must be present in the given collection of values
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        WhereCriteria<T> In(IEnumerable<TResult> values);
+        FilterCriteria<T> In(IEnumerable<TResult> values);
 
         /// <summary>
         /// The property's value must be present in the given collection of values
         /// </summary>
         /// <param name="inList"></param>
         /// <returns></returns>
-        WhereCriteria<T> In(params TResult[] inList);
+        FilterCriteria<T> In(params TResult[] inList);
 
         /// <summary>
         /// The property's value must not be present in the given collection of values
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        WhereCriteria<T> NotIn(IEnumerable<TResult> values);
+        FilterCriteria<T> NotIn(IEnumerable<TResult> values);
 
         /// <summary>
         /// The property's value must not be present in the given collection of values
         /// </summary>
         /// <param name="inList"></param>
         /// <returns></returns>
-        WhereCriteria<T> NotIn(params TResult[] inList);
+        FilterCriteria<T> NotIn(params TResult[] inList);
     }
 }

@@ -14,7 +14,7 @@ namespace TypeSearch.Operations.Enumerable
     {
         private readonly string _collectionName;
         private readonly LogicalOperator _operator;
-        private readonly WhereCriteria<T> _whereCriteria;
+        private readonly FilterCriteria<T> _whereCriteria;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EnumerableOperation{T}"/> class
@@ -22,7 +22,7 @@ namespace TypeSearch.Operations.Enumerable
         /// <param name="collectionName">Collection property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="whereCriteria">Parent filter criteria</param>
-        public EnumerableOperation(string collectionName, LogicalOperator @operator, WhereCriteria<T> whereCriteria)
+        public EnumerableOperation(string collectionName, LogicalOperator @operator, FilterCriteria<T> whereCriteria)
         {
             _collectionName = collectionName;
             _operator = @operator;

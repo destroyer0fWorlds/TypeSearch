@@ -12,12 +12,12 @@ namespace TypeSearch.Operations
         /// The property's value must be true
         /// </summary>
         /// <returns></returns>
-        WhereCriteria<T> IsTrue();
+        FilterCriteria<T> IsTrue();
 
         /// <summary>
         /// The property's value must be false
         /// </summary>
         /// <returns></returns>
-        WhereCriteria<T> IsFalse();
+        FilterCriteria<T> IsFalse();
     }
 }

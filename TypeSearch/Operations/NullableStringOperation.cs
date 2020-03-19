@@ -17,19 +17,19 @@ namespace TypeSearch.Operations
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public NullableStringOperation(string propertyName, LogicalOperator @operator, WhereCriteria<T> where) : base(propertyName, @operator, where)
+        public NullableStringOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
         {
             _nullableOperation = new NullableOperation<T, string>(propertyName, @operator, where);
         }
 
         /// <inheritdoc />
-        public WhereCriteria<T> IsNotNull()
+        public FilterCriteria<T> IsNotNull()
         {
             return _nullableOperation.IsNotNull();
         }
 
         /// <inheritdoc />
-        public WhereCriteria<T> IsNull()
+        public FilterCriteria<T> IsNull()
         {
             return _nullableOperation.IsNull();
         }

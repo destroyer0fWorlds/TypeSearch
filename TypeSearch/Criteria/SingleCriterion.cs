@@ -5,7 +5,7 @@ namespace TypeSearch.Criteria
     /// Criterion which describes how a field should be filtered
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SingleCriterion<T> : BaseCriterion
+    public class SingleCriterion<T> : FilterCriterion
         where T : class
     {
         /// <summary>
@@ -21,7 +21,9 @@ namespace TypeSearch.Criteria
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{this.Name} {this.Operator} {this.Value}";
+            var name = this.Name;
+            if (!string.IsNullOrWhiteSpace(this.CollectionName)) { name = $"{this.CollectionName}.{this.Name}"; }
+            return $"{name} {this.Operator} {this.Value}";
         }
     }
 }

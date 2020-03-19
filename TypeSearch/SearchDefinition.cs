@@ -26,12 +26,12 @@ namespace TypeSearch
         /// <summary>
         /// Filter criteria
         /// </summary>
-        public WhereCriteria<T> Filter { get; set; }
+        public FilterCriteria<T> Filter { get; set; }
 
         /// <summary>
         /// Filter criteria applied before all other criteria
         /// </summary>
-        public WhereCriteria<T> PreFilter { get; set; }
+        public FilterCriteria<T> PreFilter { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchDefinition{T}"/> class
@@ -39,8 +39,8 @@ namespace TypeSearch
         public SearchDefinition()
         {
             this.Sort = new SortCriteria<T>();
-            this.Filter = new WhereCriteria<T>();
-            this.PreFilter = new WhereCriteria<T>();
+            this.Filter = new FilterCriteria<T>();
+            this.PreFilter = new FilterCriteria<T>();
         }
 
         /// <summary>

@@ -12,12 +12,12 @@ namespace TypeSearch.Operations
         /// The property's value must be null
         /// </summary>
         /// <returns></returns>
-        WhereCriteria<T> IsNull();
+        FilterCriteria<T> IsNull();
 
         /// <summary>
         /// The property's value must not be null
         /// </summary>
         /// <returns></returns>
-        WhereCriteria<T> IsNotNull();
+        FilterCriteria<T> IsNotNull();
     }
 }

@@ -427,11 +427,11 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
-                    .Where(new WhereCriteria<TestEntity>()
+                    .Where(new FilterCriteria<TestEntity>()
                         .Where(i => i.IntProperty).IsEqualTo(1)
                         .And(i => i.ByteProperty).IsEqualTo(221)
                     )
-                    .Or(new WhereCriteria<TestEntity>()
+                    .Or(new FilterCriteria<TestEntity>()
                         .Where(i => i.IntProperty).IsEqualTo(1)
                         .And(i => i.ByteProperty).IsEqualTo(123)
                     );

@@ -125,8 +125,8 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>()
             {
-                Filter = new WhereCriteria<TestEntity>(),
-                PreFilter = new WhereCriteria<TestEntity>(),
+                Filter = new FilterCriteria<TestEntity>(),
+                PreFilter = new FilterCriteria<TestEntity>(),
                 Sort = new SortCriteria<TestEntity>()
             };
             var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);

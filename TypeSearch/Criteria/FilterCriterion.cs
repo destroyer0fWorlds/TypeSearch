@@ -4,7 +4,7 @@ namespace TypeSearch.Criteria
     /// <summary>
     /// Represents the most basic structure of a criterion
     /// </summary>
-    public abstract class BaseCriterion
+    public abstract class FilterCriterion
     {
         /// <summary>
         /// Property name
@@ -17,27 +17,27 @@ namespace TypeSearch.Criteria
         public string CollectionName { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCriterion"/> class
+        /// Initializes a new instance of the <see cref="FilterCriterion"/> class
         /// </summary>
-        public BaseCriterion()
+        public FilterCriterion()
         {
             
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCriterion"/> class with the given property name
+        /// Initializes a new instance of the <see cref="FilterCriterion"/> class with the given property name
         /// </summary>
         /// <param name="name"></param>
-        public BaseCriterion(string name) {
+        public FilterCriterion(string name) {
             this.Name = name;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseCriterion"/> class with the given collection and property name
+        /// Initializes a new instance of the <see cref="FilterCriterion"/> class with the given collection and property name
         /// </summary>
         /// <param name="collectionName"></param>
         /// <param name="name"></param>
-        public BaseCriterion(string collectionName, string name)
+        public FilterCriterion(string collectionName, string name)
         {
             this.CollectionName = collectionName;
             this.Name = name;

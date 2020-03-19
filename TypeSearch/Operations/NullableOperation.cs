@@ -16,7 +16,7 @@ namespace TypeSearch.Operations
         /// <param name="propertyName">Property name</param>
         /// <param name="operator">Operator</param>
         /// <param name="where">Parent filter criteria</param>
-        public NullableOperation(string propertyName, LogicalOperator @operator, WhereCriteria<T> where) : base(propertyName, @operator, where)
+        public NullableOperation(string propertyName, LogicalOperator @operator, FilterCriteria<T> where) : base(propertyName, @operator, where)
         {
 
         }
@@ -25,7 +25,7 @@ namespace TypeSearch.Operations
         /// The property's value must be null
         /// </summary>
         /// <returns></returns>
-        public WhereCriteria<T> IsNull()
+        public FilterCriteria<T> IsNull()
         {
             this.Where.Criteria.Add(this.CreateNullCriteria());
             return this.Where;
@@ -52,7 +52,7 @@ namespace TypeSearch.Operations
         /// The property's value must not be null
         /// </summary>
         /// <returns></returns>
-        public WhereCriteria<T> IsNotNull()
+        public FilterCriteria<T> IsNotNull()
         {
             this.Where.Criteria.Add(this.CreateNotNullCriteria());
             return this.Where;
