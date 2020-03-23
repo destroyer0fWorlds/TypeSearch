@@ -38,6 +38,8 @@ namespace TypeSearch.Tests.EfCore.Mocks
 
         public DbSet<TestChildEntity> TestChildEntities { get; set; }
 
+        public DbSet<TestChildrenEntity> TestChildrenEntities { get; set; }
+
         public DbSet<TestGrandChildEntity> TestGrandChildEntities { get; set; }
     }
 }

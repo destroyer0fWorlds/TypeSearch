@@ -257,6 +257,127 @@ namespace TypeSearch.Tests
         }
 
         [Fact]
+        public void Search_Range_Navigation_Property_Two_Levels_Deep_Should_Succeed()
+        {
+            // Arrange
+            var testCollection = new List<TestParentEntity>()
+            {
+                new TestParentEntity()
+                {
+                    ParentId = 1,
+                    Title = "Parent 1",
+                    Child = new TestChildEntity()
+                    {
+                        ChildId = 4,
+                        Title = "Child 4",
+                        NChild = new TestChildEntity()
+                        {
+                            ChildId = 7,
+                            Title = "Child 7"
+                        }
+                    }
+                },
+                new TestParentEntity()
+                {
+                    ParentId = 2,
+                    Title = "Parent 2",
+                    Child = new TestChildEntity()
+                    {
+                        ChildId = 5,
+                        Title = "Child 5",
+                        NChild = new TestChildEntity()
+                        {
+                            ChildId = 8,
+                            Title = "Child 8"
+                        }
+                    }
+                },
+                new TestParentEntity()
+                {
+                    ParentId = 3,
+                    Title = "Parent 3",
+                    Child = new TestChildEntity()
+                    {
+                        ChildId = 6,
+                        Title = "Child 6",
+                        NChild = new TestChildEntity()
+                        {
+                            ChildId = 9,
+                            Title = "Child 9"
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var searchDefinition = new SearchDefinition<TestParentEntity>();
+            searchDefinition.Filter
+                .Where(i => i.Child.NChild.ChildId).Between(8, 20);
+            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+                .Search(searchDefinition);
+
+            var expectedResults = testCollection.Where(i => i.Child.NChild.ChildId >= 8 && i.Child.NChild.ChildId <= 20);
+
+            // Assert
+            Assert.NotNull(searchResults.ResultSet);
+            Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
+            Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
+        }
+
+        [Fact]
+        public void Search_Range_Navigation_Property_N_Levels_Deep_Should_Succeed()
+        {
+            // Arrange
+            var testCollection = new List<TestParentEntity>()
+            {
+                new TestParentEntity()
+                {
+                    ParentId = 1,
+                    Title = "Parent 1",
+                    Child = new TestChildEntity()
+                    {
+                        ChildId = 2,
+                        Title = "Child 2",
+                        NChild = new TestChildEntity()
+                        {
+                            ChildId = 3,
+                            Title = "Child 3",
+                            NChild = new TestChildEntity()
+                            {
+                                ChildId = 4,
+                                Title = "Child 4",
+                                NChild = new TestChildEntity()
+                                {
+                                    ChildId = 5,
+                                    Title = "Child 5",
+                                    NChild = new TestChildEntity()
+                                    {
+                                        ChildId = 6,
+                                        Title = "Child 6"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Act
+            var searchDefinition = new SearchDefinition<TestParentEntity>();
+            searchDefinition.Filter
+                .Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId).Between(5, 7);
+            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+                .Search(searchDefinition);
+
+            var expectedResults = testCollection.Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId >= 5 && i.Child.NChild.NChild.NChild.NChild.ChildId <= 7);
+
+            // Assert
+            Assert.NotNull(searchResults.ResultSet);
+            Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
+            Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
+        }
+
+        [Fact]
         public void Search_Single_Multi_Navigation_Property_One_Level_Deep_Should_Succeed()
         {
             // Arrange
@@ -318,18 +439,11 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
-                
-                // Children.Any(Id == 5);
                 .Where(i => i.Children).Property(i => i.ChildId).IsEqualTo(5);
-
-                // Children.Any(new int[] { 4, 6, 8 }.Contains(Id)))
-                //.Where(i => i.Children).Property(i => i.ParentId).In(4, 6, 8);
-
             var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Children.Any(x => x.ChildId == 5));
-            //var expectedResults = testCollection.Where(i => i.Children.Any(x => new int[] { 4, 6, 8 }.Contains(x.ChildId)));
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -410,5 +524,82 @@ namespace TypeSearch.Tests
             Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
             Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
         }
+
+        //[Fact]
+        //public void To_Do()
+        //{
+        //    // Arrange
+        //    var testCollection = new List<TestParentEntity>()
+        //    {
+        //        new TestParentEntity()
+        //        {
+        //            ParentId = 1,
+        //            Title = "Parent 1",
+        //            Children = new List<TestChildEntity>() {
+        //                new TestChildEntity()
+        //                {
+        //                    ChildId = 4,
+        //                    Title = "Child 4"
+        //                }
+        //            }
+        //        },
+        //        new TestParentEntity()
+        //        {
+        //            ParentId = 2,
+        //            Title = "Parent 2",
+        //            Children = new List<TestChildEntity>() {
+        //                new TestChildEntity()
+        //                {
+        //                    ChildId = 5,
+        //                    Title = "Child 5"
+        //                },
+        //                new TestChildEntity()
+        //                {
+        //                    ChildId = 6,
+        //                    Title = "Child 6"
+        //                }
+        //            }
+        //        },
+        //        new TestParentEntity()
+        //        {
+        //            ParentId = 3,
+        //            Title = "Parent 3",
+        //            Children = new List<TestChildEntity>() {
+        //                new TestChildEntity()
+        //                {
+        //                    ChildId = 7,
+        //                    Title = "Child 7"
+        //                },
+        //                new TestChildEntity()
+        //                {
+        //                    ChildId = 8,
+        //                    Title = "Child 8"
+        //                },
+        //                new TestChildEntity()
+        //                {
+        //                    ChildId = 9,
+        //                    Title = "Child 9"
+        //                }
+        //            }
+        //        }
+        //    };
+
+        //    // Act
+        //    var searchDefinition = new SearchDefinition<TestParentEntity>();
+        //    searchDefinition.Filter
+        //        // Looks like this --> ((@Children.Any(@ChildId == @0)) Or (@Children.Any(@ChildId == @1)) Or (@Children.Any(@ChildId == @2)))
+        //        .Where(i => i.Children).Property(i => i.ChildId).In(4, 6, 8);
+
+        //    var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+        //        .Search(searchDefinition);
+
+        //    // Should look like this --> Children.Any(new[] { @0, @1, @2 }.Contains(@ChildId)))
+        //    var expectedResults = testCollection.Where(i => i.Children.Any(x => new[] { 4, 6, 8 }.Contains(x.ChildId)));
+
+        //    // Assert
+        //    Assert.NotNull(searchResults.ResultSet);
+        //    Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
+        //    Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
+        //}
     }
 }
