@@ -2,13 +2,13 @@
 
 namespace TypeSearch.Predicates
 {
-    class CommonPredicate : IPredicate
+    class ComparisonPredicate : IPredicate
     {
         private readonly string _propertyName;
         private readonly string _value;
         private readonly SingleOperator _operator;
 
-        public CommonPredicate(string propertyName, string value, SingleOperator @operator)
+        public ComparisonPredicate(string propertyName, string value, SingleOperator @operator)
         {
             _propertyName = propertyName;
             _value = value;

@@ -21,22 +21,22 @@ namespace TypeSearch.Predicates
             switch (_operator)
             {
                 case SingleOperator.StartsWith:
-                    predicate = $"({_propertyName} ?? string.Empty).StartsWith({_value})";
+                    predicate = $"({_propertyName} == null ? string.Empty : {_propertyName}.ToString()).StartsWith({_value})";
                     break;
                 case SingleOperator.EndsWith:
-                    predicate = $"({_propertyName} ?? string.Empty).EndsWith({_value})";
+                    predicate = $"({_propertyName} == null ? string.Empty : {_propertyName}.ToString()).EndsWith({_value})";
                     break;
                 case SingleOperator.Like:
-                    predicate = $"({_propertyName} ?? string.Empty).Contains({_value})";
+                    predicate = $"({_propertyName} == null ? string.Empty : {_propertyName}.ToString()).Contains({_value})";
                     break;
                 case SingleOperator.DoesNotStartWith:
-                    predicate = $"!({_propertyName} ?? string.Empty).StartsWith({_value})";
+                    predicate = $"!({_propertyName} == null ? string.Empty : {_propertyName}.ToString()).StartsWith({_value})";
                     break;
                 case SingleOperator.DoesNotEndWith:
-                    predicate = $"!({_propertyName} ?? string.Empty).EndsWith({_value})";
+                    predicate = $"!({_propertyName} == null ? string.Empty : {_propertyName}.ToString()).EndsWith({_value})";
                     break;
                 case SingleOperator.NotLike:
-                    predicate = $"!({_propertyName} ?? string.Empty).Contains({_value})";
+                    predicate = $"!({_propertyName} == null ? string.Empty : {_propertyName}.ToString()).Contains({_value})";
                     break;
             }
             return predicate;

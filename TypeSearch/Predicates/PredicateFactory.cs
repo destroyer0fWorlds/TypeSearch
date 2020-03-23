@@ -5,10 +5,8 @@ namespace TypeSearch.Predicates
 {
     static class PredicateFactory
     {
-        public static IPredicate Create<T>(string propertyName, string parameterizedName, string parameterizedValue, SingleOperator @operator)
-            where T : class
+        public static IPredicate Create(string parameterizedName, string parameterizedValue, SingleOperator @operator)
         {
-            // Perform the least expensive check first
             switch (@operator)
             {
                 case SingleOperator.Equals:
@@ -19,29 +17,16 @@ namespace TypeSearch.Predicates
                 case SingleOperator.LessThanOrEqualTo:
                 case SingleOperator.IsNull:
                 case SingleOperator.IsNotNull:
-                    return new CommonPredicate(parameterizedName, parameterizedValue, @operator);
-            }
-
-            // Perform type check
-            var type = typeof(T);
-            var propertyInfo = type.GetProperty(propertyName);
-            if (propertyInfo == null)
-            {
-                throw new ArgumentException($"Invalid name '{propertyName}'. No property or column exists with the given name.", nameof(SingleCriterion<T>.Name));
-            }
-
-            var propertyType = propertyInfo.PropertyType;
-            if (propertyType == typeof(string))
-            {
-                return new StringPredicate(parameterizedName, parameterizedValue, @operator);
-            }
-            else if (Nullable.GetUnderlyingType(propertyType) != null)
-            {
-                return new NullablePredicate(parameterizedName, parameterizedValue, @operator);
-            }
-            else
-            {
-                return new RealPredicate(parameterizedName, parameterizedValue, @operator);
+                    return new ComparisonPredicate(parameterizedName, parameterizedValue, @operator);
+                case SingleOperator.StartsWith:
+                case SingleOperator.EndsWith:
+                case SingleOperator.Like:
+                case SingleOperator.DoesNotStartWith:
+                case SingleOperator.DoesNotEndWith:
+                case SingleOperator.NotLike:
+                    return new StringPredicate(parameterizedName, parameterizedValue, @operator);
+                default:
+                    throw new ArgumentException($"'{@operator}' is not a valid operation.");
             }
         }
     }

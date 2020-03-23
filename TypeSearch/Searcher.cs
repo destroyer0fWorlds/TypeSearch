@@ -184,28 +184,27 @@ namespace TypeSearch
         /// <returns></returns>
         private string ParseSingleCriterion(SingleCriterion<T> singleCriterion)
         {
+            var collectionName = singleCriterion.CollectionName;
             var name = singleCriterion.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException(nameof(SingleCriterion<T>.Name), "Property or column name cannot be null or empty.");
             }
 
-            string propertyNameParam;
-            if (string.IsNullOrWhiteSpace(singleCriterion.CollectionName))
-            {
-                propertyNameParam = this.EscapePropertyName(name);
-            }
-            else
-            {
-                propertyNameParam = this.EscapePropertyName($"{singleCriterion.CollectionName}.{name}");
-            }
-
-            // Parameterize the values in the form @0, @1, @2, etc.
+            // Escape the names and parameterize the values
             var valueParam = this.ParameterizeValue(singleCriterion.Value);
-            //var propertyNameParam = this.EscapePropertyName(name);
+            var nameParam = this.EscapePropertyName(name);
+            var collectionNameParam = this.EscapePropertyName(collectionName);
 
-            var predicate = PredicateFactory.Create<T>(name, propertyNameParam, valueParam, singleCriterion.Operator);
-            return predicate.Create();
+            var predicateFactory = PredicateFactory.Create(nameParam, valueParam, singleCriterion.Operator);
+            var predicate = predicateFactory.Create();
+
+            if (!string.IsNullOrWhiteSpace(collectionName))
+            {
+                predicate = $"{collectionNameParam}.Any({predicate})";
+            }
+
+            return predicate;
         }
 
         /// <summary>
@@ -215,26 +214,39 @@ namespace TypeSearch
         /// <returns></returns>
         private string ParseRangeCriterion(RangeCriterion rangeCriterion)
         {
+            var collectionName = rangeCriterion.CollectionName;
             var name = rangeCriterion.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException(nameof(RangeCriterion.Name), "Property or column name cannot be null or empty.");
             }
 
-            // Parameterize the values in the form @0, @1, @2, etc.
+            // Escape the names and parameterize the values
             var startValueParam = this.ParameterizeValue(rangeCriterion.StartValue);
             var endValueParam = this.ParameterizeValue(rangeCriterion.EndValue);
-            var propertyNameParam = this.EscapePropertyName(name);
+            var nameParam = this.EscapePropertyName(name);
+            var collectionNameParam = this.EscapePropertyName(collectionName);
 
+            string predicate;
             switch (rangeCriterion.Operator)
             {
                 case RangeOperator.Between:
-                    return $"{propertyNameParam} >= {startValueParam} And {propertyNameParam} <= {endValueParam}";
+                    predicate = $"{nameParam} >= {startValueParam} And {nameParam} <= {endValueParam}";
+                    break;
                 case RangeOperator.NotBetween:
-                    return $"{propertyNameParam} < {startValueParam} Or {propertyNameParam} > {endValueParam}";
+                    predicate = $"{nameParam} < {startValueParam} Or {nameParam} > {endValueParam}";
+                    break;
                 default:
-                    return string.Empty;
+                    predicate = string.Empty;
+                    break;
             }
+
+            if (!string.IsNullOrWhiteSpace(collectionName))
+            {
+                predicate = $"{collectionNameParam}.Any({predicate})";
+            }
+
+            return predicate;
         }
 
         /// <summary>
