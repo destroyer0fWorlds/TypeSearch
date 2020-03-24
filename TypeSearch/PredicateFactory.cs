@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using TypeSearch.Criteria;
 
-namespace TypeSearch.Predicates
+namespace TypeSearch
 {
     /// <summary>
     /// Factory responsible for producing predicates

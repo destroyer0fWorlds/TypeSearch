@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Text;
 using TypeSearch.Criteria;
-using TypeSearch.Predicates;
 
 namespace TypeSearch
 {
