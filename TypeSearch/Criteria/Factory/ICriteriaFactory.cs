@@ -29,14 +29,14 @@ namespace TypeSearch.Criteria.Factory
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        FilterCriteria<T> CreateInCriteria(IEnumerable<TResult> values);
+        CriteriaContainer<T> CreateInCriteria(IEnumerable<TResult> values);
 
         /// <summary>
         /// Create a criteria that evaluates to: property not in (value1, value2, ...)
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        FilterCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values);
+        CriteriaContainer<T> CreateNotInCriteria(IEnumerable<TResult> values);
 
         /// <summary>
         /// Create a criteria that evaluates to: property contains value

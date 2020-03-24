@@ -7,35 +7,35 @@ namespace TypeSearch.Criteria
     public enum SingleOperator
     {
         /// <summary>
-		/// Perform an equality comparison (exact match)
+		/// Results must be equal to the specified value (exact match)
 		/// </summary>
 		Equals,
         /// <summary>
-        /// Perform an inequality comparison (not exact match)
+        /// Results must not be equal to the specified value (not exact match)
         /// </summary>
         NotEquals,
         /// <summary>
-        /// Perform a like comparison (contains)
+        /// Results must be like the specified value (contains)
         /// </summary>
         Like,
         /// <summary>
-        /// Perform a not like comparison (does not contain)
+        /// Result must not be like the specified value (does not contain)
         /// </summary>
         NotLike,
         /// <summary>
-        /// Results must be greater than the supplied value (string and bool are not supported)
+        /// Results must be greater than the specified value
         /// </summary>
         GreaterThan,
         /// <summary>
-        /// Results must be greater than or equal to the supplied value (string and bool are not supported)
+        /// Results must be greater than or equal to the specified value
         /// </summary>
         GreaterThanOrEqualTo,
         /// <summary>
-        /// Results must be less than the supplied value (string and bool are not supported)
+        /// Results must be less than the specified value
         /// </summary>
         LessThan,
         /// <summary>
-        /// Results must be less than or equal to the supplied value (string and bool are not supported)
+        /// Results must be less than or equal to the specified value
         /// </summary>
         LessThanOrEqualTo,
         /// <summary>
@@ -47,20 +47,28 @@ namespace TypeSearch.Criteria
         /// </summary>
         IsNotNull,
         /// <summary>
-        /// Results start with the specified value
+        /// Results must start with the specified value
         /// </summary>
         StartsWith,
         /// <summary>
-        /// Results do not start with the specified value
+        /// Results must not start with the specified value
         /// </summary>
         DoesNotStartWith,
         /// <summary>
-        /// Results end with the specified value
+        /// Results must end with the specified value
         /// </summary>
         EndsWith,
         /// <summary>
-        /// Results do not end with the specified value
+        /// Results must not end with the specified value
         /// </summary>
-        DoesNotEndWith
+        DoesNotEndWith,
+        /// <summary>
+        /// Results must be in the list of values specified
+        /// </summary>
+        In,
+        /// <summary>
+        /// Results must not be in the list of values specified
+        /// </summary>
+        NotIn
     }
 }

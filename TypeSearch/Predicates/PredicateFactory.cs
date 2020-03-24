@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TypeSearch.Criteria;
 
 namespace TypeSearch.Predicates
@@ -61,6 +62,12 @@ namespace TypeSearch.Predicates
                     break;
                 case SingleOperator.NotLike:
                     predicate = $"!({name} == null ? string.Empty : {name}.ToString()).Contains({value})";
+                    break;
+                case SingleOperator.In:
+                    predicate = $"{value}.Contains({name})";
+                    break;
+                case SingleOperator.NotIn:
+                    predicate = $"!{value}.Contains({name})";
                     break;
                 default:
                     throw new ArgumentException($"'{@operator}' is not a valid operation.");

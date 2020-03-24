@@ -71,13 +71,7 @@ namespace TypeSearch.Operations
                 throw new ArgumentNullException(nameof(values), $"'{nameof(In)}' function must be supplied with criteria. Parameter '{nameof(values)}' cannot be null or empty.");
             }
 
-            // Add the IN criteria as a sub criteria to the main query
-            this.Filter.Criteria.Add(new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                NestedFilter = this.CriteriaFactory.CreateInCriteria(values)
-            });
-
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateInCriteria(values));
             return this.Filter;
         }
 
@@ -109,13 +103,7 @@ namespace TypeSearch.Operations
                 throw new ArgumentNullException(nameof(values), $"'{nameof(NotIn)}' function must be supplied with criteria. Parameter '{nameof(values)}' cannot be null or empty.");
             }
 
-            // Add the NOT IN criteria as a sub criteria to the main query
-            this.Filter.Criteria.Add(new CriteriaContainer<T>()
-            {
-                Operator = this.Operator,
-                NestedFilter = this.CriteriaFactory.CreateNotInCriteria(values)
-            });
-
+            this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotInCriteria(values));
             return this.Filter;
         }
 

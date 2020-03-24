@@ -80,13 +80,10 @@ namespace TypeSearch.Criteria.Factory
         }
 
         /// <inheritdoc />
-        public override FilterCriteria<T> CreateInCriteria(IEnumerable<TResult> values)
+        public override CriteriaContainer<T> CreateInCriteria(IEnumerable<TResult> values)
         {
             var criteria = base.CreateInCriteria(values);
-            foreach (var criterion in criteria.Criteria)
-            {
-                criterion.SingleCriterion.CollectionName = _collectionName;
-            }
+            criteria.SingleCriterion.CollectionName = _collectionName;
             return criteria;
         }
 
@@ -139,13 +136,10 @@ namespace TypeSearch.Criteria.Factory
         }
 
         /// <inheritdoc />
-        public override FilterCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values)
+        public override CriteriaContainer<T> CreateNotInCriteria(IEnumerable<TResult> values)
         {
             var criteria = base.CreateNotInCriteria(values);
-            foreach (var criterion in criteria.Criteria)
-            {
-                criterion.SingleCriterion.CollectionName = _collectionName;
-            }
+            criteria.SingleCriterion.CollectionName = _collectionName;
             return criteria;
         }
 

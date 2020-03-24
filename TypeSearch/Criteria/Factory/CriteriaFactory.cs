@@ -138,23 +138,18 @@ namespace TypeSearch.Criteria.Factory
         }
 
         /// <inheritdoc />
-        public virtual FilterCriteria<T> CreateInCriteria(IEnumerable<TResult> values)
+        public virtual CriteriaContainer<T> CreateInCriteria(IEnumerable<TResult> values)
         {
-            var inList = new FilterCriteria<T>();
-            foreach (var value in values)
+            return new CriteriaContainer<T>()
             {
-                inList.Criteria.Add(new CriteriaContainer<T>()
+                Operator = this.Operator,
+                SingleCriterion = new SingleCriterion<T>()
                 {
-                    Operator = LogicalOperator.Or,
-                    SingleCriterion = new SingleCriterion<T>()
-                    {
-                        Name = this.PropertyName,
-                        Operator = SingleOperator.Equals,
-                        Value = value
-                    }
-                });
-            }
-            return inList;
+                    Name = this.PropertyName,
+                    Operator = SingleOperator.In,
+                    Value = values
+                }
+            };
         }
 
         /// <inheritdoc />
@@ -249,23 +244,18 @@ namespace TypeSearch.Criteria.Factory
         }
 
         /// <inheritdoc />
-        public virtual FilterCriteria<T> CreateNotInCriteria(IEnumerable<TResult> values)
+        public virtual CriteriaContainer<T> CreateNotInCriteria(IEnumerable<TResult> values)
         {
-            var inList = new FilterCriteria<T>();
-            foreach (var value in values)
+            return new CriteriaContainer<T>()
             {
-                inList.Criteria.Add(new CriteriaContainer<T>()
+                Operator = this.Operator,
+                SingleCriterion = new SingleCriterion<T>()
                 {
-                    Operator = LogicalOperator.And,
-                    SingleCriterion = new SingleCriterion<T>()
-                    {
-                        Name = this.PropertyName,
-                        Operator = SingleOperator.NotEquals,
-                        Value = value
-                    }
-                });
-            }
-            return inList;
+                    Name = this.PropertyName,
+                    Operator = SingleOperator.NotIn,
+                    Value = values
+                }
+            };
         }
 
         /// <inheritdoc />
