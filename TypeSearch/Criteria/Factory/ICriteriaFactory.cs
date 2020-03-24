@@ -2,6 +2,11 @@
 
 namespace TypeSearch.Criteria.Factory
 {
+    /// <summary>
+    /// Factory responsible for creating filter criteria
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
     public interface ICriteriaFactory<T, TResult>
         where T : class
     {

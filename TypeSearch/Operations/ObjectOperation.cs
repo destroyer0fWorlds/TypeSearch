@@ -63,11 +63,7 @@ namespace TypeSearch.Operations
             this.CriteriaFactory = new EnumerableCriteriaFactory<T, TResult>(collectionName, propertyName, @operator);
         }
 
-        /// <summary>
-        /// The property's value must be present in the given collection of values
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> In(IEnumerable<TResult> values)
         {
             if (values == null || !values.Any())
@@ -85,43 +81,27 @@ namespace TypeSearch.Operations
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must be present in the given collection of values
-        /// </summary>
-        /// <param name="inList"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> In(params TResult[] inList)
         {
             return this.In(values: inList);
         }
 
-        /// <summary>
-        /// The property's value must be equal to the given value (value not reference equality)
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> IsEqualTo(TResult value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateEqualToCriteria(value));
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must not be equal to the given value (value not reference equality)
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> IsNotEqualTo(TResult value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotEqualToCriteria(value));
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must not be present in the given collection of values
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> NotIn(IEnumerable<TResult> values)
         {
             if (values == null || !values.Any())
@@ -139,11 +119,7 @@ namespace TypeSearch.Operations
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must not be present in the given collection of values
-        /// </summary>
-        /// <param name="inList"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> NotIn(params TResult[] inList)
         {
             return this.NotIn(values: inList);

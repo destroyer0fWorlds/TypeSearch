@@ -33,20 +33,14 @@ namespace TypeSearch.Operations
 
         }
 
-        /// <summary>
-        /// The property's value must be false
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> IsFalse()
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateFalseCriteria());
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must be true
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> IsTrue()
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateTrueCriteria());

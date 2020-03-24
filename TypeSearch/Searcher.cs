@@ -196,8 +196,7 @@ namespace TypeSearch
             var nameParam = this.EscapePropertyName(name);
             var collectionNameParam = this.EscapePropertyName(collectionName);
 
-            var predicateFactory = PredicateFactory.Create(nameParam, valueParam, singleCriterion.Operator);
-            var predicate = predicateFactory.Create();
+            var predicate = PredicateFactory.Create(nameParam, valueParam, singleCriterion.Operator);
 
             if (!string.IsNullOrWhiteSpace(collectionName))
             {
@@ -227,20 +226,8 @@ namespace TypeSearch
             var nameParam = this.EscapePropertyName(name);
             var collectionNameParam = this.EscapePropertyName(collectionName);
 
-            string predicate;
-            switch (rangeCriterion.Operator)
-            {
-                case RangeOperator.Between:
-                    predicate = $"{nameParam} >= {startValueParam} And {nameParam} <= {endValueParam}";
-                    break;
-                case RangeOperator.NotBetween:
-                    predicate = $"{nameParam} < {startValueParam} Or {nameParam} > {endValueParam}";
-                    break;
-                default:
-                    predicate = string.Empty;
-                    break;
-            }
-
+            var predicate = PredicateFactory.Create(nameParam, startValueParam, endValueParam, rangeCriterion.Operator);
+            
             if (!string.IsNullOrWhiteSpace(collectionName))
             {
                 predicate = $"{collectionNameParam}.Any({predicate})";

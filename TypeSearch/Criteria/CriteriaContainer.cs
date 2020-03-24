@@ -13,6 +13,9 @@ namespace TypeSearch.Criteria
 		/// </summary>
 		public SingleCriterion<T> SingleCriterion { get; set; }
 
+        /// <summary>
+        /// Indicates whether this container has a <see cref="SingleCriterion{T}"/>
+        /// </summary>
         internal bool HasSingleCriterion => this.SingleCriterion != null;
 
         /// <summary>
@@ -20,6 +23,9 @@ namespace TypeSearch.Criteria
         /// </summary>
         public RangeCriterion RangeCriterion { get; set; }
 
+        /// <summary>
+        /// Indicates whether this container has a <see cref="Criteria.RangeCriterion"/>
+        /// </summary>
         internal bool HasRangeCriterion => this.RangeCriterion != null;
 
         /// <summary>
@@ -27,6 +33,9 @@ namespace TypeSearch.Criteria
         /// </summary>
         public FilterCriteria<T> NestedFilter { get; set; }
 
+        /// <summary>
+        /// Indicates whether this container has nested criteria
+        /// </summary>
         internal bool HasNestedCriteria => this.NestedFilter != null && this.NestedFilter.Criteria != null;
 
         /// <summary>

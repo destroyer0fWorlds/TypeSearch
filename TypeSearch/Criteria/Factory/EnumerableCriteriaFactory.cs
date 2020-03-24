@@ -2,11 +2,22 @@
 
 namespace TypeSearch.Criteria.Factory
 {
+    /// <summary>
+    /// Factory responsible for creating filter criteria for collections
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
     class EnumerableCriteriaFactory<T, TResult> : CriteriaFactory<T, TResult>
         where T : class
     {
         private readonly string _collectionName;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerableCriteriaFactory{T, TResult}"/> class
+        /// </summary>
+        /// <param name="collectionName">Collection property name</param>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="operator">Operator</param>
         public EnumerableCriteriaFactory(string collectionName, string propertyName, LogicalOperator @operator) : base(propertyName, @operator)
         {
             _collectionName = collectionName;

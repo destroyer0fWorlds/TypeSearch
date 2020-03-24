@@ -3,31 +3,94 @@ using TypeSearch.Criteria;
 
 namespace TypeSearch.Predicates
 {
+    /// <summary>
+    /// Factory responsible for producing predicates
+    /// </summary>
     static class PredicateFactory
     {
-        public static IPredicate Create(string parameterizedName, string parameterizedValue, SingleOperator @operator)
+        /// <summary>
+        /// Create an operation specific predicate
+        /// </summary>
+        /// <param name="name">Parameterized property name</param>
+        /// <param name="value">Parameterized value</param>
+        /// <param name="operator">Operator</param>
+        /// <returns></returns>
+        public static string Create(string name, string value, SingleOperator @operator)
         {
+            string predicate;
             switch (@operator)
             {
                 case SingleOperator.Equals:
+                    predicate = $"{name} == {value}";
+                    break;
                 case SingleOperator.NotEquals:
+                    predicate = $"{name} != {value}";
+                    break;
                 case SingleOperator.GreaterThan:
+                    predicate = $"{name} > {value}";
+                    break;
                 case SingleOperator.GreaterThanOrEqualTo:
+                    predicate = $"{name} >= {value}";
+                    break;
                 case SingleOperator.LessThan:
+                    predicate = $"{name} < {value}";
+                    break;
                 case SingleOperator.LessThanOrEqualTo:
+                    predicate = $"{name} <= {value}";
+                    break;
                 case SingleOperator.IsNull:
+                    predicate = $"{name} == {value}";
+                    break;
                 case SingleOperator.IsNotNull:
-                    return new ComparisonPredicate(parameterizedName, parameterizedValue, @operator);
+                    predicate = $"{name} != {value}";
+                    break;
                 case SingleOperator.StartsWith:
+                    predicate = $"({name} == null ? string.Empty : {name}.ToString()).StartsWith({value})";
+                    break;
                 case SingleOperator.EndsWith:
+                    predicate = $"({name} == null ? string.Empty : {name}.ToString()).EndsWith({value})";
+                    break;
                 case SingleOperator.Like:
+                    predicate = $"({name} == null ? string.Empty : {name}.ToString()).Contains({value})";
+                    break;
                 case SingleOperator.DoesNotStartWith:
+                    predicate = $"!({name} == null ? string.Empty : {name}.ToString()).StartsWith({value})";
+                    break;
                 case SingleOperator.DoesNotEndWith:
+                    predicate = $"!({name} == null ? string.Empty : {name}.ToString()).EndsWith({value})";
+                    break;
                 case SingleOperator.NotLike:
-                    return new StringPredicate(parameterizedName, parameterizedValue, @operator);
+                    predicate = $"!({name} == null ? string.Empty : {name}.ToString()).Contains({value})";
+                    break;
                 default:
                     throw new ArgumentException($"'{@operator}' is not a valid operation.");
             }
+            return predicate;
+        }
+
+        /// <summary>
+        /// Create an operation specific predicate
+        /// </summary>
+        /// <param name="name">Parameterized property name</param>
+        /// <param name="startValue">Parameterized start value</param>
+        /// <param name="endValue">Parameterized end value</param>
+        /// <param name="operator">Operator</param>
+        /// <returns></returns>
+        public static string Create(string name, string startValue, string endValue, RangeOperator @operator)
+        {
+            string predicate;
+            switch (@operator)
+            {
+                case RangeOperator.Between:
+                    predicate = $"{name} >= {startValue} And {name} <= {endValue}";
+                    break;
+                case RangeOperator.NotBetween:
+                    predicate = $"{name} < {startValue} Or {name} > {endValue}";
+                    break;
+                default:
+                    throw new ArgumentException($"'{@operator}' is not a valid operation.");
+            }
+            return predicate;
         }
     }
 }

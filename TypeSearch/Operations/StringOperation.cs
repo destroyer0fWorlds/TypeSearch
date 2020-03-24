@@ -32,66 +32,42 @@ namespace TypeSearch.Operations
 
         }
 
-        /// <summary>
-        /// The property's value must contain the given value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> Contains(string value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateContainsCriteria(value));
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must not contain the given value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> DoesNotContain(string value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotContainsCriteria(value));
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must end with the given value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> EndsWith(string value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateEndsWithCriteria(value));
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must not end with the given value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> DoesNotEndWith(string value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotEndsWithCriteria(value));
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must start with the given value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> StartsWith(string value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateStartsWithCriteria(value));
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must not start with the given value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> DoesNotStartWith(string value)
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotStartsWithCriteria(value));

@@ -32,20 +32,14 @@ namespace TypeSearch.Operations
 
         }
 
-        /// <summary>
-        /// The property's value must be null
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> IsNull()
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateNullCriteria());
             return this.Filter;
         }
 
-        /// <summary>
-        /// The property's value must not be null
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc />
         public FilterCriteria<T> IsNotNull()
         {
             this.Filter.Criteria.Add(this.CriteriaFactory.CreateNotNullCriteria());

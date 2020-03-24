@@ -2,13 +2,29 @@
 
 namespace TypeSearch.Criteria.Factory
 {
+    /// <summary>
+    /// Factory responsible for creating filter criteria
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
     class CriteriaFactory<T, TResult> : ICriteriaFactory<T, TResult>
         where T : class
     {
+        /// <summary>
+        /// Logical operator
+        /// </summary>
         protected LogicalOperator Operator { get; private set; }
 
+        /// <summary>
+        /// Property name
+        /// </summary>
         protected string PropertyName { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CriteriaFactory{T, TResult}"/> class
+        /// </summary>
+        /// <param name="propertyName">Property name</param>
+        /// <param name="operator">Operator</param>
         public CriteriaFactory(string propertyName, LogicalOperator @operator)
         {
             this.PropertyName = propertyName;
