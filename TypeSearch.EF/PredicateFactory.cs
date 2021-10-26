@@ -1,20 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using TypeSearch.Criteria;
 
-namespace TypeSearch
+namespace TypeSearch.EF
 {
-    /// <summary>
-    /// Factory responsible for producing predicates
-    /// </summary>
     class PredicateFactory : IPredicateFactory
     {
-        /// <summary>
-        /// Create an operation specific predicate
-        /// </summary>
-        /// <param name="name">Parameterized property name</param>
-        /// <param name="value">Parameterized value</param>
-        /// <param name="operator">Operator</param>
-        /// <returns></returns>
         public string Create(string name, string value, SingleOperator @operator)
         {
             string predicate;
@@ -45,22 +37,22 @@ namespace TypeSearch
                     predicate = $"{name} != {value}";
                     break;
                 case SingleOperator.StartsWith:
-                    predicate = $"({name} == null ? string.Empty : {name}.ToString()).StartsWith({value})";
+                    predicate = $"DynamicFunctions.Like({name}, \"{value}%\")";
                     break;
                 case SingleOperator.EndsWith:
-                    predicate = $"({name} == null ? string.Empty : {name}.ToString()).EndsWith({value})";
+                    predicate = $"DynamicFunctions.Like({name}, \"%{value}\")";
                     break;
                 case SingleOperator.Like:
-                    predicate = $"({name} == null ? string.Empty : {name}.ToString()).Contains({value})";
+                    predicate = $"DynamicFunctions.Like({name}, \"%{value}%\")";
                     break;
                 case SingleOperator.DoesNotStartWith:
-                    predicate = $"!({name} == null ? string.Empty : {name}.ToString()).StartsWith({value})";
+                    predicate = $"!DynamicFunctions.Like({name}, \"{value}%\")";
                     break;
                 case SingleOperator.DoesNotEndWith:
-                    predicate = $"!({name} == null ? string.Empty : {name}.ToString()).EndsWith({value})";
+                    predicate = $"!DynamicFunctions.Like({name}, \"%{value}\")";
                     break;
                 case SingleOperator.NotLike:
-                    predicate = $"!({name} == null ? string.Empty : {name}.ToString()).Contains({value})";
+                    predicate = $"!DynamicFunctions.Like({name}, \"%{value}%\")";
                     break;
                 case SingleOperator.In:
                     predicate = $"{value}.Contains({name})";
@@ -74,14 +66,6 @@ namespace TypeSearch
             return predicate;
         }
 
-        /// <summary>
-        /// Create an operation specific predicate
-        /// </summary>
-        /// <param name="name">Parameterized property name</param>
-        /// <param name="startValue">Parameterized start value</param>
-        /// <param name="endValue">Parameterized end value</param>
-        /// <param name="operator">Operator</param>
-        /// <returns></returns>
         public string Create(string name, string startValue, string endValue, RangeOperator @operator)
         {
             string predicate;

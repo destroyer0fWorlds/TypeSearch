@@ -1251,6 +1251,30 @@
             <param name="exp">Collection property name</param>
             <returns></returns>
         </member>
+        <member name="T:TypeSearch.IPredicateFactory">
+            <summary>
+            Factory responsible for producing predicates
+            </summary>
+        </member>
+        <member name="M:TypeSearch.IPredicateFactory.Create(System.String,System.String,TypeSearch.Criteria.SingleOperator)">
+            <summary>
+            Create an operation specific predicate
+            </summary>
+            <param name="name">Parameterized property name</param>
+            <param name="value">Parameterized value</param>
+            <param name="operator">Operator</param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.IPredicateFactory.Create(System.String,System.String,System.String,TypeSearch.Criteria.RangeOperator)">
+            <summary>
+            Create an operation specific predicate
+            </summary>
+            <param name="name">Parameterized property name</param>
+            <param name="startValue">Parameterized start value</param>
+            <param name="endValue">Parameterized end value</param>
+            <param name="operator">Operator</param>
+            <returns></returns>
+        </member>
         <member name="T:TypeSearch.LogicalOperator">
             <summary>
             And/Or conditional logic
@@ -2052,6 +2076,13 @@
             Initializes a new instance of the <see cref="T:TypeSearch.Searcher`1"/> class
             </summary>
             <param name="dataSet">Dataset to search</param>
+        </member>
+        <member name="M:TypeSearch.Searcher`1.#ctor(System.Linq.IQueryable{`0},TypeSearch.IPredicateFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TypeSearch.Searcher`1"/> class
+            </summary>
+            <param name="dataSet">Dataset to search</param>
+            <param name="predicateFactory">Custom predicate factory</param>
         </member>
         <member name="M:TypeSearch.Searcher`1.Search(TypeSearch.SearchDefinition{`0})">
             <summary>

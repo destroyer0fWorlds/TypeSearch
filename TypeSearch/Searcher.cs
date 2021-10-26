@@ -19,6 +19,7 @@ namespace TypeSearch
         private IQueryable<T> _dataSet;
         private Dictionary<string, object> _preParams;
         private Dictionary<string, object> _whereParams;
+        private IPredicateFactory _predicateFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Searcher{T}"/> class
@@ -29,6 +30,20 @@ namespace TypeSearch
             _dataSet = dataSet;
             _preParams = new Dictionary<string, object>();
             _whereParams = new Dictionary<string, object>();
+            _predicateFactory = new PredicateFactory();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Searcher{T}"/> class
+        /// </summary>
+        /// <param name="dataSet">Dataset to search</param>
+        /// <param name="predicateFactory">Custom predicate factory</param>
+        public Searcher(IQueryable<T> dataSet, IPredicateFactory predicateFactory)
+        {
+            _dataSet = dataSet;
+            _preParams = new Dictionary<string, object>();
+            _whereParams = new Dictionary<string, object>();
+            _predicateFactory = predicateFactory;
         }
 
         /// <summary>
@@ -43,6 +58,8 @@ namespace TypeSearch
             var page = searchDefinition.Page;
             var recordsPerPage = searchDefinition.RecordsPerPage;
 
+            var config = new ParsingConfig { ResolveTypesBySimpleName = true };
+
             // Pre-filter
             var prePredicate = this.CreateWherePredicate(searchDefinition.PreFilter?.Criteria);
             if (prePredicate != null)
@@ -50,7 +67,7 @@ namespace TypeSearch
                 _preParams = new Dictionary<string, object>(_whereParams);
                 _whereParams = new Dictionary<string, object>();
                 object[] parameters = _preParams.Values.ToArray();
-                _dataSet = _dataSet.Where(prePredicate, parameters);
+                _dataSet = _dataSet.Where(config, prePredicate, parameters);
             }
 
             int totalRecordCount = _dataSet.Count();
@@ -60,7 +77,7 @@ namespace TypeSearch
             if (wherePredicate != null)
             {
                 object[] parameters = _whereParams.Values.ToArray();
-                _dataSet = _dataSet.Where(wherePredicate, parameters);
+                _dataSet = _dataSet.Where(config, wherePredicate, parameters);
             }
 
             int filteredRecordCount = _dataSet.Count();
@@ -100,6 +117,8 @@ namespace TypeSearch
             // Sanitize the input
             if (searchDefinition == null) { searchDefinition = new SearchDefinition<T>(); }
 
+            var config = new ParsingConfig { ResolveTypesBySimpleName = true };
+
             // Pre-filter
             var prePredicate = this.CreateWherePredicate(searchDefinition.PreFilter?.Criteria);
             if (prePredicate != null)
@@ -107,7 +126,7 @@ namespace TypeSearch
                 _preParams = new Dictionary<string, object>(_whereParams);
                 _whereParams = new Dictionary<string, object>();
                 object[] parameters = _preParams.Values.ToArray();
-                _dataSet = _dataSet.Where(prePredicate, parameters);
+                _dataSet = _dataSet.Where(config, prePredicate, parameters);
             }
 
             // Filter
@@ -115,7 +134,7 @@ namespace TypeSearch
             if (wherePredicate != null)
             {
                 object[] parameters = _whereParams.Values.ToArray();
-                _dataSet = _dataSet.Where(wherePredicate, parameters);
+                _dataSet = _dataSet.Where(config, wherePredicate, parameters);
             }
 
             return _dataSet.AsEnumerable<T>();
@@ -194,7 +213,7 @@ namespace TypeSearch
             var nameParam = this.EscapePropertyName(name);
             var collectionNameParam = this.EscapePropertyName(collectionName);
 
-            var predicate = PredicateFactory.Create(nameParam, valueParam, singleCriterion.Operator);
+            var predicate = _predicateFactory.Create(nameParam, valueParam, singleCriterion.Operator);
 
             if (!string.IsNullOrWhiteSpace(collectionName))
             {
@@ -224,7 +243,7 @@ namespace TypeSearch
             var nameParam = this.EscapePropertyName(name);
             var collectionNameParam = this.EscapePropertyName(collectionName);
 
-            var predicate = PredicateFactory.Create(nameParam, startValueParam, endValueParam, rangeCriterion.Operator);
+            var predicate = _predicateFactory.Create(nameParam, startValueParam, endValueParam, rangeCriterion.Operator);
             
             if (!string.IsNullOrWhiteSpace(collectionName))
             {
