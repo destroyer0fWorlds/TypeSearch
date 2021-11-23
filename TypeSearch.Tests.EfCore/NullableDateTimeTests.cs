@@ -783,7 +783,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchResults = new Searcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.ToString().Contains("2007"));
+                var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.GetValueOrDefault(new DateTime()).ToString().Contains("2007"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -853,7 +853,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchResults = new Searcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.ToString().StartsWith("2007"));
+                var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.GetValueOrDefault(new DateTime()).ToString().StartsWith("2007"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -923,7 +923,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchResults = new Searcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.ToString().EndsWith("PM"));
+                var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.GetValueOrDefault(new DateTime()).ToString().EndsWith("PM"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);

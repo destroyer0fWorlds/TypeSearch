@@ -433,7 +433,7 @@ namespace TypeSearch.Tests.EfCore
         {
             // Arrange
             var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NullableBool_NotIn_Search")
+                .UseInMemoryDatabase("NullableBool_Contains_Search")
                 .Options;
 
             using (var context = new TestContext(options))
@@ -468,7 +468,7 @@ namespace TypeSearch.Tests.EfCore
         {
             // Arrange
             var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NullableBool_NotIn_Search")
+                .UseInMemoryDatabase("NullableBool_DoesNotContain_Search")
                 .Options;
 
             using (var context = new TestContext(options))
@@ -489,7 +489,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchResults = new Searcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => !i.NullableBoolProperty.ToString().Contains("ru"));
+                var expectedResults = context.TestEntities.Where(i => !i.NullableBoolProperty.GetValueOrDefault(false).ToString().Contains("ru"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -503,7 +503,7 @@ namespace TypeSearch.Tests.EfCore
         {
             // Arrange
             var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NullableBool_NotIn_Search")
+                .UseInMemoryDatabase("NullableBool_StartsWith_Search")
                 .Options;
 
             using (var context = new TestContext(options))
@@ -538,7 +538,7 @@ namespace TypeSearch.Tests.EfCore
         {
             // Arrange
             var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NullableBool_NotIn_Search")
+                .UseInMemoryDatabase("NullableBool_DoesNotStartWith_Search")
                 .Options;
 
             using (var context = new TestContext(options))
@@ -559,7 +559,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchResults = new Searcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => !i.NullableBoolProperty.ToString().StartsWith("t"));
+                var expectedResults = context.TestEntities.Where(i => !i.NullableBoolProperty.GetValueOrDefault(false).ToString().StartsWith("t"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -573,7 +573,7 @@ namespace TypeSearch.Tests.EfCore
         {
             // Arrange
             var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NullableBool_NotIn_Search")
+                .UseInMemoryDatabase("NullableBool_EndsWith_Search")
                 .Options;
 
             using (var context = new TestContext(options))
@@ -608,7 +608,7 @@ namespace TypeSearch.Tests.EfCore
         {
             // Arrange
             var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NullableBool_NotIn_Search")
+                .UseInMemoryDatabase("NullableBool_DoesNotEndWith_Search")
                 .Options;
 
             using (var context = new TestContext(options))
@@ -629,7 +629,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchResults = new Searcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => !i.NullableBoolProperty.ToString().EndsWith("ue"));
+                var expectedResults = context.TestEntities.Where(i => !i.NullableBoolProperty.GetValueOrDefault(false).ToString().EndsWith("ue"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
