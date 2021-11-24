@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -49,7 +50,7 @@ namespace TypeSearch.Tests.EfCore
                 context.SaveChanges();
 
                 // Act
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(new SearchDefinition<TestEntity>());
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(new SearchDefinition<TestEntity>());
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -98,7 +99,7 @@ namespace TypeSearch.Tests.EfCore
                 context.SaveChanges();
 
                 // Act
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(null);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(null);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -153,7 +154,7 @@ namespace TypeSearch.Tests.EfCore
                     PreFilter = new FilterCriteria<TestEntity>(),
                     Sort = new SortCriteria<TestEntity>()
                 };
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -208,7 +209,7 @@ namespace TypeSearch.Tests.EfCore
                     PreFilter = null,
                     Sort = null
                 };
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -258,7 +259,7 @@ namespace TypeSearch.Tests.EfCore
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { RecordsPerPage = 1 };
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -310,7 +311,7 @@ namespace TypeSearch.Tests.EfCore
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { Page = 1 };
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -362,7 +363,7 @@ namespace TypeSearch.Tests.EfCore
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { Page = 9, RecordsPerPage = 50 };
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
@@ -414,7 +415,7 @@ namespace TypeSearch.Tests.EfCore
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { Page = -7, RecordsPerPage = -49 };
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Skip(-7)
@@ -449,12 +450,12 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition4 = new SearchDefinition<TestEntity>() { Page = 3, RecordsPerPage = 50 }; // 151-200
                 var searchDefinition5 = new SearchDefinition<TestEntity>() { Page = 4, RecordsPerPage = 50 }; // 201-250
                 var searchDefinition6 = new SearchDefinition<TestEntity>() { Page = 5, RecordsPerPage = 50 }; // 251-300
-                var searchResults1 = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition1);
-                var searchResults2 = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition2);
-                var searchResults3 = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition3);
-                var searchResults4 = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition4);
-                var searchResults5 = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition5);
-                var searchResults6 = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition6);
+                var searchResults1 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition1);
+                var searchResults2 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition2);
+                var searchResults3 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition3);
+                var searchResults4 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition4);
+                var searchResults5 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition5);
+                var searchResults6 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition6);
                 var recombinedDataset = new List<TestEntity>();
                 recombinedDataset.AddRange(searchResults1.ResultSet);
                 recombinedDataset.AddRange(searchResults2.ResultSet);

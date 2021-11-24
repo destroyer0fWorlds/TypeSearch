@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -30,7 +31,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).IsEqualTo("tom");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 // Assert

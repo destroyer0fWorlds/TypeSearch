@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -26,7 +27,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsEqualTo(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty == null);
@@ -56,7 +57,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsNotEqualTo(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty != null);
@@ -86,7 +87,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).In(new bool?[] { null });
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => new bool?[] { null }.Contains(i.NullableBoolProperty));
@@ -116,7 +117,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).NotIn(new bool?[] { null });
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !(new bool?[] { null }.Contains(i.NullableBoolProperty)));
@@ -146,7 +147,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsTrue();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty == true);
@@ -176,7 +177,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsFalse();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty == false);
@@ -206,7 +207,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsNull();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty == null);
@@ -236,7 +237,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsNotNull();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty != null);
@@ -266,7 +267,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsEqualTo(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty == true);
@@ -296,7 +297,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).IsNotEqualTo(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty != true);
@@ -326,7 +327,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).In(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => new bool?[] { true }.Contains(i.NullableBoolProperty));
@@ -356,7 +357,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).NotIn(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !(new bool?[] { true }.Contains(i.NullableBoolProperty)));
@@ -386,7 +387,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).Contains("ru");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty.ToString().Contains("ru"));
@@ -416,7 +417,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).DoesNotContain("ru");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.NullableBoolProperty.ToString().Contains("ru"));
@@ -446,7 +447,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).StartsWith("t");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty.ToString().StartsWith("t"));
@@ -476,7 +477,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).DoesNotStartWith("t");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.NullableBoolProperty.ToString().StartsWith("t"));
@@ -506,7 +507,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).EndsWith("ue");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableBoolProperty.ToString().EndsWith("ue"));
@@ -536,7 +537,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableBoolProperty).DoesNotEndWith("ue");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.NullableBoolProperty.ToString().EndsWith("ue"));

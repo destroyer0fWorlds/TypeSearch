@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -28,7 +29,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>(page: 3, recordsPerPage: 1);
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsTrue();
-                var filterResults = new Searcher<TestEntity>(context.TestEntities).Filter(searchDefinition);
+                var filterResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Filter(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.BoolProperty);
 
@@ -60,7 +61,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsTrue();
                 searchDefinition.Sort.DescendingBy(i => i.IntProperty);
-                var filterResults = new Searcher<TestEntity>(context.TestEntities).Filter(searchDefinition);
+                var filterResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Filter(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.BoolProperty)

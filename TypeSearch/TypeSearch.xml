@@ -1995,30 +1995,6 @@
         <member name="M:TypeSearch.Operations.StringOperation`2.DoesNotStartWith(System.String)">
             <inheritdoc />
         </member>
-        <member name="T:TypeSearch.PredicateFactory">
-            <summary>
-            Factory responsible for producing predicates
-            </summary>
-        </member>
-        <member name="M:TypeSearch.PredicateFactory.Create(System.String,System.String,TypeSearch.Criteria.SingleOperator)">
-            <summary>
-            Create an operation specific predicate
-            </summary>
-            <param name="name">Parameterized property name</param>
-            <param name="value">Parameterized value</param>
-            <param name="operator">Operator</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.PredicateFactory.Create(System.String,System.String,System.String,TypeSearch.Criteria.RangeOperator)">
-            <summary>
-            Create an operation specific predicate
-            </summary>
-            <param name="name">Parameterized property name</param>
-            <param name="startValue">Parameterized start value</param>
-            <param name="endValue">Parameterized end value</param>
-            <param name="operator">Operator</param>
-            <returns></returns>
-        </member>
         <member name="T:TypeSearch.SearchDefinition`1">
             <summary>
             Search definition
@@ -2077,12 +2053,14 @@
             </summary>
             <param name="dataSet">Dataset to search</param>
         </member>
-        <member name="M:TypeSearch.Searcher`1.#ctor(System.Linq.IQueryable{`0},TypeSearch.IPredicateFactory)">
+        <member name="M:TypeSearch.Searcher`1.#ctor(System.Linq.IQueryable{`0},System.Linq.Dynamic.Core.ParsingConfig,TypeSearch.IPredicateFactory,TypeSearch.Criteria.ICriterionFormatter{`0})">
             <summary>
             Initializes a new instance of the <see cref="T:TypeSearch.Searcher`1"/> class
             </summary>
             <param name="dataSet">Dataset to search</param>
+            <param name="parsingConfig"></param>
             <param name="predicateFactory">Custom predicate factory</param>
+            <param name="criterionFormatter"></param>
         </member>
         <member name="M:TypeSearch.Searcher`1.Search(TypeSearch.SearchDefinition{`0})">
             <summary>
@@ -2132,20 +2110,6 @@
             </summary>
             <param name="pageNumber">Zero indexed page number</param>
             <param name="recordsPerPage">Number of records to return per page</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.Searcher`1.ParameterizeValue(System.Object)">
-            <summary>
-            Parameterize the predicate value
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.Searcher`1.EscapePropertyName(System.String)">
-            <summary>
-            Escape property names to avoid conflicts
-            </summary>
-            <param name="propertyName"></param>
             <returns></returns>
         </member>
         <member name="T:TypeSearch.SearchResult`1">

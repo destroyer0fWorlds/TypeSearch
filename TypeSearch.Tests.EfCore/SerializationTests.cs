@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using Newtonsoft.Json;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -46,7 +47,7 @@ namespace TypeSearch.Tests.EfCore
                 var jsonString = JsonConvert.SerializeObject(searchDefinition);
                 var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -96,7 +97,7 @@ namespace TypeSearch.Tests.EfCore
                 var jsonString = JsonConvert.SerializeObject(searchDefinition);
                 var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -148,7 +149,7 @@ namespace TypeSearch.Tests.EfCore
                 var jsonString = JsonConvert.SerializeObject(searchDefinition);
                 var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -203,7 +204,7 @@ namespace TypeSearch.Tests.EfCore
                 var jsonString = JsonConvert.SerializeObject(searchDefinition);
                 var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
 
                 var preFilteredResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -287,7 +288,7 @@ namespace TypeSearch.Tests.EfCore
                 var jsonString = JsonConvert.SerializeObject(searchDefinition);
                 var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.ByteProperty < 100 || i.StringProperty.Contains("Bond"))
@@ -360,7 +361,7 @@ namespace TypeSearch.Tests.EfCore
                 var jsonString = JsonConvert.SerializeObject(searchDefinition);
                 var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.ByteProperty > 100 && i.BoolProperty)
@@ -439,7 +440,7 @@ namespace TypeSearch.Tests.EfCore
                 var jsonString = JsonConvert.SerializeObject(searchDefinition);
                 var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(jsonDefintion);
 
                 var expectedResults = context.TestEntities
                     .Where(i => (i.IntProperty == 1 && i.ByteProperty == 221) || (i.IntProperty == 1 && i.ByteProperty == 123))

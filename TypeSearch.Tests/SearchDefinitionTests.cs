@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -41,7 +42,7 @@ namespace TypeSearch.Tests
             };
 
             // Act
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(new SearchDefinition<TestEntity>());
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(new SearchDefinition<TestEntity>());
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -82,7 +83,7 @@ namespace TypeSearch.Tests
             };
 
             // Act
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(null);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(null);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -129,7 +130,7 @@ namespace TypeSearch.Tests
                 PreFilter = new FilterCriteria<TestEntity>(),
                 Sort = new SortCriteria<TestEntity>()
             };
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -176,7 +177,7 @@ namespace TypeSearch.Tests
                 PreFilter = null,
                 Sort = null
             };
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -218,7 +219,7 @@ namespace TypeSearch.Tests
 
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>() { RecordsPerPage = 1 };
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -262,7 +263,7 @@ namespace TypeSearch.Tests
 
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>() { Page = 1 };
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -306,7 +307,7 @@ namespace TypeSearch.Tests
 
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>() { Page = 9, RecordsPerPage = 50 };
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             // Assert
             Assert.NotNull(searchResults.ResultSet);
@@ -350,7 +351,7 @@ namespace TypeSearch.Tests
 
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>() { Page = -7, RecordsPerPage = -49 };
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .Skip(-7)
@@ -382,12 +383,12 @@ namespace TypeSearch.Tests
             var searchDefinition4 = new SearchDefinition<TestEntity>() { Page = 3, RecordsPerPage = 50 }; // 151-200
             var searchDefinition5 = new SearchDefinition<TestEntity>() { Page = 4, RecordsPerPage = 50 }; // 201-250
             var searchDefinition6 = new SearchDefinition<TestEntity>() { Page = 5, RecordsPerPage = 50 }; // 251-300
-            var searchResults1 = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition1);
-            var searchResults2 = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition2);
-            var searchResults3 = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition3);
-            var searchResults4 = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition4);
-            var searchResults5 = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition5);
-            var searchResults6 = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition6);
+            var searchResults1 = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition1);
+            var searchResults2 = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition2);
+            var searchResults3 = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition3);
+            var searchResults4 = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition4);
+            var searchResults5 = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition5);
+            var searchResults6 = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition6);
             var recombinedDataset = new List<TestEntity>();
             recombinedDataset.AddRange(searchResults1.ResultSet);
             recombinedDataset.AddRange(searchResults2.ResultSet);

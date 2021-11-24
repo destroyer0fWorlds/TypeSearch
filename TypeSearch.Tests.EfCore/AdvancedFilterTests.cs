@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -40,7 +41,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -86,7 +87,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
                 searchDefinition.Filter.Where(i => i.ByteProperty).GreaterThan(100);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -134,7 +135,7 @@ namespace TypeSearch.Tests.EfCore
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
                 searchDefinition.Filter.Where(i => i.ByteProperty).GreaterThan(100);
                 searchDefinition.Sort.DescendingBy(i => i.ByteProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -185,7 +186,7 @@ namespace TypeSearch.Tests.EfCore
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
                 searchDefinition.Filter.Where(i => i.ByteProperty).GreaterThan(100);
                 searchDefinition.Sort.DescendingBy(i => i.ByteProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var preFilteredResults = context.TestEntities
                     .Where(i => i.BoolProperty)
@@ -265,7 +266,7 @@ namespace TypeSearch.Tests.EfCore
                 searchDefinition.Filter
                     .Where(i => i.ByteProperty).LessThan(100)
                     .Or(i => i.StringProperty).Contains("Bond");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.ByteProperty < 100 || i.StringProperty.Contains("Bond"))
@@ -334,7 +335,7 @@ namespace TypeSearch.Tests.EfCore
                 searchDefinition.Filter
                     .Where(i => i.ByteProperty).GreaterThan(100)
                     .And(i => i.BoolProperty).IsTrue();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Where(i => i.ByteProperty > 100 && i.BoolProperty)
@@ -409,7 +410,7 @@ namespace TypeSearch.Tests.EfCore
                         .Where(i => i.IntProperty).IsEqualTo(1)
                         .And(i => i.ByteProperty).IsEqualTo(123)
                     );
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .Where(i => (i.IntProperty == 1 && i.ByteProperty == 221) || (i.IntProperty == 1 && i.ByteProperty == 123))

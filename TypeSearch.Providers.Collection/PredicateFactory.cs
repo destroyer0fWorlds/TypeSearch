@@ -1,20 +1,10 @@
 ﻿using System;
 using TypeSearch.Criteria;
 
-namespace TypeSearch
+namespace TypeSearch.Providers.Collection
 {
-    /// <summary>
-    /// Factory responsible for producing predicates
-    /// </summary>
     class PredicateFactory : IPredicateFactory
     {
-        /// <summary>
-        /// Create an operation specific predicate
-        /// </summary>
-        /// <param name="name">Parameterized property name</param>
-        /// <param name="value">Parameterized value</param>
-        /// <param name="operator">Operator</param>
-        /// <returns></returns>
         public string Create(string name, string value, SingleOperator @operator)
         {
             string predicate;
@@ -74,14 +64,6 @@ namespace TypeSearch
             return predicate;
         }
 
-        /// <summary>
-        /// Create an operation specific predicate
-        /// </summary>
-        /// <param name="name">Parameterized property name</param>
-        /// <param name="startValue">Parameterized start value</param>
-        /// <param name="endValue">Parameterized end value</param>
-        /// <param name="operator">Operator</param>
-        /// <returns></returns>
         public string Create(string name, string startValue, string endValue, RangeOperator @operator)
         {
             string predicate;

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -25,7 +26,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).IsEqualTo(new DateTime(2007, 7, 21));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty == new DateTime(2007, 7, 21));
@@ -53,7 +54,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).IsNotEqualTo(new DateTime(2007, 7, 21));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty != new DateTime(2007, 7, 21));
@@ -84,7 +85,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).In(two, three, four);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => new DateTime[] { two, three, four }.Contains(i.DateTimeProperty));
@@ -115,7 +116,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).NotIn(two, three, four);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !(new DateTime[] { two, three, four }.Contains(i.DateTimeProperty)));
@@ -143,7 +144,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).GreaterThan(new DateTime(2007, 7, 21));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty > new DateTime(2007, 7, 21));
@@ -171,7 +172,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).GreaterThanOrEqualTo(new DateTime(2007, 7, 21));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty >= new DateTime(2007, 7, 21));
@@ -199,7 +200,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).LessThan(new DateTime(2007, 7, 21));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty < new DateTime(2007, 7, 21));
@@ -227,7 +228,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).LessThanOrEqualTo(new DateTime(2007, 7, 21));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty <= new DateTime(2007, 7, 21));
@@ -255,7 +256,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).Between(new DateTime(2004, 6, 10), new DateTime(2012, 9, 15));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             // Assert
@@ -282,7 +283,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).NotBetween(new DateTime(2004, 6, 10), new DateTime(2012, 9, 15));
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             // Assert
@@ -309,7 +310,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).Contains("2007");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty.ToString().Contains("2007"));
@@ -337,7 +338,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).DoesNotContain("2007");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.DateTimeProperty.ToString().Contains("2007"));
@@ -365,7 +366,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).StartsWith("2007");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty.ToString().StartsWith("2007"));
@@ -393,7 +394,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).DoesNotStartWith("2007");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.DateTimeProperty.ToString().StartsWith("2007"));
@@ -421,7 +422,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).EndsWith("PM");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTimeProperty.ToString().EndsWith("PM"));
@@ -449,7 +450,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTimeProperty).DoesNotEndWith("PM");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.DateTimeProperty.ToString().EndsWith("PM"));

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -29,7 +30,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).IsEqualTo("Tom");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.StringProperty == "Tom");
@@ -62,7 +63,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).IsNotEqualTo("Tom");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.StringProperty != "Tom");
@@ -95,7 +96,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).In("Tom", "Harry", "Pete");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => new string[] { "Tom", "Harry", "Pete" }.Contains(i.StringProperty));
@@ -128,7 +129,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).NotIn("Tom", "Harry", "Pete");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(new string[] { "Tom", "Harry", "Pete" }.Contains(i.StringProperty)));
@@ -161,7 +162,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).Contains("o");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => (i.StringProperty ?? string.Empty).Contains("o"));
@@ -194,7 +195,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).StartsWith("T");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => (i.StringProperty ?? string.Empty).StartsWith("T"));
@@ -227,7 +228,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).EndsWith("m");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => (i.StringProperty ?? string.Empty).EndsWith("m"));
@@ -260,7 +261,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).DoesNotContain("o");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(i.StringProperty ?? string.Empty).Contains("o"));
@@ -293,7 +294,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).DoesNotStartWith("T");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(i.StringProperty ?? string.Empty).StartsWith("T"));
@@ -326,7 +327,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).DoesNotEndWith("m");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(i.StringProperty ?? string.Empty).EndsWith("m"));
@@ -359,7 +360,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).IsNull();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.StringProperty == null);
@@ -392,7 +393,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).IsNotNull();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.StringProperty != null);

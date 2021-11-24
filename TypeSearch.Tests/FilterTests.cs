@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -23,7 +24,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>(page: 3, recordsPerPage: 1);
             searchDefinition.Filter.Where(i => i.BoolProperty).IsTrue();
-            var filterResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Filter(searchDefinition);
+            var filterResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Filter(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty);
 
@@ -50,7 +51,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter.Where(i => i.BoolProperty).IsTrue();
             searchDefinition.Sort.DescendingBy(i => i.IntProperty);
-            var filterResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Filter(searchDefinition);
+            var filterResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Filter(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty);
 

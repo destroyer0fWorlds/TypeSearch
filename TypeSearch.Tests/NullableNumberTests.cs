@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -27,7 +28,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).IsEqualTo(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty == null);
@@ -58,7 +59,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).IsNotEqualTo(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty != null);
@@ -89,7 +90,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).In(new int?[] { null });
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => new int?[] { null }.Contains(i.NullableIntProperty));
@@ -120,7 +121,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).NotIn(new int?[] { null });
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !(new int?[] { null }.Contains(i.NullableIntProperty)));
@@ -151,7 +152,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).IsNull();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty == null);
@@ -182,7 +183,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).IsNotNull();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty != null);
@@ -213,7 +214,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).GreaterThan(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty > null);
@@ -244,7 +245,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).GreaterThanOrEqualTo(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty >= null);
@@ -275,7 +276,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).LessThan(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty < null);
@@ -305,7 +306,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).LessThanOrEqualTo(null);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty <= null);
@@ -336,7 +337,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).IsEqualTo(3);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty == 3);
@@ -367,7 +368,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).IsNotEqualTo(3);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty != 3);
@@ -398,7 +399,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).In(2, 3, 4);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => new int?[] { 2, 3, 4 }.Contains(i.NullableIntProperty));
@@ -429,7 +430,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).NotIn(2, 3, 4);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !(new int?[] { 2, 3, 4 }.Contains(i.NullableIntProperty)));
@@ -460,7 +461,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).GreaterThan(3);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty > 3);
@@ -491,7 +492,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).GreaterThanOrEqualTo(3);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty >= 3);
@@ -522,7 +523,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).LessThan(3);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty < 3);
@@ -553,7 +554,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).LessThanOrEqualTo(3);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty <= 3);
@@ -584,7 +585,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).Between(2, 4);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             // Assert
@@ -614,7 +615,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).NotBetween(2, 4);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             // Assert
@@ -644,7 +645,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).Contains("3");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty.ToString().Contains("3"));
@@ -675,7 +676,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).DoesNotContain("3");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.NullableIntProperty.ToString().Contains("3"));
@@ -706,7 +707,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).StartsWith("1");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty.ToString().StartsWith("1"));
@@ -737,7 +738,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).DoesNotStartWith("1");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.NullableIntProperty.ToString().StartsWith("1"));
@@ -768,7 +769,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).EndsWith("3");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.NullableIntProperty.ToString().EndsWith("3"));
@@ -799,7 +800,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.NullableIntProperty).DoesNotEndWith("3");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.NullableIntProperty.ToString().EndsWith("3"));

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -24,7 +25,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.StringProperty).IsEqualTo("tom");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.StringProperty == "tom");

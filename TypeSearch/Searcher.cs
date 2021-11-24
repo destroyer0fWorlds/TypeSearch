@@ -13,13 +13,18 @@ namespace TypeSearch
     /// <remarks>
     /// For reference: https://github.com/StefH/System.Linq.Dynamic.Core/wiki/Dynamic-Expressions
     /// </remarks>
-    public class Searcher<T> 
+    public abstract class Searcher<T> 
         where T : class
     {
-        private IQueryable<T> _dataSet;
-        private Dictionary<string, object> _preParams;
-        private Dictionary<string, object> _whereParams;
-        private IPredicateFactory _predicateFactory;
+        protected IQueryable<T> _dataSet;
+        protected Dictionary<string, object> _preParams;
+        protected Dictionary<string, object> _whereParams;
+
+        protected ParsingConfig ParsingConfig { get; set; }
+
+        protected IPredicateFactory PredicateFactory { get; set; }
+
+        protected ICriterionFormatter<T> CriterionFormatter { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Searcher{T}"/> class
@@ -30,20 +35,28 @@ namespace TypeSearch
             _dataSet = dataSet;
             _preParams = new Dictionary<string, object>();
             _whereParams = new Dictionary<string, object>();
-            _predicateFactory = new PredicateFactory();
+            this.ParsingConfig = ParsingConfig.Default;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Searcher{T}"/> class
         /// </summary>
         /// <param name="dataSet">Dataset to search</param>
+        /// <param name="parsingConfig"></param>
         /// <param name="predicateFactory">Custom predicate factory</param>
-        public Searcher(IQueryable<T> dataSet, IPredicateFactory predicateFactory)
+        /// <param name="criterionFormatter"></param>
+        public Searcher(IQueryable<T> dataSet,
+            ParsingConfig parsingConfig,
+            IPredicateFactory predicateFactory, 
+            ICriterionFormatter<T> criterionFormatter)
         {
             _dataSet = dataSet;
             _preParams = new Dictionary<string, object>();
             _whereParams = new Dictionary<string, object>();
-            _predicateFactory = predicateFactory;
+
+            this.ParsingConfig = parsingConfig;
+            this.PredicateFactory = predicateFactory;
+            this.CriterionFormatter = criterionFormatter;
         }
 
         /// <summary>
@@ -51,23 +64,24 @@ namespace TypeSearch
         /// </summary>
         /// <param name="searchDefinition">Search definition</param>
         /// <returns></returns>
-        public SearchResult<T> Search(SearchDefinition<T> searchDefinition)
+        public virtual SearchResult<T> Search(SearchDefinition<T> searchDefinition)
         {
             // Sanitize the input
             if (searchDefinition == null) { searchDefinition = new SearchDefinition<T>(); }
             var page = searchDefinition.Page;
             var recordsPerPage = searchDefinition.RecordsPerPage;
 
-            var config = new ParsingConfig { ResolveTypesBySimpleName = true };
-
             // Pre-filter
             var prePredicate = this.CreateWherePredicate(searchDefinition.PreFilter?.Criteria);
             if (prePredicate != null)
             {
                 _preParams = new Dictionary<string, object>(_whereParams);
-                _whereParams = new Dictionary<string, object>();
                 object[] parameters = _preParams.Values.ToArray();
-                _dataSet = _dataSet.Where(config, prePredicate, parameters);
+                _dataSet = _dataSet.Where(this.ParsingConfig, prePredicate, parameters);
+
+                // Clear the parameters for the next filter
+                _whereParams = new Dictionary<string, object>();
+                this.CriterionFormatter.ResetCount();
             }
 
             int totalRecordCount = _dataSet.Count();
@@ -77,7 +91,7 @@ namespace TypeSearch
             if (wherePredicate != null)
             {
                 object[] parameters = _whereParams.Values.ToArray();
-                _dataSet = _dataSet.Where(config, wherePredicate, parameters);
+                _dataSet = _dataSet.Where(this.ParsingConfig, wherePredicate, parameters);
             }
 
             int filteredRecordCount = _dataSet.Count();
@@ -112,12 +126,10 @@ namespace TypeSearch
         /// </summary>
         /// <param name="searchDefinition">Search definition</param>
         /// <returns></returns>
-        public IEnumerable<T> Filter(SearchDefinition<T> searchDefinition)
+        public virtual IEnumerable<T> Filter(SearchDefinition<T> searchDefinition)
         {
             // Sanitize the input
             if (searchDefinition == null) { searchDefinition = new SearchDefinition<T>(); }
-
-            var config = new ParsingConfig { ResolveTypesBySimpleName = true };
 
             // Pre-filter
             var prePredicate = this.CreateWherePredicate(searchDefinition.PreFilter?.Criteria);
@@ -126,7 +138,7 @@ namespace TypeSearch
                 _preParams = new Dictionary<string, object>(_whereParams);
                 _whereParams = new Dictionary<string, object>();
                 object[] parameters = _preParams.Values.ToArray();
-                _dataSet = _dataSet.Where(config, prePredicate, parameters);
+                _dataSet = _dataSet.Where(this.ParsingConfig, prePredicate, parameters);
             }
 
             // Filter
@@ -134,7 +146,7 @@ namespace TypeSearch
             if (wherePredicate != null)
             {
                 object[] parameters = _whereParams.Values.ToArray();
-                _dataSet = _dataSet.Where(config, wherePredicate, parameters);
+                _dataSet = _dataSet.Where(this.ParsingConfig, wherePredicate, parameters);
             }
 
             return _dataSet.AsEnumerable<T>();
@@ -145,7 +157,7 @@ namespace TypeSearch
         /// </summary>
         /// <param name="whereCriteria">Where criteria</param>
         /// <returns></returns>
-        private string CreateWherePredicate(List<CriteriaContainer<T>> whereCriteria)
+        protected virtual string CreateWherePredicate(List<CriteriaContainer<T>> whereCriteria)
         {
             // Validate the input
             if (whereCriteria == null || !whereCriteria.Any()) { return null; }
@@ -199,9 +211,8 @@ namespace TypeSearch
         /// </summary>
         /// <param name="singleCriterion">Single field/value criterion</param>
         /// <returns></returns>
-        private string ParseSingleCriterion(SingleCriterion<T> singleCriterion)
+        protected virtual string ParseSingleCriterion(SingleCriterion<T> singleCriterion)
         {
-            var collectionName = singleCriterion.CollectionName;
             var name = singleCriterion.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -209,14 +220,17 @@ namespace TypeSearch
             }
 
             // Escape the names and parameterize the values
-            var valueParam = this.ParameterizeValue(singleCriterion.Value);
-            var nameParam = this.EscapePropertyName(name);
-            var collectionNameParam = this.EscapePropertyName(collectionName);
+            var valueParam = this.CriterionFormatter.GetParameterizedValue(singleCriterion);
+            var nameParam = this.CriterionFormatter.GetParameterizedName(singleCriterion);
 
-            var predicate = _predicateFactory.Create(nameParam, valueParam, singleCriterion.Operator);
+            _whereParams.Add(valueParam.Key, valueParam.Value);
+            var predicate = this.PredicateFactory.Create(nameParam, valueParam.Key, singleCriterion.Operator);
 
+            // Special logic for handling collections
+            var collectionName = singleCriterion.CollectionName;
             if (!string.IsNullOrWhiteSpace(collectionName))
             {
+                var collectionNameParam = this.CriterionFormatter.GetParameterizedCollectionName(singleCriterion);
                 predicate = $"{collectionNameParam}.Any({predicate})";
             }
 
@@ -228,9 +242,8 @@ namespace TypeSearch
         /// </summary>
         /// <param name="rangeCriterion">Range of value criteria</param>
         /// <returns></returns>
-        private string ParseRangeCriterion(RangeCriterion rangeCriterion)
+        protected virtual string ParseRangeCriterion(RangeCriterion rangeCriterion)
         {
-            var collectionName = rangeCriterion.CollectionName;
             var name = rangeCriterion.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -238,15 +251,21 @@ namespace TypeSearch
             }
 
             // Escape the names and parameterize the values
-            var startValueParam = this.ParameterizeValue(rangeCriterion.StartValue);
-            var endValueParam = this.ParameterizeValue(rangeCriterion.EndValue);
-            var nameParam = this.EscapePropertyName(name);
-            var collectionNameParam = this.EscapePropertyName(collectionName);
+            var startValueParam = this.CriterionFormatter.GetParameterizedStartValue(rangeCriterion);
+            _whereParams.Add(startValueParam.Key, startValueParam.Value);
 
-            var predicate = _predicateFactory.Create(nameParam, startValueParam, endValueParam, rangeCriterion.Operator);
-            
+            var endValueParam = this.CriterionFormatter.GetParameterizedEndValue(rangeCriterion);
+            _whereParams.Add(endValueParam.Key, endValueParam.Value);
+
+            var nameParam = this.CriterionFormatter.GetParameterizedName(rangeCriterion);
+
+            var predicate = this.PredicateFactory.Create(nameParam, startValueParam.Key, endValueParam.Key, rangeCriterion.Operator);
+
+            // Speacl logic for handling collections
+            var collectionName = rangeCriterion.CollectionName;
             if (!string.IsNullOrWhiteSpace(collectionName))
             {
+                var collectionNameParam = this.CriterionFormatter.GetParameterizedCollectionName(rangeCriterion);
                 predicate = $"{collectionNameParam}.Any({predicate})";
             }
 
@@ -258,7 +277,7 @@ namespace TypeSearch
         /// </summary>
         /// <param name="sortCriteria">Sort criteria</param>
         /// <returns></returns>
-        private string CreateSortPredicate(HashSet<SortCriterion> sortCriteria)
+        protected virtual string CreateSortPredicate(HashSet<SortCriterion> sortCriteria)
         {
             // Validate the input
             if (sortCriteria == null || !sortCriteria.Any()) { return null; }
@@ -273,9 +292,9 @@ namespace TypeSearch
                     throw new ArgumentNullException(nameof(SortCriterion.Name), "Property or column name cannot be null or empty.");
                 }
 
-                var propertyNameParam = this.EscapePropertyName(name);
+                var nameParam = this.CriterionFormatter.GetParameterizedName(sortCriterion);
                 var direction = sortCriterion.SortDirection == SortDirection.Ascending ? "ASC" : "DESC";
-                conditions.Add($"{propertyNameParam} {direction}");
+                conditions.Add($"{nameParam} {direction}");
             }
 
             return string.Join(", ", conditions);
@@ -287,7 +306,7 @@ namespace TypeSearch
         /// <param name="pageNumber">Zero indexed page number</param>
         /// <param name="recordsPerPage">Number of records to return per page</param>
         /// <returns></returns>
-        private IQueryable<T> Page(int pageNumber, int recordsPerPage)
+        protected virtual IQueryable<T> Page(int pageNumber, int recordsPerPage)
         {
             // Skip
             int skip = pageNumber * recordsPerPage;
@@ -297,28 +316,6 @@ namespace TypeSearch
             _dataSet = _dataSet.Take(recordsPerPage);
 
             return _dataSet;
-        }
-
-        /// <summary>
-        /// Parameterize the predicate value
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private string ParameterizeValue(object value)
-        {
-            var valueParam = $"@{_whereParams.Count}";
-            _whereParams.Add(valueParam, value);
-            return valueParam;
-        }
-
-        /// <summary>
-        /// Escape property names to avoid conflicts
-        /// </summary>
-        /// <param name="propertyName"></param>
-        /// <returns></returns>
-        private string EscapePropertyName(string propertyName)
-        {
-            return $"@{propertyName}";
         }
     }
 }

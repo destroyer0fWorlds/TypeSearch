@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -31,7 +32,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).IsEqualTo(new DateTime(2007, 7, 21));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty == new DateTime(2007, 7, 21));
@@ -66,7 +67,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).IsNotEqualTo(new DateTime(2007, 7, 21));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty != new DateTime(2007, 7, 21));
@@ -105,7 +106,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).In(two, three, four);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => new DateTime?[] { two, three, four }.Contains(i.NullableDateTimeProperty));
@@ -144,7 +145,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).NotIn(two, three, four);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(new DateTime?[] { two, three, four }.Contains(i.NullableDateTimeProperty)));
@@ -179,7 +180,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).GreaterThan(new DateTime(2007, 7, 21));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty > new DateTime(2007, 7, 21));
@@ -214,7 +215,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).GreaterThanOrEqualTo(new DateTime(2007, 7, 21));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty >= new DateTime(2007, 7, 21));
@@ -249,7 +250,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).LessThan(new DateTime(2007, 7, 21));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty < new DateTime(2007, 7, 21));
@@ -284,7 +285,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).LessThanOrEqualTo(new DateTime(2007, 7, 21));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty <= new DateTime(2007, 7, 21));
@@ -319,7 +320,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).Between(new DateTime(2004, 6, 10), new DateTime(2012, 9, 15));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 // Assert
@@ -353,7 +354,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).NotBetween(new DateTime(2004, 6, 10), new DateTime(2012, 9, 15));
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 // Assert
@@ -387,7 +388,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).IsEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty == null);
@@ -422,7 +423,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).IsNotEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty != null);
@@ -457,7 +458,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).IsNull();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty == null);
@@ -492,7 +493,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).IsNotNull();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty != null);
@@ -531,7 +532,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).In(new DateTime?[] { null });
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => new DateTime?[] { null }.Contains(i.NullableDateTimeProperty));
@@ -570,7 +571,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).NotIn(new DateTime?[] { null });
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(new DateTime?[] { null }.Contains(i.NullableDateTimeProperty)));
@@ -605,7 +606,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).GreaterThan(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty > null);
@@ -640,7 +641,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).GreaterThanOrEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty >= null);
@@ -675,7 +676,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).LessThan(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty < null);
@@ -710,7 +711,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).LessThanOrEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty <= null);
@@ -745,7 +746,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).Contains("2007");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty.ToString().Contains("2007"));
@@ -780,7 +781,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).DoesNotContain("2007");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.GetValueOrDefault(new DateTime()).ToString().Contains("2007"));
@@ -815,7 +816,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).StartsWith("2007");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty.ToString().StartsWith("2007"));
@@ -850,7 +851,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).DoesNotStartWith("2007");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.GetValueOrDefault(new DateTime()).ToString().StartsWith("2007"));
@@ -885,7 +886,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).EndsWith("PM");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableDateTimeProperty.ToString().EndsWith("PM"));
@@ -920,7 +921,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableDateTimeProperty).DoesNotEndWith("PM");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.NullableDateTimeProperty.GetValueOrDefault(new DateTime()).ToString().EndsWith("PM"));

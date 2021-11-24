@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -43,7 +44,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.IntProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.IntProperty).ToList();
 
@@ -91,7 +92,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.IntProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.IntProperty).ToList();
 
@@ -139,7 +140,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.DateTimeProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.DateTimeProperty).ToList();
 
@@ -187,7 +188,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.DateTimeProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.DateTimeProperty).ToList();
 
@@ -235,7 +236,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.BoolProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.BoolProperty).ToList();
 
@@ -283,7 +284,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.BoolProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.BoolProperty).ToList();
 
@@ -331,7 +332,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.StringProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.StringProperty).ToList();
 
@@ -379,7 +380,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.StringProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.StringProperty).ToList();
 
@@ -427,7 +428,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.GuidProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.GuidProperty).ToList();
 
@@ -475,7 +476,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.GuidProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.GuidProperty).ToList();
 
@@ -523,7 +524,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.NullableIntProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.NullableIntProperty).ToList();
 
@@ -571,7 +572,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.NullableIntProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.NullableIntProperty).ToList();
 
@@ -619,7 +620,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.NullableDateTimeProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.NullableDateTimeProperty).ToList();
 
@@ -667,7 +668,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.NullableDateTimeProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.NullableDateTimeProperty).ToList();
 
@@ -715,7 +716,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.NullableBoolProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.NullableBoolProperty).ToList();
 
@@ -763,7 +764,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.NullableBoolProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.NullableBoolProperty).ToList();
 
@@ -811,7 +812,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.StringProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.StringProperty).ToList();
 
@@ -859,7 +860,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.StringProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.StringProperty).ToList();
 
@@ -907,7 +908,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.AscendingBy(i => i.NullableGuidProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderBy(i => i.NullableGuidProperty).ToList();
 
@@ -955,7 +956,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Sort.DescendingBy(i => i.NullableGuidProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection.OrderByDescending(i => i.NullableGuidProperty).ToList();
 
@@ -1013,7 +1014,7 @@ namespace TypeSearch.Tests
             searchDefinition.Sort
                 .AscendingBy(i => i.NullableByteProperty)
                 .AscendingBy(i => i.NullableIntProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .OrderBy(i => i.NullableByteProperty)
@@ -1079,7 +1080,7 @@ namespace TypeSearch.Tests
             searchDefinition.Sort
                 .DescendingBy(i => i.NullableByteProperty)
                 .DescendingBy(i => i.NullableIntProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .OrderByDescending(i => i.NullableByteProperty)
@@ -1145,7 +1146,7 @@ namespace TypeSearch.Tests
             searchDefinition.Sort
                 .AscendingBy(i => i.NullableByteProperty)
                 .DescendingBy(i => i.NullableIntProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .OrderBy(i => i.NullableByteProperty)

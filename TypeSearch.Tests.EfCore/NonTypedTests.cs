@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Xunit;
 using System.Linq.Dynamic.Core.Exceptions;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -30,7 +31,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 Action action = () =>
                 {
-                    var searcher = new Searcher<TestEntity>(context.TestEntities);
+                    var searcher = new EFCoreSearcher<TestEntity>(context.TestEntities);
                     var searchResults = searcher.Search(searchDefinition);
                 };
 
@@ -61,7 +62,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 Action action = () =>
                 {
-                    var searcher = new Searcher<TestEntity>(context.TestEntities);
+                    var searcher = new EFCoreSearcher<TestEntity>(context.TestEntities);
                     var searchResults = searcher.Search(searchDefinition);
                 };
 
@@ -89,7 +90,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 Action action = () =>
                 {
-                    var searcher = new Searcher<TestEntity>(context.TestEntities);
+                    var searcher = new EFCoreSearcher<TestEntity>(context.TestEntities);
                     var searchResults = searcher.Search(searchDefinition);
                 };
 

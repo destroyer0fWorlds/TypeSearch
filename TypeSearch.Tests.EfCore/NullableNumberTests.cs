@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -32,7 +33,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).IsEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty == null);
@@ -68,7 +69,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).IsNotEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty != null);
@@ -104,7 +105,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).In(new int?[] { null });
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => new int?[] { null }.Contains(i.NullableIntProperty));
@@ -140,7 +141,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).NotIn(new int?[] { null });
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(new int?[] { null }.Contains(i.NullableIntProperty)));
@@ -176,7 +177,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).IsNull();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty == null);
@@ -212,7 +213,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).IsNotNull();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty != null);
@@ -248,7 +249,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).GreaterThan(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty > null);
@@ -284,7 +285,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).GreaterThanOrEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty >= null);
@@ -320,7 +321,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).LessThan(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty < null);
@@ -355,7 +356,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).LessThanOrEqualTo(null);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty <= null);
@@ -391,7 +392,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).IsEqualTo(3);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty == 3);
@@ -427,7 +428,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).IsNotEqualTo(3);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty != 3);
@@ -463,7 +464,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).In(2, 3, 4);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => new int?[] { 2, 3, 4 }.Contains(i.NullableIntProperty));
@@ -499,7 +500,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).NotIn(2, 3, 4);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(new int?[] { 2, 3, 4 }.Contains(i.NullableIntProperty)));
@@ -535,7 +536,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).GreaterThan(3);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty > 3);
@@ -571,7 +572,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).GreaterThanOrEqualTo(3);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty >= 3);
@@ -607,7 +608,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).LessThan(3);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty < 3);
@@ -643,7 +644,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).LessThanOrEqualTo(3);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.NullableIntProperty <= 3);
@@ -679,7 +680,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).Between(2, 4);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 // Assert
@@ -714,7 +715,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.NullableIntProperty).NotBetween(2, 4);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 // Assert
@@ -749,7 +750,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).Contains("3");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.IntProperty.ToString().Contains("3"));
@@ -785,7 +786,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).DoesNotContain("3");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.IntProperty.ToString().Contains("3"));
@@ -821,7 +822,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).StartsWith("1");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.IntProperty.ToString().StartsWith("1"));
@@ -857,7 +858,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).DoesNotStartWith("1");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.IntProperty.ToString().StartsWith("1"));
@@ -893,7 +894,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).EndsWith("3");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.IntProperty.ToString().EndsWith("3"));
@@ -929,7 +930,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).DoesNotEndWith("3");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.IntProperty.ToString().EndsWith("3"));

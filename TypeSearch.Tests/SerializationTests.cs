@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 using Newtonsoft.Json;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -39,7 +40,7 @@ namespace TypeSearch.Tests
             var jsonString = JsonConvert.SerializeObject(searchDefinition);
             var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
 
             var expectedResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -82,7 +83,7 @@ namespace TypeSearch.Tests
             var jsonString = JsonConvert.SerializeObject(searchDefinition);
             var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
 
             var expectedResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -127,7 +128,7 @@ namespace TypeSearch.Tests
             var jsonString = JsonConvert.SerializeObject(searchDefinition);
             var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
 
             var expectedResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -175,7 +176,7 @@ namespace TypeSearch.Tests
             var jsonString = JsonConvert.SerializeObject(searchDefinition);
             var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
 
             var preFilteredResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -247,7 +248,7 @@ namespace TypeSearch.Tests
             var jsonString = JsonConvert.SerializeObject(searchDefinition);
             var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
 
             var expectedResults = testCollection
                 .Where(i => i.ByteProperty < 100 || i.StringProperty.Contains("Bond"))
@@ -308,7 +309,7 @@ namespace TypeSearch.Tests
             var jsonString = JsonConvert.SerializeObject(searchDefinition);
             var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
 
             var expectedResults = testCollection
                 .Where(i => i.ByteProperty > 100 && i.BoolProperty)
@@ -375,7 +376,7 @@ namespace TypeSearch.Tests
             var jsonString = JsonConvert.SerializeObject(searchDefinition);
             var jsonDefintion = JsonConvert.DeserializeObject<SearchDefinition<TestEntity>>(jsonString);
 
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(jsonDefintion);
 
             var expectedResults = testCollection
                 .Where(i => (i.IntProperty == 1 && i.ByteProperty == 221) || (i.IntProperty == 1 && i.ByteProperty == 123))

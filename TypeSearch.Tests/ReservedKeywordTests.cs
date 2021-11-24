@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -29,7 +30,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<ReservedKeywordsTestEntity>();
             searchDefinition.Filter
                 .Where(i => i.DateTime).IsEqualTo(new DateTime(2007, 7, 21));
-            var searchResults = new Searcher<ReservedKeywordsTestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<ReservedKeywordsTestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.DateTime == new DateTime(2007, 7, 21));
@@ -57,7 +58,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<ReservedKeywordsTestEntity>();
             searchDefinition.Filter
                 .Where(i => i.Parent).IsEqualTo("true");
-            var searchResults = new Searcher<ReservedKeywordsTestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<ReservedKeywordsTestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Parent == "true");

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -50,7 +51,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.IntProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.IntProperty).ToList();
 
@@ -106,7 +107,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.IntProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.IntProperty).ToList();
 
@@ -162,7 +163,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.DateTimeProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.DateTimeProperty).ToList();
 
@@ -218,7 +219,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.DateTimeProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.DateTimeProperty).ToList();
 
@@ -274,7 +275,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.BoolProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.BoolProperty).ToList();
 
@@ -330,7 +331,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.BoolProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.BoolProperty).ToList();
 
@@ -386,7 +387,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.StringProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.StringProperty).ToList();
 
@@ -442,7 +443,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.StringProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.StringProperty).ToList();
 
@@ -498,7 +499,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.GuidProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.GuidProperty).ToList();
 
@@ -554,7 +555,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.GuidProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.GuidProperty).ToList();
 
@@ -610,7 +611,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.NullableIntProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.NullableIntProperty).ToList();
 
@@ -666,7 +667,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.NullableIntProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.NullableIntProperty).ToList();
 
@@ -722,7 +723,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.NullableDateTimeProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.NullableDateTimeProperty).ToList();
 
@@ -778,7 +779,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.NullableDateTimeProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.NullableDateTimeProperty).ToList();
 
@@ -834,7 +835,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.NullableBoolProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.NullableBoolProperty).ToList();
 
@@ -890,7 +891,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.NullableBoolProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.NullableBoolProperty).ToList();
 
@@ -946,7 +947,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.StringProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.StringProperty).ToList();
 
@@ -1002,7 +1003,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.StringProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.StringProperty).ToList();
 
@@ -1058,7 +1059,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.AscendingBy(i => i.NullableGuidProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderBy(i => i.NullableGuidProperty).ToList();
 
@@ -1114,7 +1115,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Sort.DescendingBy(i => i.NullableGuidProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.OrderByDescending(i => i.NullableGuidProperty).ToList();
 
@@ -1178,7 +1179,7 @@ namespace TypeSearch.Tests.EfCore
                 searchDefinition.Sort
                     .AscendingBy(i => i.NullableByteProperty)
                     .AscendingBy(i => i.NullableIntProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .OrderBy(i => i.NullableByteProperty)
@@ -1253,7 +1254,7 @@ namespace TypeSearch.Tests.EfCore
                 searchDefinition.Sort
                     .DescendingBy(i => i.NullableByteProperty)
                     .DescendingBy(i => i.NullableIntProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .OrderByDescending(i => i.NullableByteProperty)
@@ -1328,7 +1329,7 @@ namespace TypeSearch.Tests.EfCore
                 searchDefinition.Sort
                     .AscendingBy(i => i.NullableByteProperty)
                     .DescendingBy(i => i.NullableIntProperty);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
                     .OrderBy(i => i.NullableByteProperty)

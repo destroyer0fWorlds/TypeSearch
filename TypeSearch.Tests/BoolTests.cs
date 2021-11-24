@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -24,7 +25,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).IsEqualTo(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty == true);
@@ -52,7 +53,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).IsNotEqualTo(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty != true);
@@ -80,7 +81,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).In(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => new bool[] { true }.Contains(i.BoolProperty));
@@ -108,7 +109,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).NotIn(true);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !(new bool[] { true }.Contains(i.BoolProperty)));
@@ -136,7 +137,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).IsTrue();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty);
@@ -164,7 +165,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).IsFalse();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.BoolProperty);
@@ -192,7 +193,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).Contains("ru");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty.ToString().Contains("ru"));
@@ -220,7 +221,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).DoesNotContain("ru");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.BoolProperty.ToString().Contains("ru"));
@@ -248,7 +249,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).StartsWith("t");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty.ToString().StartsWith("t"));
@@ -276,7 +277,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).DoesNotStartWith("t");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.BoolProperty.ToString().StartsWith("t"));
@@ -304,7 +305,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).EndsWith("ue");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.BoolProperty.ToString().EndsWith("ue"));
@@ -332,7 +333,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.Filter
                 .Where(i => i.BoolProperty).DoesNotEndWith("ue");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => !i.BoolProperty.ToString().EndsWith("ue"));

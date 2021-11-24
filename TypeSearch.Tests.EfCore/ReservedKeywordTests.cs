@@ -3,12 +3,13 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
     // The core library (https://github.com/StefH/System.Linq.Dynamic.Core) has reserved keywords that cannot be property names.
     // I don't know all of them but "DateTime" came up once during testing and is remarked on here: https://github.com/StefH/System.Linq.Dynamic.Core/issues/182
-    // The solution was to append an "@" symbol
+    // The solution was to prefix an "@" symbol
 
     public class ReservedKeywordTests
     {
@@ -36,7 +37,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<ReservedKeywordsTestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.DateTime).IsEqualTo(new DateTime(2007, 7, 21));
-                var searchResults = new Searcher<ReservedKeywordsTestEntity>(context.ReservedKeywordsTestEntities)
+                var searchResults = new EFCoreSearcher<ReservedKeywordsTestEntity>(context.ReservedKeywordsTestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.ReservedKeywordsTestEntities.Where(i => i.DateTime == new DateTime(2007, 7, 21));
@@ -72,7 +73,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<ReservedKeywordsTestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.Parent).IsEqualTo("true");
-                var searchResults = new Searcher<ReservedKeywordsTestEntity>(context.ReservedKeywordsTestEntities)
+                var searchResults = new EFCoreSearcher<ReservedKeywordsTestEntity>(context.ReservedKeywordsTestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.ReservedKeywordsTestEntities.Where(i => i.Parent == "true");

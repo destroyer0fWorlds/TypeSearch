@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TypeSearch.Providers.Collection\TypeSearch.Providers.Collection.csproj" />
     <ProjectReference Include="..\TypeSearch\TypeSearch.csproj" />
   </ItemGroup>
 

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -60,7 +61,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Child.ChildId).IsEqualTo(5);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Child.ChildId == 5);
@@ -130,7 +131,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Child.NChild.ChildId).IsEqualTo(8);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Child.NChild.ChildId == 8);
@@ -186,7 +187,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId).IsEqualTo(6);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId == 6);
@@ -245,7 +246,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Child.ChildId).Between(5, 10);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Child.ChildId >= 5 && i.Child.ChildId <= 10);
@@ -313,7 +314,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Child.NChild.ChildId).Between(8, 20);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Child.NChild.ChildId >= 8 && i.Child.NChild.ChildId <= 20);
@@ -366,7 +367,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId).Between(5, 7);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Child.NChild.NChild.NChild.NChild.ChildId >= 5 && i.Child.NChild.NChild.NChild.NChild.ChildId <= 7);
@@ -440,7 +441,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Children).Property(i => i.ChildId).IsEqualTo(5);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Children.Any(x => x.ChildId == 5));
@@ -514,7 +515,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestParentEntity>();
             searchDefinition.Filter
                 .Where(i => i.Children).Property(i => i.ChildId).Between(5, 10);
-            var searchResults = new Searcher<TestParentEntity>(testCollection.AsQueryable())
+            var searchResults = new CollectionSearcher<TestParentEntity>(testCollection.AsQueryable())
                 .Search(searchDefinition);
 
             var expectedResults = testCollection.Where(i => i.Children.Any(x => x.ChildId >= 5 && x.ChildId <= 10));

@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -28,7 +29,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsEqualTo(true);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.BoolProperty == true).ToList();
 
@@ -59,7 +60,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsNotEqualTo(true);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.BoolProperty != true).ToList();
 
@@ -90,7 +91,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Where(i => i.BoolProperty).In(true);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => new bool[] { true }.Contains(i.BoolProperty)).ToList();
 
@@ -122,7 +123,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).NotIn(true);
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !(new bool[] { true }.Contains(i.BoolProperty))).ToList();
@@ -154,7 +155,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsTrue();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.BoolProperty).ToList();
 
@@ -185,7 +186,7 @@ namespace TypeSearch.Tests.EfCore
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsFalse();
-                var searchResults = new Searcher<TestEntity>(context.TestEntities).Search(searchDefinition);
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.BoolProperty).ToList();
 
@@ -217,7 +218,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).Contains("ru");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.BoolProperty.ToString().Contains("ru"));
@@ -250,7 +251,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).DoesNotContain("ru");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.BoolProperty.ToString().Contains("ru"));
@@ -283,7 +284,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).StartsWith("t");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.BoolProperty.ToString().StartsWith("t"));
@@ -316,7 +317,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).DoesNotStartWith("t");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.BoolProperty.ToString().StartsWith("t"));
@@ -349,7 +350,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).EndsWith("ue");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => i.BoolProperty.ToString().EndsWith("ue"));
@@ -382,7 +383,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).DoesNotEndWith("ue");
-                var searchResults = new Searcher<TestEntity>(context.TestEntities)
+                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
                 var expectedResults = context.TestEntities.Where(i => !i.BoolProperty.ToString().EndsWith("ue"));

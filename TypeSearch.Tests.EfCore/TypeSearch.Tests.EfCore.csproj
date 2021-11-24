@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TypeSearch.EFCore\TypeSearch.EFCore.csproj" />
+    <ProjectReference Include="..\TypeSearch.Providers.EFCore\TypeSearch.Providers.EFCore.csproj" />
+    <ProjectReference Include="..\TypeSearch\TypeSearch.csproj" />
   </ItemGroup>
 
 </Project>

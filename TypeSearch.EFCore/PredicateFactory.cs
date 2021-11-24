@@ -43,7 +43,7 @@ namespace TypeSearch.EFCore
                     predicate = $"DynamicFunctions.Like({name}, \"%{value}\")";
                     break;
                 case SingleOperator.Like:
-                    predicate = $"DynamicFunctions.Like({name}, \"%{value}%\")";
+                    predicate = $"DbFunctionsExtensions.Like(EF.Functions, {name}, {value})";
                     break;
                 case SingleOperator.DoesNotStartWith:
                     predicate = $"!DynamicFunctions.Like({name}, \"{value}%\")";

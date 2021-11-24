@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 using System.Linq.Dynamic.Core.Exceptions;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -23,7 +24,7 @@ namespace TypeSearch.Tests
 
             // Act
             Action action = () => {
-                var searcher = new Searcher<TestEntity>(testCollection.AsQueryable());
+                var searcher = new CollectionSearcher<TestEntity>(testCollection.AsQueryable());
                 var searchResults = searcher.Search(searchDefinition);
             };
 
@@ -47,7 +48,7 @@ namespace TypeSearch.Tests
 
             // Act
             Action action = () => {
-                var searcher = new Searcher<TestEntity>(testCollection.AsQueryable());
+                var searcher = new CollectionSearcher<TestEntity>(testCollection.AsQueryable());
                 var searchResults = searcher.Search(searchDefinition);
             };
 
@@ -68,7 +69,7 @@ namespace TypeSearch.Tests
 
             // Act
             Action action = () => {
-                var searcher = new Searcher<TestEntity>(testCollection.AsQueryable());
+                var searcher = new CollectionSearcher<TestEntity>(testCollection.AsQueryable());
                 var searchResults = searcher.Search(searchDefinition);
             };
 

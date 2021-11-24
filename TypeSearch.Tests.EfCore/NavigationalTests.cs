@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 using TypeSearch.Tests.EfCore.Mocks;
+using TypeSearch.Providers.EFCore;
 
 namespace TypeSearch.Tests.EfCore
 {
@@ -49,7 +50,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
                 searchDefinition.Filter
                     .Where(i => i.Child.ChildId).IsEqualTo(5);
-                var searchResults = new Searcher<TestParentEntity>(dataset)
+                var searchResults = new EFCoreSearcher<TestParentEntity>(dataset)
                     .Search(searchDefinition);
 
                 var expectedResults = dataset.Where(i => i.Child.ChildId == 5);
@@ -99,7 +100,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
                 searchDefinition.Filter
                     .Where(i => i.Child.GrandChild.GrandChildId).IsEqualTo(8);
-                var searchResults = new Searcher<TestParentEntity>(dataset)
+                var searchResults = new EFCoreSearcher<TestParentEntity>(dataset)
                     .Search(searchDefinition);
 
                 var expectedResults = dataset.Where(i => i.Child.GrandChild.GrandChildId == 8);
@@ -144,7 +145,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
                 searchDefinition.Filter
                     .Where(i => i.Children).Property(i => i.ChildrenId).IsEqualTo(5);
-                var searchResults = new Searcher<TestParentEntity>(dataset)
+                var searchResults = new EFCoreSearcher<TestParentEntity>(dataset)
                     .Search(searchDefinition);
 
                 var expectedResults = dataset.Where(i => i.Children.Any(x => x.ChildrenId == 5));
@@ -186,7 +187,7 @@ namespace TypeSearch.Tests.EfCore
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
                 searchDefinition.Filter
                     .Where(i => i.Children).Property(i => i.ChildrenId).Between(5, 10);
-                var searchResults = new Searcher<TestParentEntity>(dataset)
+                var searchResults = new EFCoreSearcher<TestParentEntity>(dataset)
                     .Search(searchDefinition);
 
                 var expectedResults = dataset.Where(i => i.Children.Any(x => x.ChildrenId >= 5 && x.ChildrenId <= 10));

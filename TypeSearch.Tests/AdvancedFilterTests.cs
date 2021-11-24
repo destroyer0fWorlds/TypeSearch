@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using TypeSearch.Tests.Mocks;
+using TypeSearch.Providers.Collection;
 
 namespace TypeSearch.Tests
 {
@@ -34,7 +35,7 @@ namespace TypeSearch.Tests
             // Act
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -73,7 +74,7 @@ namespace TypeSearch.Tests
             var searchDefinition = new SearchDefinition<TestEntity>();
             searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
             searchDefinition.Filter.Where(i => i.ByteProperty).GreaterThan(100);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -114,7 +115,7 @@ namespace TypeSearch.Tests
             searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
             searchDefinition.Filter.Where(i => i.ByteProperty).GreaterThan(100);
             searchDefinition.Sort.DescendingBy(i => i.ByteProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -158,7 +159,7 @@ namespace TypeSearch.Tests
             searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
             searchDefinition.Filter.Where(i => i.ByteProperty).GreaterThan(100);
             searchDefinition.Sort.DescendingBy(i => i.ByteProperty);
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var preFilteredResults = testCollection
                 .Where(i => i.BoolProperty)
@@ -226,7 +227,7 @@ namespace TypeSearch.Tests
             searchDefinition.Filter
                 .Where(i => i.ByteProperty).LessThan(100)
                 .Or(i => i.StringProperty).Contains("Bond");
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .Where(i => i.ByteProperty < 100 || i.StringProperty.Contains("Bond"))
@@ -283,7 +284,7 @@ namespace TypeSearch.Tests
             searchDefinition.Filter
                 .Where(i => i.ByteProperty).GreaterThan(100)
                 .And(i => i.BoolProperty).IsTrue();
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .Where(i => i.ByteProperty > 100 && i.BoolProperty)
@@ -346,7 +347,7 @@ namespace TypeSearch.Tests
                     .Where(i => i.IntProperty).IsEqualTo(1)
                     .And(i => i.ByteProperty).IsEqualTo(123)
                 );
-            var searchResults = new Searcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
+            var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
                 .Where(i => (i.IntProperty == 1 && i.ByteProperty == 221) || (i.IntProperty == 1 && i.ByteProperty == 123))
