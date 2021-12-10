@@ -5,7 +5,6 @@ using Xunit;
 using Xunit.Abstractions;
 using TypeSearch.Tests.SQLite.Mocks;
 using TypeSearch.Providers.EFCore;
-using System.Linq.Dynamic.Core;
 
 namespace TypeSearch.Tests.SQLite
 {
@@ -17,15 +16,15 @@ namespace TypeSearch.Tests.SQLite
             // Arrange
             using (var context = this.GetTestContext())
             {
-                // Act
-                var expectedResults = context.TestEntities.Where(i => EF.Functions.Like(i.StringProperty, "%lorem%"));
-                var expectedResults2 = context.TestEntities.Where(i => DbFunctionsExtensions.Like(EF.Functions, i.StringProperty, "%lorem%"));
-                
+                // Act                
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.StringProperty).Contains("lorem"); // Lorem
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
+
+                //var expectedResults = context.TestEntities.Where(i => DbFunctionsExtensions.Like(EF.Functions, i.StringProperty, "%lorem%"));
+                var expectedResults = context.TestEntities.Where(i => EF.Functions.Like(i.StringProperty, "%lorem%"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);

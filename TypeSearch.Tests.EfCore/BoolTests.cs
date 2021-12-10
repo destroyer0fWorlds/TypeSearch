@@ -215,13 +215,16 @@ namespace TypeSearch.Tests.EfCore
                 context.SaveChanges();
 
                 // Act
+                var expectedResults = context.TestEntities.Where(i => DbFunctionsExtensions.Like(EF.Functions, i.BoolProperty.ToString(), "%ru%"));
+                var expectedResults2 = context.TestEntities.Where(i => EF.Functions.Like(i.BoolProperty.ToString(), "%ru%"));
+
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.BoolProperty).Contains("ru");
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
                     .Search(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => i.BoolProperty.ToString().Contains("ru"));
+                //var expectedResults = context.TestEntities.Where(i => i.BoolProperty.ToString().Contains("ru"));
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
