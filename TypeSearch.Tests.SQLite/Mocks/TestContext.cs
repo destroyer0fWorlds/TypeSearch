@@ -10,11 +10,11 @@ namespace TypeSearch.Tests.SQLite.Mocks
     {
         public string DatabasePath { get; private set; }
 
-        public TestContext(DbContextOptions options) : base(options)
+        public TestContext(DbContextOptions options, string dbName) : base(options)
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            this.DatabasePath = $"{path}{Path.DirectorySeparatorChar}TypeSearch_SQLite_UnitTests.db";
+            this.DatabasePath = $"{path}{Path.DirectorySeparatorChar}{dbName}.db";
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,20 +22,20 @@ namespace TypeSearch.Tests.SQLite.Mocks
             // Case-insensitive collation
             modelBuilder.UseCollation("NOCASE");
 
-            //modelBuilder.Entity<TestParentEntity>()
-            //    .HasOne(i => i.Child)
-            //    .WithOne()
-            //    .HasForeignKey<TestChildEntity>(i => i.ParentId);
+            modelBuilder.Entity<TestParentEntity>()
+                .HasOne(i => i.Child)
+                .WithOne()
+                .HasForeignKey<TestChildEntity>(i => i.ParentId);
 
-            //modelBuilder.Entity<TestParentEntity>()
-            //    .HasMany(i => i.Children)
-            //    .WithOne()
-            //    .HasForeignKey(i => i.ParentId);
+            modelBuilder.Entity<TestParentEntity>()
+                .HasMany(i => i.Children)
+                .WithOne()
+                .HasForeignKey(i => i.ParentId);
 
-            //modelBuilder.Entity<TestChildEntity>()
-            //    .HasOne(i => i.GrandChild)
-            //    .WithOne()
-            //    .HasForeignKey<TestGrandChildEntity>(i => i.ParentId);
+            modelBuilder.Entity<TestChildEntity>()
+                .HasOne(i => i.GrandChild)
+                .WithOne()
+                .HasForeignKey<TestGrandChildEntity>(i => i.ParentId);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -45,14 +45,14 @@ namespace TypeSearch.Tests.SQLite.Mocks
 
         public DbSet<TestEntity> TestEntities { get; set; }
 
-        //public DbSet<ReservedKeywordsTestEntity> ReservedKeywordsTestEntities { get; set; }
+        public DbSet<ReservedKeywordsTestEntity> ReservedKeywordsTestEntities { get; set; }
 
-        //public DbSet<TestParentEntity> TestParentEntities { get; set; }
+        public DbSet<TestParentEntity> TestParentEntities { get; set; }
 
-        //public DbSet<TestChildEntity> TestChildEntities { get; set; }
+        public DbSet<TestChildEntity> TestChildEntities { get; set; }
 
-        //public DbSet<TestChildrenEntity> TestChildrenEntities { get; set; }
+        public DbSet<TestChildrenEntity> TestChildrenEntities { get; set; }
 
-        //public DbSet<TestGrandChildEntity> TestGrandChildEntities { get; set; }
+        public DbSet<TestGrandChildEntity> TestGrandChildEntities { get; set; }
     }
 }

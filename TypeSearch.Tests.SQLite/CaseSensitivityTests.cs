@@ -11,25 +11,62 @@ namespace TypeSearch.Tests.SQLite
     public class CaseSensitivityTests
     {
         [Fact]
-        public void String_Contains_Search()
+        public void Lowercase_Search_Should_Return_Uppercase_Results()
         {
             // Arrange
             using (var context = this.GetTestContext())
             {
                 // Act                
                 var searchDefinition = new SearchDefinition<TestEntity>();
-                searchDefinition.Filter
-                    .Where(i => i.StringProperty).Contains("lorem"); // Lorem
-                var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities)
-                    .Search(searchDefinition);
-
-                //var expectedResults = context.TestEntities.Where(i => DbFunctionsExtensions.Like(EF.Functions, i.StringProperty, "%lorem%"));
-                var expectedResults = context.TestEntities.Where(i => EF.Functions.Like(i.StringProperty, "%lorem%"));
+                searchDefinition.Filter.Where(i => i.StringProperty).Contains("lorem"); // LOREM
+                var searcher = new EFCoreSearcher<TestEntity>(context.TestEntities);
+                var searchResults = searcher.Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
-                Assert.Equal(expectedResults.Count(), searchResults.ResultSet.Count);
-                Assert.Equal(expectedResults.Count(), searchResults.FilteredRecordCount);
+                Assert.Single(searchResults.ResultSet);
+                Assert.Equal(3, searchResults.TotalRecordCount);
+                Assert.Equal(1, searchResults.FilteredRecordCount);
+            }
+        }
+
+        [Fact]
+        public void Uppercase_Search_Should_Return_Lowercase_Results()
+        {
+            // Arrange
+            using (var context = this.GetTestContext())
+            {
+                // Act                
+                var searchDefinition = new SearchDefinition<TestEntity>();
+                searchDefinition.Filter.Where(i => i.StringProperty).Contains("IPSUM"); // ipsum
+                var searcher = new EFCoreSearcher<TestEntity>(context.TestEntities);
+                var searchResults = searcher.Search(searchDefinition);
+
+                // Assert
+                Assert.NotNull(searchResults.ResultSet);
+                Assert.Single(searchResults.ResultSet);
+                Assert.Equal(3, searchResults.TotalRecordCount);
+                Assert.Equal(1, searchResults.FilteredRecordCount);
+            }
+        }
+
+        [Fact]
+        public void Mismatched_Casing_Search_Should_Return_Expected_Results()
+        {
+            // Arrange
+            using (var context = this.GetTestContext())
+            {
+                // Act                
+                var searchDefinition = new SearchDefinition<TestEntity>();
+                searchDefinition.Filter.Where(i => i.StringProperty).Contains("doLOR"); // DoLoR
+                var searcher = new EFCoreSearcher<TestEntity>(context.TestEntities);
+                var searchResults = searcher.Search(searchDefinition);
+
+                // Assert
+                Assert.NotNull(searchResults.ResultSet);
+                Assert.Single(searchResults.ResultSet);
+                Assert.Equal(3, searchResults.TotalRecordCount);
+                Assert.Equal(1, searchResults.FilteredRecordCount);
             }
         }
 
@@ -39,7 +76,8 @@ namespace TypeSearch.Tests.SQLite
                 .UseSqlite()
                 .Options;
 
-            var db = new TestContext(options);
+            var dbName = $"TypeSearch_UnitTests_SQLite_{nameof(CaseSensitivityTests)}";
+            var db = new TestContext(options, dbName);
 
             db.Database.EnsureCreated();
 
@@ -48,11 +86,9 @@ namespace TypeSearch.Tests.SQLite
             if (testEntity == null)
             {
                 db.TestEntities.AddRange(
-                    new TestEntity() { StringProperty = "Lorem" },
+                    new TestEntity() { StringProperty = "LOREM" },
                     new TestEntity() { StringProperty = "ipsum" },
-                    new TestEntity() { StringProperty = "dolor" },
-                    new TestEntity() { StringProperty = "sit" },
-                    new TestEntity() { StringProperty = "amet" });
+                    new TestEntity() { StringProperty = "DoLoR" });
                 db.SaveChanges();
             }
 
