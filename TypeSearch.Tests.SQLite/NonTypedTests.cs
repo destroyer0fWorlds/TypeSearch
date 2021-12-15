@@ -15,11 +15,7 @@ namespace TypeSearch.Tests.SQLite
         public void NonTypedTests_Multiple_Criteria_Per_Condition_Should_Error()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NonTypedTests_Multiple_Criteria_Per_Condition_Should_Error")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = GetTestContext())
             {
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Criteria.Add(new Criteria.CriteriaContainer<TestEntity>()
@@ -44,11 +40,7 @@ namespace TypeSearch.Tests.SQLite
         public void NonTypedTests_Unknown_Property_Name_Should_Error()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NonTypedTests_Unknown_Property_Name_Should_Error")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = GetTestContext())
             {
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Criteria.Add(new Criteria.CriteriaContainer<TestEntity>()
@@ -75,11 +67,7 @@ namespace TypeSearch.Tests.SQLite
         public void NonTypedTests_Missing_Property_Name_Should_Error()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("NonTypedTests_Missing_Property_Name_Should_Error")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = GetTestContext())
             {
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Criteria.Add(new Criteria.CriteriaContainer<TestEntity>()
@@ -97,6 +85,32 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.Throws<ArgumentNullException>(action);
             }
+        }
+
+        TestContext GetTestContext()
+        {
+            var options = new DbContextOptionsBuilder()
+                .UseSqlite()
+                .Options;
+
+            var dbName = $"TypeSearch_UnitTests_SQLite_{nameof(NonTypedTests)}";
+            var db = new TestContext(options, dbName);
+
+            db.Database.EnsureCreated();
+
+            // Ensure the db has records in it before attempting to search
+            var testEntity = db.TestEntities.FirstOrDefault();
+            if (testEntity == null)
+            {
+                db.TestEntities.Add(new TestEntity());
+                db.TestEntities.Add(new TestEntity());
+                db.TestEntities.Add(new TestEntity());
+                db.TestEntities.Add(new TestEntity());
+                db.TestEntities.Add(new TestEntity());
+                db.SaveChanges();
+            }
+
+            return db;
         }
     }
 }

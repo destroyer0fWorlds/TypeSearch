@@ -13,30 +13,17 @@ namespace TypeSearch.Tests.SQLite
         public void Filter_Ignores_Paging()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Filter_Ignores_Paging")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity() { BoolProperty = true });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = false });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = true });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = false });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = true });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>(page: 3, recordsPerPage: 1);
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsTrue();
                 var filterResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Filter(searchDefinition);
 
-                var expectedResults = context.TestEntities.Where(i => i.BoolProperty);
-
                 // Assert
                 Assert.NotNull(filterResults);
                 Assert.NotEmpty(filterResults);
-                Assert.Equal(expectedResults.Count(), filterResults.Count());
+                Assert.Equal(3, filterResults.Count());
             }
         }
 
@@ -44,37 +31,48 @@ namespace TypeSearch.Tests.SQLite
         public void Filter_Ignores_Sorting()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Filter_Ignores_Sorting")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity() { BoolProperty = true, IntProperty = 0 });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = false, IntProperty = 1 });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = true, IntProperty = 2 });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = false, IntProperty = 3 });
-                context.TestEntities.Add(new TestEntity() { BoolProperty = true, IntProperty = 4 });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsTrue();
                 searchDefinition.Sort.DescendingBy(i => i.IntProperty);
                 var filterResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Filter(searchDefinition);
 
-                var expectedResults = context.TestEntities
-                    .Where(i => i.BoolProperty)
-                    .AsEnumerable();
-
                 // Assert
                 Assert.NotNull(filterResults);
                 Assert.NotEmpty(filterResults);
-                Assert.Equal(expectedResults.Count(), filterResults.Count());
-                Assert.Equal(expectedResults.ElementAt(0).IntProperty, filterResults.ElementAt(0).IntProperty);
-                Assert.Equal(expectedResults.ElementAt(1).IntProperty, filterResults.ElementAt(1).IntProperty);
-                Assert.Equal(expectedResults.ElementAt(2).IntProperty, filterResults.ElementAt(2).IntProperty);
+                Assert.Equal(3, filterResults.Count());
+                Assert.Equal(1, filterResults.ElementAt(0).IntProperty);
+                Assert.Equal(3, filterResults.ElementAt(1).IntProperty);
+                Assert.Equal(5, filterResults.ElementAt(2).IntProperty);
             }
+        }
+
+        TestContext GetTestContext()
+        {
+            var options = new DbContextOptionsBuilder()
+                .UseSqlite()
+                .Options;
+
+            var dbName = $"TypeSearch_UnitTests_SQLite_{nameof(FilterTests)}";
+            var db = new TestContext(options, dbName);
+
+            db.Database.EnsureCreated();
+
+            // Ensure the db has records in it before attempting to search
+            var testEntity = db.TestEntities.FirstOrDefault();
+            if (testEntity == null)
+            {
+                db.TestEntities.Add(new TestEntity() { IntProperty = 1, BoolProperty = true });
+                db.TestEntities.Add(new TestEntity() { IntProperty = 2, BoolProperty = false });
+                db.TestEntities.Add(new TestEntity() { IntProperty = 3, BoolProperty = true });
+                db.TestEntities.Add(new TestEntity() { IntProperty = 4, BoolProperty = false });
+                db.TestEntities.Add(new TestEntity() { IntProperty = 5, BoolProperty = true });
+                db.SaveChanges();
+            }
+
+            return db;
         }
     }
 }
