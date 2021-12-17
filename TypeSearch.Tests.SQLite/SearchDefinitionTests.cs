@@ -14,41 +14,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_New_Definition()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_New_Definition")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(new SearchDefinition<TestEntity>());
 
@@ -63,41 +30,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Null_Definition()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Null_Definition")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(null);
 
@@ -112,41 +46,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Empty_Criteria()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Empty_Criteria")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>()
                 {
@@ -167,41 +68,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Null_Criteria()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Null_Criteria")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>()
                 {
@@ -222,41 +90,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Paging_No_Page_Specified()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Paging_No_Page_Specified")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { RecordsPerPage = 1 };
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
@@ -274,41 +109,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Paging_No_RecordsPerPage_Specified()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Paging_No_RecordsPerPage_Specified")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { Page = 1 };
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
@@ -326,41 +128,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Paging_Page_And_RecordsPerPage_Too_High()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Paging_Page_And_RecordsPerPage_Too_High")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { Page = 9, RecordsPerPage = 50 };
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
@@ -378,41 +147,8 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Paging_Page_And_RecordsPerPage_Too_Low()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Paging_Page_And_RecordsPerPage_Too_Low")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 123,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 89234,
-                    StringProperty = "Awesome sauce"
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = true,
-                    ByteProperty = 221,
-                    DateTimeProperty = new DateTime(2008, 8, 18),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 6485,
-                    StringProperty = "Bond. James Bond."
-                });
-                context.TestEntities.Add(new TestEntity()
-                {
-                    BoolProperty = false,
-                    ByteProperty = 56,
-                    DateTimeProperty = new DateTime(2000, 4, 12),
-                    GuidProperty = Guid.NewGuid(),
-                    IntProperty = 159753,
-                    StringProperty = "Onomatopoeia"
-                });
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>() { Page = -7, RecordsPerPage = -49 };
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
@@ -435,27 +171,34 @@ namespace TypeSearch.Tests.SQLite
         public void SearchDefinition_Paging_Does_Not_Duplicate_Or_Skip_Any_Records()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("SearchDefinition_Paging_Does_Not_Duplicate_Or_Skip_Any_Records")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(new TestEntity());
-
                 // Act
-                var searchDefinition1 = new SearchDefinition<TestEntity>() { Page = 0, RecordsPerPage = 50 }; // 0-50
-                var searchDefinition2 = new SearchDefinition<TestEntity>() { Page = 1, RecordsPerPage = 50 }; // 51-100
-                var searchDefinition3 = new SearchDefinition<TestEntity>() { Page = 2, RecordsPerPage = 50 }; // 101-150
-                var searchDefinition4 = new SearchDefinition<TestEntity>() { Page = 3, RecordsPerPage = 50 }; // 151-200
-                var searchDefinition5 = new SearchDefinition<TestEntity>() { Page = 4, RecordsPerPage = 50 }; // 201-250
-                var searchDefinition6 = new SearchDefinition<TestEntity>() { Page = 5, RecordsPerPage = 50 }; // 251-300
+
+                // 0-50
+                var searchDefinition1 = new SearchDefinition<TestEntity>() { Page = 0, RecordsPerPage = 50 };
                 var searchResults1 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition1);
+
+                // 51-100
+                var searchDefinition2 = new SearchDefinition<TestEntity>() { Page = 1, RecordsPerPage = 50 };
                 var searchResults2 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition2);
+
+                // 101-150
+                var searchDefinition3 = new SearchDefinition<TestEntity>() { Page = 2, RecordsPerPage = 50 };
                 var searchResults3 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition3);
+
+                // 151-200
+                var searchDefinition4 = new SearchDefinition<TestEntity>() { Page = 3, RecordsPerPage = 50 };
                 var searchResults4 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition4);
+
+                // 201-250
+                var searchDefinition5 = new SearchDefinition<TestEntity>() { Page = 4, RecordsPerPage = 50 };
                 var searchResults5 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition5);
+
+                // 251-300
+                var searchDefinition6 = new SearchDefinition<TestEntity>() { Page = 5, RecordsPerPage = 50 };
                 var searchResults6 = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition6);
+                
                 var recombinedDataset = new List<TestEntity>();
                 recombinedDataset.AddRange(searchResults1.ResultSet);
                 recombinedDataset.AddRange(searchResults2.ResultSet);
@@ -467,6 +210,31 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.Equal(context.TestEntities.Count(), recombinedDataset.Count);
             }
+        }
+
+        TestContext GetTestContext()
+        {
+            var options = new DbContextOptionsBuilder()
+                .UseSqlite()
+                .Options;
+
+            var dbName = $"TypeSearch_UnitTests_SQLite_{nameof(SearchDefinitionTests)}";
+            var db = new TestContext(options, dbName);
+
+            db.Database.EnsureCreated();
+
+            // Ensure the db has records in it before attempting to search
+            var testEntity = db.TestEntities.FirstOrDefault();
+            if (testEntity == null)
+            {
+                for (int i = 0; i < 300; i++)
+                {
+                    db.TestEntities.Add(new TestEntity() { IntProperty = i });
+                }
+                db.SaveChanges();
+            }
+
+            return db;
         }
     }
 }

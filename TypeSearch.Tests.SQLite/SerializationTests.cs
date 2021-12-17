@@ -15,31 +15,8 @@ namespace TypeSearch.Tests.SQLite
         public void Serialization_PreFilter()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Serialization_PreFilter")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                // 510 entities: 255 true and 255 false
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = true
-                    });
-                }
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = false
-                    });
-                }
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
@@ -64,31 +41,8 @@ namespace TypeSearch.Tests.SQLite
         public void Serialization_PreFilter_And_Filter()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Serialization_PreFilter_And_Filter")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                // 510 entities: 255 true and 255 false
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = true
-                    });
-                }
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = false
-                    });
-                }
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
@@ -115,31 +69,8 @@ namespace TypeSearch.Tests.SQLite
         public void Serialization_PreFilter_And_Filter_And_Sort()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Serialization_PreFilter_And_Filter_And_Sort")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                // 510 entities: 255 true and 255 false
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = true
-                    });
-                }
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = false
-                    });
-                }
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
@@ -170,31 +101,8 @@ namespace TypeSearch.Tests.SQLite
         public void Serialization_PreFilter_And_Filter_And_Sort_And_Page()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Serialization_PreFilter_And_Filter_And_Sort_And_Page")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                // 510 entities: 255 true and 255 false
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = true
-                    });
-                }
-                for (int i = 0; i < byte.MaxValue; i++)
-                {
-                    context.TestEntities.Add(new TestEntity()
-                    {
-                        ByteProperty = (byte)i,
-                        BoolProperty = false
-                    });
-                }
-                context.SaveChanges();
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>(page: 1, recordsPerPage: 50);
                 searchDefinition.PreFilter.Where(i => i.BoolProperty).IsTrue();
@@ -232,53 +140,8 @@ namespace TypeSearch.Tests.SQLite
         public void Serialization_Or_Filter()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Serialization_Or_Filter")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = false,
-                        ByteProperty = 123,
-                        DateTimeProperty = new DateTime(2004, 4, 14),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Awesome sauce"
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = true,
-                        ByteProperty = 221,
-                        DateTimeProperty = new DateTime(2008, 8, 18),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Bond. James Bond."
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = false,
-                        ByteProperty = 56,
-                        DateTimeProperty = new DateTime(2002, 2, 12),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Onomatopoeia"
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = true,
-                        ByteProperty = 32,
-                        DateTimeProperty = new DateTime(2006, 6, 16),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 2,
-                        StringProperty = "Noon racecar sagas"
-                    });
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
@@ -305,53 +168,8 @@ namespace TypeSearch.Tests.SQLite
         public void Serialization_And_Filter()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Serialization_And_Filter")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = false,
-                        ByteProperty = 123,
-                        DateTimeProperty = new DateTime(2004, 4, 14),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Awesome sauce"
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = true,
-                        ByteProperty = 221,
-                        DateTimeProperty = new DateTime(2008, 8, 18),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Bond. James Bond."
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = false,
-                        ByteProperty = 56,
-                        DateTimeProperty = new DateTime(2002, 2, 12),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Onomatopoeia"
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = true,
-                        ByteProperty = 32,
-                        DateTimeProperty = new DateTime(2006, 6, 16),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 2,
-                        StringProperty = "Noon racecar sagas"
-                    });
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
@@ -378,53 +196,8 @@ namespace TypeSearch.Tests.SQLite
         public void Serialization_Nested_Filter()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder()
-                .UseInMemoryDatabase("Serialization_Nested_Filter")
-                .Options;
-
-            using (var context = new TestContext(options))
+            using (var context = this.GetTestContext())
             {
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = false,
-                        ByteProperty = 123,
-                        DateTimeProperty = new DateTime(2004, 4, 14),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Awesome sauce"
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = true,
-                        ByteProperty = 221,
-                        DateTimeProperty = new DateTime(2008, 8, 18),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Bond. James Bond."
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = false,
-                        ByteProperty = 56,
-                        DateTimeProperty = new DateTime(2002, 2, 12),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 1,
-                        StringProperty = "Onomatopoeia"
-                    });
-                context.TestEntities.Add(
-                    new TestEntity()
-                    {
-                        BoolProperty = true,
-                        ByteProperty = 32,
-                        DateTimeProperty = new DateTime(2006, 6, 16),
-                        GuidProperty = Guid.NewGuid(),
-                        IntProperty = 2,
-                        StringProperty = "Noon racecar sagas"
-                    });
-
                 // Act
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
@@ -451,6 +224,47 @@ namespace TypeSearch.Tests.SQLite
                 Assert.Equal(expectedResults.Count, searchResults.ResultSet.Count);
                 Assert.Equal(expectedResults.Count, searchResults.FilteredRecordCount);
             }
+        }
+
+        TestContext GetTestContext()
+        {
+            var options = new DbContextOptionsBuilder()
+                .UseSqlite()
+                .Options;
+
+            var dbName = $"TypeSearch_UnitTests_SQLite_{nameof(SerializationTests)}";
+            var db = new TestContext(options, dbName);
+
+            db.Database.EnsureCreated();
+
+            // Ensure the db has records in it before attempting to search
+            var testEntity = db.TestEntities.FirstOrDefault();
+            if (testEntity == null)
+            {
+                int i = 0;
+                byte b = 0;
+                for (; i < 510; i++, b++)
+                {
+                    db.TestEntities.Add(new TestEntity()
+                    {
+                        ByteProperty = b,
+                        IntProperty = i,
+                        BoolProperty = (i % 2 == 0)
+                    });
+                }
+
+                db.TestEntities.Add(new TestEntity()
+                {
+                    ByteProperty = b,
+                    IntProperty = i,
+                    BoolProperty = (i % 2 == 0),
+                    StringProperty = "Bond. James Bond."
+                });
+
+                db.SaveChanges();
+            }
+
+            return db;
         }
     }
 }
