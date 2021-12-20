@@ -1,5 +1,4 @@
-﻿using TypeSearch.Criteria;
-
+﻿
 namespace TypeSearch.Operations
 {
     /// <summary>
@@ -7,7 +6,7 @@ namespace TypeSearch.Operations
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    public class BooleanOperation<T, TResult> : StringOperation<T, TResult>, IBooleanOperation<T>
+    public class BooleanOperation<T, TResult> : ObjectOperation<T, TResult>, IBooleanOperation<T>
         where T : class
     {
         /// <summary>

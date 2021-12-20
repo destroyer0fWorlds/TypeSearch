@@ -37,9 +37,7 @@ namespace TypeSearch.Providers.EFCore
                 case SingleOperator.StartsWith:
                 case SingleOperator.EndsWith:
                 case SingleOperator.Like:
-                    predicate = $"DbFunctionsExtensions.Like(EF.Functions, {name}, {value})"; // this never hits the GetExtensionMethods method
-                    //predicate = $"EF.Functions.Like({name}, {value})";
-                    //predicate = $"DynamicFunctions.Like({name}, {value})";
+                    predicate = $"DbFunctionsExtensions.Like(EF.Functions, {name}, {value})";
                     break;
                 case SingleOperator.DoesNotStartWith:                    
                 case SingleOperator.DoesNotEndWith:

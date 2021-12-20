@@ -6,7 +6,7 @@ namespace TypeSearch.Operations
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    public class NumberOperation<T, TResult> : StringOperation<T, TResult>, INumberOperation<T, TResult>
+    public class NumberOperation<T, TResult> : ObjectOperation<T, TResult>, INumberOperation<T, TResult>
         where T : class
     {
         /// <summary>
