@@ -129,7 +129,7 @@ namespace TypeSearch.Tests.SQLite
             db.Database.EnsureCreated();
 
             // Ensure the db has records in it before attempting to search
-            var testEntity = db.TestEntities.FirstOrDefault();
+            var testEntity = db.TestParentEntities.FirstOrDefault();
             if (testEntity == null)
             {
                 db.TestParentEntities.Add(new TestParentEntity() { ParentId = 1, Title = "Parent 1" });
