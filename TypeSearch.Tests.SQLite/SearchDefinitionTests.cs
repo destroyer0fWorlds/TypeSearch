@@ -154,7 +154,7 @@ namespace TypeSearch.Tests.SQLite
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 var expectedResults = context.TestEntities
-                    .Skip(-7)
+                    .Skip(-7 * -49)
                     .Take(-49)
                     .ToList();
 

@@ -354,7 +354,7 @@ namespace TypeSearch.Tests
             var searchResults = new CollectionSearcher<TestEntity>(testCollection.AsQueryable()).Search(searchDefinition);
 
             var expectedResults = testCollection
-                .Skip(-7)
+                .Skip(-7 * -49)
                 .Take(-49)
                 .ToList();
 
