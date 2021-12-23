@@ -137,8 +137,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(15, searchResults.ResultSet.Count);
-                Assert.Equal(15, searchResults.FilteredRecordCount);
+                Assert.Equal(0, searchResults.ResultSet.Count);
+                Assert.Equal(0, searchResults.FilteredRecordCount);
             }
         }
 
@@ -156,8 +156,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(18, searchResults.ResultSet.Count);
-                Assert.Equal(18, searchResults.FilteredRecordCount);
+                Assert.Equal(0, searchResults.ResultSet.Count);
+                Assert.Equal(0, searchResults.FilteredRecordCount);
             }
         }
 
@@ -194,8 +194,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(3, searchResults.ResultSet.Count);
-                Assert.Equal(3, searchResults.FilteredRecordCount);
+                Assert.Equal(0, searchResults.ResultSet.Count);
+                Assert.Equal(0, searchResults.FilteredRecordCount);
             }
         }
 
@@ -251,8 +251,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(3, searchResults.ResultSet.Count);
-                Assert.Equal(3, searchResults.FilteredRecordCount);
+                Assert.Equal(2, searchResults.ResultSet.Count);
+                Assert.Equal(2, searchResults.FilteredRecordCount);
             }
         }
 
@@ -270,8 +270,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(15, searchResults.ResultSet.Count);
-                Assert.Equal(15, searchResults.FilteredRecordCount);
+                Assert.Equal(16, searchResults.ResultSet.Count);
+                Assert.Equal(16, searchResults.FilteredRecordCount);
             }
         }
 
@@ -327,8 +327,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(5, searchResults.ResultSet.Count);
-                Assert.Equal(5, searchResults.FilteredRecordCount);
+                Assert.Equal(2, searchResults.ResultSet.Count);
+                Assert.Equal(2, searchResults.FilteredRecordCount);
             }
         }
 
@@ -346,8 +346,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(6, searchResults.ResultSet.Count);
-                Assert.Equal(6, searchResults.FilteredRecordCount);
+                Assert.Equal(3, searchResults.ResultSet.Count);
+                Assert.Equal(3, searchResults.FilteredRecordCount);
             }
         }
 
@@ -365,8 +365,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(1, searchResults.ResultSet.Count);
-                Assert.Equal(1, searchResults.FilteredRecordCount);
+                Assert.Equal(2, searchResults.ResultSet.Count);
+                Assert.Equal(2, searchResults.FilteredRecordCount);
             }
         }
 
@@ -384,8 +384,8 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(18, searchResults.TotalRecordCount);
-                Assert.Equal(17, searchResults.ResultSet.Count);
-                Assert.Equal(17, searchResults.FilteredRecordCount);
+                Assert.Equal(13, searchResults.ResultSet.Count);
+                Assert.Equal(13, searchResults.FilteredRecordCount);
             }
         }
 

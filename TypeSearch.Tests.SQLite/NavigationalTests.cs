@@ -30,7 +30,7 @@ namespace TypeSearch.Tests.SQLite
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
-                searchDefinition.Filter.Where(i => i.Child.ChildId).IsEqualTo(5);
+                searchDefinition.Filter.Where(i => i.Child.ChildId).IsEqualTo(20);
                 var searchResults = new EFCoreSearcher<TestParentEntity>(dataset).Search(searchDefinition);
 
                 // Assert
@@ -39,7 +39,7 @@ namespace TypeSearch.Tests.SQLite
                 Assert.Equal(1, searchResults.ResultSet.Count);
                 Assert.Equal(1, searchResults.FilteredRecordCount);
                 Assert.True(searchResults.ResultSet[0].ParentId == 2);
-                Assert.True(searchResults.ResultSet[0].Child.ChildId == 5);
+                Assert.True(searchResults.ResultSet[0].Child.ChildId == 20);
             }
         }
 
@@ -55,7 +55,7 @@ namespace TypeSearch.Tests.SQLite
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
-                searchDefinition.Filter.Where(i => i.Child.GrandChild.GrandChildId).IsEqualTo(8);
+                searchDefinition.Filter.Where(i => i.Child.GrandChild.GrandChildId).IsEqualTo(200);
                 var searchResults = new EFCoreSearcher<TestParentEntity>(dataset).Search(searchDefinition);
 
                 // Assert
@@ -64,8 +64,8 @@ namespace TypeSearch.Tests.SQLite
                 Assert.Equal(1, searchResults.ResultSet.Count);
                 Assert.Equal(1, searchResults.FilteredRecordCount);
                 Assert.True(searchResults.ResultSet[0].ParentId == 2);
-                Assert.True(searchResults.ResultSet[0].Child.ChildId == 5);
-                Assert.True(searchResults.ResultSet[0].Child.GrandChild.GrandChildId == 8);
+                Assert.True(searchResults.ResultSet[0].Child.ChildId == 20);
+                Assert.True(searchResults.ResultSet[0].Child.GrandChild.GrandChildId == 200);
             }
         }
 
@@ -79,7 +79,7 @@ namespace TypeSearch.Tests.SQLite
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
-                searchDefinition.Filter.Where(i => i.Children).Property(i => i.ChildrenId).IsEqualTo(5);
+                searchDefinition.Filter.Where(i => i.Children).Property(i => i.ChildrenId).IsEqualTo(22);
                 var searchResults = new EFCoreSearcher<TestParentEntity>(dataset).Search(searchDefinition);
 
                 // Assert
@@ -87,8 +87,7 @@ namespace TypeSearch.Tests.SQLite
                 Assert.Equal(3, searchResults.TotalRecordCount);
                 Assert.Equal(1, searchResults.ResultSet.Count);
                 Assert.Equal(1, searchResults.FilteredRecordCount);
-                Assert.True(searchResults.ResultSet[0].ParentId == 2);
-                Assert.True(searchResults.ResultSet[0].Child.ChildId == 5);
+                Assert.True(searchResults.ResultSet[0].ParentId == 1);
             }
         }
 
@@ -102,7 +101,7 @@ namespace TypeSearch.Tests.SQLite
 
                 // Act
                 var searchDefinition = new SearchDefinition<TestParentEntity>();
-                searchDefinition.Filter.Where(i => i.Children).Property(i => i.ChildrenId).Between(5, 10);
+                searchDefinition.Filter.Where(i => i.Children).Property(i => i.ChildrenId).Between(20, 40);
                 var searchResults = new EFCoreSearcher<TestParentEntity>(dataset).Search(searchDefinition);
 
                 // Assert
@@ -110,10 +109,8 @@ namespace TypeSearch.Tests.SQLite
                 Assert.Equal(3, searchResults.TotalRecordCount);
                 Assert.Equal(2, searchResults.ResultSet.Count);
                 Assert.Equal(2, searchResults.FilteredRecordCount);
-                Assert.True(searchResults.ResultSet[0].ParentId == 2);
-                Assert.True(searchResults.ResultSet[0].Child.ChildId == 5);
-                Assert.True(searchResults.ResultSet[1].ParentId == 3);
-                Assert.True(searchResults.ResultSet[1].Child.ChildId == 6);
+                Assert.True(searchResults.ResultSet[0].ParentId == 1);
+                Assert.True(searchResults.ResultSet[1].ParentId == 2);
             }
         }
 
@@ -132,19 +129,30 @@ namespace TypeSearch.Tests.SQLite
             var testEntity = db.TestParentEntities.FirstOrDefault();
             if (testEntity == null)
             {
+                // Parents
                 db.TestParentEntities.Add(new TestParentEntity() { ParentId = 1, Title = "Parent 1" });
                 db.TestParentEntities.Add(new TestParentEntity() { ParentId = 2, Title = "Parent 2" });
                 db.TestParentEntities.Add(new TestParentEntity() { ParentId = 3, Title = "Parent 3" });
                 db.SaveChanges();
 
-                db.TestChildEntities.Add(new TestChildEntity() { ChildId = 4, ParentId = 1, Title = "Child 4" });
-                db.TestChildEntities.Add(new TestChildEntity() { ChildId = 5, ParentId = 2, Title = "Child 5" });
-                db.TestChildEntities.Add(new TestChildEntity() { ChildId = 6, ParentId = 3, Title = "Child 6" });
+                // 1-1 Parent-Child
+                db.TestChildEntities.Add(new TestChildEntity() { ChildId = 10, ParentId = 1, Title = "Child 10" });
+                db.TestChildEntities.Add(new TestChildEntity() { ChildId = 20, ParentId = 2, Title = "Child 20" });
+                db.TestChildEntities.Add(new TestChildEntity() { ChildId = 30, ParentId = 3, Title = "Child 30" });
                 db.SaveChanges();
 
-                db.TestGrandChildEntities.Add(new TestGrandChildEntity() { GrandChildId = 7, ParentId = 4, Title = "Grand Child 7" });
-                db.TestGrandChildEntities.Add(new TestGrandChildEntity() { GrandChildId = 8, ParentId = 5, Title = "Grand Child 8" });
-                db.TestGrandChildEntities.Add(new TestGrandChildEntity() { GrandChildId = 9, ParentId = 6, Title = "Grand Child 9" });
+                // 1-N Parent-Children
+                db.TestChildrenEntities.Add(new TestChildrenEntity() { ChildrenId = 11, ParentId = 1, Title = "Child 11" });
+                db.TestChildrenEntities.Add(new TestChildrenEntity() { ChildrenId = 22, ParentId = 1, Title = "Child 22" });
+                db.TestChildrenEntities.Add(new TestChildrenEntity() { ChildrenId = 33, ParentId = 2, Title = "Child 33" });
+                db.TestChildrenEntities.Add(new TestChildrenEntity() { ChildrenId = 44, ParentId = 2, Title = "Child 44" });
+                db.TestChildrenEntities.Add(new TestChildrenEntity() { ChildrenId = 55, ParentId = 3, Title = "Child 55" });
+                db.TestChildrenEntities.Add(new TestChildrenEntity() { ChildrenId = 66, ParentId = 3, Title = "Child 66" });
+                db.SaveChanges();
+
+                db.TestGrandChildEntities.Add(new TestGrandChildEntity() { GrandChildId = 100, ParentId = 10, Title = "Grand Child 100" });
+                db.TestGrandChildEntities.Add(new TestGrandChildEntity() { GrandChildId = 200, ParentId = 20, Title = "Grand Child 200" });
+                db.TestGrandChildEntities.Add(new TestGrandChildEntity() { GrandChildId = 300, ParentId = 30, Title = "Grand Child 300" });
                 db.SaveChanges();
             }
 

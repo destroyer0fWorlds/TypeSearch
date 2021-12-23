@@ -79,7 +79,7 @@ namespace TypeSearch.Tests.SQLite
             using (var context = this.GetTestContext())
             {
                 // Act
-                var searchDefinition = new SearchDefinition<TestEntity>(page: 2, recordsPerPage: 1);
+                var searchDefinition = new SearchDefinition<TestEntity>(page: 1, recordsPerPage: 1);
                 searchDefinition.PreFilter.Where(i => i.ByteProperty).IsEqualTo(DC);
                 searchDefinition.Filter.Where(i => i.BoolProperty).IsEqualTo(HERO);
                 searchDefinition.Sort.DescendingBy(i => i.IntProperty);
@@ -88,11 +88,11 @@ namespace TypeSearch.Tests.SQLite
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(6, searchResults.TotalRecordCount);
-                Assert.Equal(3, searchResults.ResultSet.Count);
+                Assert.Equal(1, searchResults.ResultSet.Count);
                 Assert.Equal(3, searchResults.FilteredRecordCount);
                 Assert.Equal(3, searchResults.ResultSet[0].IntProperty);
-                Assert.Equal(2, searchResults.Page);
-                Assert.Equal(2, searchResults.RecordsPerPage);
+                Assert.Equal(1, searchResults.Page);
+                Assert.Equal(1, searchResults.RecordsPerPage);
             }
         }
 
@@ -106,18 +106,19 @@ namespace TypeSearch.Tests.SQLite
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).LessThanOrEqualTo(3)
-                    .Or(i => i.StringProperty).Contains("man"); // Iron Man is #7
+                    .Or(i => i.StringProperty).Contains("man"); // Iron Man is #7 and Black Manta is #6
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(12, searchResults.TotalRecordCount);
-                Assert.Equal(4, searchResults.ResultSet.Count);
-                Assert.Equal(4, searchResults.FilteredRecordCount);
+                Assert.Equal(5, searchResults.ResultSet.Count);
+                Assert.Equal(5, searchResults.FilteredRecordCount);
                 Assert.Equal(1, searchResults.ResultSet[0].IntProperty);
                 Assert.Equal(2, searchResults.ResultSet[1].IntProperty);
                 Assert.Equal(3, searchResults.ResultSet[2].IntProperty);
-                Assert.Equal("Iron Man", searchResults.ResultSet[3].StringProperty);
+                Assert.Equal("Black Manta", searchResults.ResultSet[3].StringProperty);
+                Assert.Equal("Iron Man", searchResults.ResultSet[4].StringProperty);
             }
         }
 
@@ -131,16 +132,17 @@ namespace TypeSearch.Tests.SQLite
                 var searchDefinition = new SearchDefinition<TestEntity>();
                 searchDefinition.Filter
                     .Where(i => i.IntProperty).LessThanOrEqualTo(6)
-                    .And(i => i.StringProperty).Contains("man"); // Superman and Batman only
+                    .And(i => i.StringProperty).Contains("man"); // SuperMAN, BatMAN, Black MANta
                 var searchResults = new EFCoreSearcher<TestEntity>(context.TestEntities).Search(searchDefinition);
 
                 // Assert
                 Assert.NotNull(searchResults.ResultSet);
                 Assert.Equal(12, searchResults.TotalRecordCount);
-                Assert.Equal(2, searchResults.ResultSet.Count);
-                Assert.Equal(2, searchResults.FilteredRecordCount);
+                Assert.Equal(3, searchResults.ResultSet.Count);
+                Assert.Equal(3, searchResults.FilteredRecordCount);
                 Assert.Equal("Superman", searchResults.ResultSet[0].StringProperty);
                 Assert.Equal("Batman", searchResults.ResultSet[1].StringProperty);
+                Assert.Equal("Black Manta", searchResults.ResultSet[2].StringProperty);
             }
         }
 
@@ -183,7 +185,7 @@ namespace TypeSearch.Tests.SQLite
 
         // Measure of "Goodness"
         const bool HERO = true;
-        const bool VILLAIN = true;
+        const bool VILLAIN = false;
 
         TestContext GetTestContext()
         {
