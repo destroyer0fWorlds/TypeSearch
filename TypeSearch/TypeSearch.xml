@@ -45,6 +45,108 @@
             Condition by which multiple clauses should be evaluated
             </summary>
         </member>
+        <member name="T:TypeSearch.Criteria.CriterionFormatter`1">
+            <summary>
+            Default implementation of <see cref="T:TypeSearch.Criteria.ICriterionFormatter`1"/>
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.ResetCount">
+            <summary>
+            Reset the parameter count
+            </summary>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.Parameterize(System.Object)">
+            <summary>
+            Parameterize a value
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.ParameterizeName(System.String)">
+            <summary>
+            Parameterize a name
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedCollectionName(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the parameterized name for a nested criterion
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedCollectionName(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized name for a nested criterion
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedName(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the parameterized name
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedName(TypeSearch.Criteria.SortCriterion)">
+            <summary>
+            Get the parameterized name
+            </summary>
+            <param name="sortCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedName(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized name
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedStartValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized start value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedEndValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized end value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetParameterizedValue(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the parameterized value
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetFormattedValue(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the formatted value
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetFormattedStartValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the formatted start value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.CriterionFormatter`1.GetFormattedEndValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the formatted end value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
         <member name="T:TypeSearch.Criteria.Factory.CriteriaFactory`2">
             <summary>
             Factory responsible for creating filter criteria
@@ -384,6 +486,94 @@
         </member>
         <member name="M:TypeSearch.Criteria.FilterCriterion.ToString">
             <inheritdoc />
+        </member>
+        <member name="T:TypeSearch.Criteria.ICriterionFormatter`1">
+            <summary>
+            Interface for formatting criteria
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.ResetCount">
+            <summary>
+            Reset the parameter count
+            </summary>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetFormattedValue(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the formatted value
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedValue(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the parameterized value
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedName(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the parameterized name
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedCollectionName(TypeSearch.Criteria.SingleCriterion{`0})">
+            <summary>
+            Get the parameterized name for a nested criterion
+            </summary>
+            <param name="singleCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetFormattedStartValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the formatted start value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetFormattedEndValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the formatted end value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedStartValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized start value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedEndValue(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized end value
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedName(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized name
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedCollectionName(TypeSearch.Criteria.RangeCriterion)">
+            <summary>
+            Get the parameterized name for a nested criterion
+            </summary>
+            <param name="rangeCriterion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TypeSearch.Criteria.ICriterionFormatter`1.GetParameterizedName(TypeSearch.Criteria.SortCriterion)">
+            <summary>
+            Get the parameterized name
+            </summary>
+            <param name="sortCriterion"></param>
+            <returns></returns>
         </member>
         <member name="T:TypeSearch.Criteria.RangeCriterion">
             <summary>
@@ -2047,6 +2237,26 @@
             For reference: https://github.com/StefH/System.Linq.Dynamic.Core/wiki/Dynamic-Expressions
             </remarks>
         </member>
+        <member name="F:TypeSearch.Searcher`1._dataSet">
+            <summary>
+            The collection to search
+            </summary>
+        </member>
+        <member name="P:TypeSearch.Searcher`1.ParsingConfig">
+            <summary>
+            Dynamic Linq configuration
+            </summary>
+        </member>
+        <member name="P:TypeSearch.Searcher`1.PredicateFactory">
+            <summary>
+            Object responsible for generating valid predicate syntax
+            </summary>
+        </member>
+        <member name="P:TypeSearch.Searcher`1.CriterionFormatter">
+            <summary>
+            Object responsible for generating valid parameter names and values
+            </summary>
+        </member>
         <member name="M:TypeSearch.Searcher`1.#ctor(System.Linq.IQueryable{`0})">
             <summary>
             Initializes a new instance of the <see cref="T:TypeSearch.Searcher`1"/> class
@@ -2074,34 +2284,6 @@
             Executes the filter as defined by the supplied definition
             </summary>
             <param name="searchDefinition">Search definition</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.Searcher`1.CreateWherePredicate(System.Collections.Generic.List{TypeSearch.Criteria.CriteriaContainer{`0}})">
-            <summary>
-            Create filter criteria predicate
-            </summary>
-            <param name="whereCriteria">Where criteria</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.Searcher`1.ParseSingleCriterion(TypeSearch.Criteria.SingleCriterion{`0})">
-            <summary>
-            Parse a criterion which represents a single value
-            </summary>
-            <param name="singleCriterion">Single field/value criterion</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.Searcher`1.ParseRangeCriterion(TypeSearch.Criteria.RangeCriterion)">
-            <summary>
-            Parse a criterion which represents a range of values
-            </summary>
-            <param name="rangeCriterion">Range of value criteria</param>
-            <returns></returns>
-        </member>
-        <member name="M:TypeSearch.Searcher`1.CreateSortPredicate(System.Collections.Generic.HashSet{TypeSearch.Criteria.SortCriterion})">
-            <summary>
-            Create sort criteria predicate
-            </summary>
-            <param name="sortCriteria">Sort criteria</param>
             <returns></returns>
         </member>
         <member name="M:TypeSearch.Searcher`1.Page(System.Int32,System.Int32)">
